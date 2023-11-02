@@ -1,0 +1,23 @@
+/* GLOBAL VARIABLES */
+:root{
+/* COLOR PALETTE */
+
+
+/* FONT-FAMILY */
+
+
+/* FONT-SIZE */
+
+
+}
+
+/* PRESET */
+*{
+    box-sizing: border-box;
+}
+
+/* GENERAL STYLES */
+.btn-black{
+    background-color: black;
+    color: white;
+}
