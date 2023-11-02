@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
 
 @Component({
   selector: 'tn-thread-card',
@@ -6,6 +6,7 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./thread-card.component.css']
 })
 export class ThreadCardComponent implements OnInit {
+@Input() thread : any;
 
   constructor() { }
 

@@ -1,0 +1,23 @@
+[
+    {
+        "id" : 1,
+        "username" : "Mike",
+        "title" : "Why Angular",
+        "content" : "Because it is a great fronend framework",
+        "time_posted" : "2AM"
+    },
+    {
+        "id" : 2,
+        "username" : "Doe",
+        "title" : "Why React",
+        "content" : "Because it is a great fronend framework",
+        "time_posted" : "4PM"
+    },
+    {
+        "id" : 3,
+        "username" : "John",
+        "title" : "Why Django",
+        "content" : "Because it is a great fronend framework",
+        "time_posted" : "3AM"
+    }
+]

@@ -1,7 +1,12 @@
+// EXTERNAL IMPORTS
 import { NgModule, createNgModule } from '@angular/core';
+import { HttpClientModule } from '@angular/common/http';
 import { BrowserModule } from '@angular/platform-browser';
 
+// MODULES
 import { AppRoutingModule } from './app-routing.module';
+
+// COMPONENTS
 import { AppComponent } from './app.component';
 import { HeaderComponent } from './layout/header/header.component';
 import { FooterComponent } from './layout/footer/footer.component';
@@ -13,6 +18,11 @@ import { ChatComponent } from './user/chat/chat.component';
 import { CommentComponent } from './user/comment/comment.component';
 import { FriendListComponent } from './user/friend-list/friend-list.component';
 import { ThreadHeaderComponent } from './threads/thread-header/thread-header.component';
+import { ThreadListComponent } from './threads/thread-list/thread-list.component';
+import { CommentListComponent } from './user/comment-list/comment-list.component';
+
+// SERVICES
+import { ThreadsService } from './services/threads.service';
 
 @NgModule({
   declarations: [
@@ -22,17 +32,22 @@ import { ThreadHeaderComponent } from './threads/thread-header/thread-header.com
     CategoryComponent,
     ThreadCardComponent,
     ThreadDetailsComponent,
+    ThreadHeaderComponent,
+    ThreadListComponent,
     AccountComponent,
+    FriendListComponent,
     ChatComponent,
     CommentComponent,
-    FriendListComponent,
-    ThreadHeaderComponent,
+    CommentListComponent,
   ],
   imports: [
     BrowserModule,
-    AppRoutingModule
+    AppRoutingModule,
+    HttpClientModule,
   ],
-  providers: [],
+  providers: [
+    ThreadsService
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
