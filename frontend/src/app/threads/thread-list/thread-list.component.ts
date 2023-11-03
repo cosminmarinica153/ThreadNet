@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
+import { ThreadsService } from 'src/app/services/threads.service';
 
 @Component({
   selector: 'tn-thread-list',
@@ -7,17 +7,20 @@ import { HttpClient } from '@angular/common/http';
   styleUrls: ['./thread-list.component.css']
 })
 export class ThreadListComponent implements OnInit {
+
   threads: any;
 
-  constructor(private http:HttpClient) { }
+  constructor(private threadsService: ThreadsService) { }
 
   ngOnInit() {
-    this.http.get('data/threads.json').subscribe(
-      data=>{
+    this.threadsService.getAllThreads().subscribe(
+      data => {
         this.threads = data;
         console.log(data);
+      }, error => {
+        console.log(error);
       }
-    );
+    )
   }
 
 }

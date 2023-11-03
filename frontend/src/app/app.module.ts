@@ -24,6 +24,9 @@ import { CommentListComponent } from './user/comment-list/comment-list.component
 // SERVICES
 import { ThreadsService } from './services/threads.service';
 
+// DIRECTIVES
+import { ModHighlightDirective } from './directives/mod-highlight.directive';
+
 @NgModule({
   declarations: [
     AppComponent,
@@ -46,7 +49,8 @@ import { ThreadsService } from './services/threads.service';
     HttpClientModule,
   ],
   providers: [
-    ThreadsService
+    ThreadsService,
+    // ModHighlightDirective,
   ],
   bootstrap: [AppComponent]
 })
