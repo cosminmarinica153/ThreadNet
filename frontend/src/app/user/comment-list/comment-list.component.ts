@@ -1,4 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+import { CommentsService } from 'src/app/services/comments.service';
+import { IComment } from '../IComment';
 
 @Component({
   selector: 'tn-comment-list',
@@ -7,9 +9,19 @@ import { Component, OnInit } from '@angular/core';
 })
 export class CommentListComponent implements OnInit {
 
-  constructor() { }
+  comments: Array<IComment>;
+
+  constructor(private commentsService: CommentsService) { this.comments = []; }
 
   ngOnInit() {
+    this.commentsService.getAllComments().subscribe(
+      data => {
+        this.comments = data;
+        console.log(data);
+      }, error => {
+        console.log(error);
+      }
+    );
   }
 
 }

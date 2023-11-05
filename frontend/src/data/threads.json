@@ -1,23 +1,23 @@
 [
     {
         "id" : 1,
-        "username" : "Mike",
+        "user_id" : 1,
+        "thread_date" : "11-12-2023",
         "title" : "Why Angular",
-        "content" : "Because it is a great fronend framework",
-        "time_posted" : "2AM"
+        "content" : "Cause why would you not even try"
     },
     {
         "id" : 2,
-        "username" : "Doe",
+        "user_id" : 1,
+        "thread_date" : "11-08-2023",
         "title" : "Why React",
-        "content" : "Because it is a great fronend framework",
-        "time_posted" : "4PM"
+        "content" : "Cause why would you not even try"
     },
     {
         "id" : 3,
-        "username" : "John",
+        "user_id" : 3,
+        "thread_date" : "10-12-2023",
         "title" : "Why Django",
-        "content" : "Because it is a great fronend framework",
-        "time_posted" : "3AM"
+        "content" : "Cause why would you not even try"
     }
 ]

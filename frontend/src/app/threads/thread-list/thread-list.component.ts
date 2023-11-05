@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { ThreadsService } from 'src/app/services/threads.service';
+import { IThread } from '../IThread';
 
 @Component({
   selector: 'tn-thread-list',
@@ -8,9 +9,9 @@ import { ThreadsService } from 'src/app/services/threads.service';
 })
 export class ThreadListComponent implements OnInit {
 
-  threads: any;
+  threads: Array<IThread>;
 
-  constructor(private threadsService: ThreadsService) { }
+  constructor(private threadsService: ThreadsService) { this.threads = []; }
 
   ngOnInit() {
     this.threadsService.getAllThreads().subscribe(
