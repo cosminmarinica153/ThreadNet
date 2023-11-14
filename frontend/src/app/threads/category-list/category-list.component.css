@@ -1,0 +1,15 @@
+#category_list{
+    position: relative;
+    background-color: black;
+    top: 25px;
+
+    color: white;
+    width: 200px;
+    height: calc(100vh - 100px - 50px);
+
+    display: flex;
+    flex-direction: column;
+
+    border-top: 2px solid red;
+    border-bottom: 2px solid red;
+}

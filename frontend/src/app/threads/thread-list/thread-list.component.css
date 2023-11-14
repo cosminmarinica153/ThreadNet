@@ -1,0 +1,26 @@
+#container{
+    padding-top: 120px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+#thread_list{
+    padding: 50px;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+}
+
+#thread_header{
+    padding: 20px 0;
+
+    width: 70%;
+    
+    border: 2px solid black;
+}
+
+.thread{
+    border: 2px solid black;
+    padding: 20px;
+    margin: 10px;
+}

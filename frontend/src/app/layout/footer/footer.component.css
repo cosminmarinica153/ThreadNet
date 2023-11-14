@@ -1,0 +1,33 @@
+footer{
+    display: flex;
+    align-items: center;
+
+    height: 50px;
+
+    color: white;
+
+    background-color: black;
+}
+
+
+#copyright{
+    flex: 1;
+    display: flex;
+    justify-content: flex-start;
+    
+    padding-left: 50px;
+}
+
+#to_top{
+    flex: 1;
+    display: flex;
+    justify-content: center;
+}
+
+#chat{
+    flex: 1;
+    display: flex;
+    justify-content: flex-end;
+
+    padding-right: 50px;
+}

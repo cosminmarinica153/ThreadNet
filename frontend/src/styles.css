@@ -21,3 +21,23 @@
     background-color: black;
     color: white;
 }
+
+/* SCROLL BAR */
+/* Define the styles for the scrollbar */
+::-webkit-scrollbar {
+    width: 12px;
+}
+
+::-webkit-scrollbar-thumb {
+    background-color: turquoise;
+    width: 2px;
+    border-radius: 20px;
+}
+
+::-webkit-scrollbar-track {
+    background-color: black;
+}
+
+p{
+    margin-top: 150px;
+}

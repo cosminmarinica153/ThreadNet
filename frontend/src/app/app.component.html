@@ -1,17 +1,15 @@
-<!-- LAYOUT -->
+<tn-header [isLoggedIn]="isLoggedIn"></tn-header>
 <tn-footer></tn-footer>
-<tn-header></tn-header>
-<!-- THREADS -->
-<tn-category></tn-category>
-<tn-thread-details></tn-thread-details>
-<tn-thread-header></tn-thread-header>
-<!-- USER -->
-<tn-account></tn-account>
-<tn-chat></tn-chat>
-<tn-comment></tn-comment>
-<tn-comment-list></tn-comment-list>
-<tn-friend-list></tn-friend-list>
-<!-- TESTING -->
-<div class="container">
-    <tn-thread-list></tn-thread-list>
-</div>
+
+<router-outlet></router-outlet>
+<!-- 
+<tn-category-menu></tn-category-menu>
+<tn-thread-list></tn-thread-list> -->
+
+<!-- <tn-login></tn-login>
+<tn-register></tn-register>
+<tn-search></tn-search>
+<tn-react-dislike></tn-react-dislike>
+<tn-react-like></tn-react-like>
+<tn-react-favourite></tn-react-favourite> -->
+

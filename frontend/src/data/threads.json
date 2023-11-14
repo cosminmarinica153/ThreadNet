@@ -19,5 +19,26 @@
         "thread_date" : "10-12-2023",
         "title" : "Why Django",
         "content" : "Cause why would you not even try"
+    },
+    {
+        "id" : 4,
+        "user_id" : 1,
+        "thread_date" : "10-12-2023",
+        "title" : "Why Django",
+        "content" : "Cause why would you not even try"
+    },
+    {
+        "id" : 5,
+        "user_id" : 2,
+        "thread_date" : "10-11-2023",
+        "title" : "Why JUST WHY??",
+        "content" : "Cause why would you not even try"
+    },
+    {
+        "id" : 6,
+        "user_id" : 6,
+        "thread_date" : "10-12-2025",
+        "title" : "Why ???",
+        "content" : "Cause why would you not even try"
     }
 ]

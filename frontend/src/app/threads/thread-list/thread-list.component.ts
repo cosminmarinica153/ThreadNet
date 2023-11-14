@@ -1,6 +1,8 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
 import { ThreadsService } from 'src/app/services/threads.service';
 import { IThread } from '../IThread';
+import { Observable } from 'rxjs';
+import { ThreadMarginService } from 'src/app/services/thread-margin.service';
 
 @Component({
   selector: 'tn-thread-list',
@@ -8,10 +10,13 @@ import { IThread } from '../IThread';
   styleUrls: ['./thread-list.component.css']
 })
 export class ThreadListComponent implements OnInit {
-
   threads: Array<IThread>;
 
-  constructor(private threadsService: ThreadsService) { this.threads = []; }
+  leftComponentWidth = 200;
+
+  constructor(private threadsService: ThreadsService, private marginService: ThreadMarginService) {
+    this.threads = []; 
+  }
 
   ngOnInit() {
     this.threadsService.getAllThreads().subscribe(
@@ -21,7 +26,9 @@ export class ThreadListComponent implements OnInit {
       }, error => {
         console.log(error);
       }
-    )
+    );
+    this.marginService.isLeftComponentOpen$.subscribe((isOpen) => {
+      this.leftComponentWidth = isOpen ? 200 : 0;
+    });
   }
-
 }
