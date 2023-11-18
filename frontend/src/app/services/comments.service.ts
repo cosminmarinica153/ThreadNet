@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable, map } from 'rxjs';
-import { IComment } from '../user/IComment';
+import { IComment } from '../interfaces/IComment';
 
 @Injectable({
   providedIn: 'root'

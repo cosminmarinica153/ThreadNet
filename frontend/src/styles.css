@@ -1,3 +1,6 @@
+/* IMPORTS */
+@import 'assets/forms.css';
+
 /* GLOBAL VARIABLES */
 :root{
 /* COLOR PALETTE */
@@ -36,8 +39,4 @@
 
 ::-webkit-scrollbar-track {
     background-color: black;
-}
-
-p{
-    margin-top: 150px;
 }

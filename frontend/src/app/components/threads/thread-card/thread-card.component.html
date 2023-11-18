@@ -1,0 +1,16 @@
+<div id="thread">
+  <div id="thread_header">
+    <div id="user_details">
+      <img src="assets/icons/user.png">
+      <p> user_id: {{thread.user_id}}</p>
+    </div>
+    <div id="date_posted">
+      <p> {{thread.thread_date}} </p>
+    </div>
+  </div>
+  <div id="spacer"></div>
+  <div id="thread_body" (click)="loadThread(thread.id)">
+    <h3>{{thread.title}}</h3>
+    <p id="thread_content">{{thread.content}}</p>
+  </div>
+</div>

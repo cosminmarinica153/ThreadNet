@@ -3,8 +3,9 @@ import { NgModule, createNgModule } from '@angular/core';
 import { HttpClientModule} from '@angular/common/http';
 import { HttpClient } from '@angular/common/http';
 import { BrowserModule } from '@angular/platform-browser';
-import { Routes, RouterModule} from '@angular/router';
-
+import { Router, Routes, RouterModule} from '@angular/router';
+import { ReactiveFormsModule } from '@angular/forms';
+import { FormsModule } from '@angular/forms';
 
 // MODULES
 import { AppRoutingModule } from './app-routing.module';
@@ -12,37 +13,42 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 // COMPONENTS
 import { AppComponent } from './app.component';
-import { HeaderComponent } from './layout/header/header.component';
-import { FooterComponent } from './layout/footer/footer.component';
-import { HomeContentComponent } from './layout/home-content/home-content.component';
-import { AboutContentComponent } from './layout/about-content/about-content.component';
-import { ContactContentComponent } from './layout/contact-content/contact-content.component';
-import { CategoryMenuComponent } from './threads/category-menu/category-menu.component';
-import { CategoryListComponent } from './threads/category-list/category-list.component';
-import { CategoryComponent } from './threads/category/category.component';
-import { ThreadHeaderComponent } from './threads/thread-header/thread-header.component';
-import { ThreadListComponent } from './threads/thread-list/thread-list.component';
-import { ThreadCardComponent } from './threads/thread-card/thread-card.component';
-import { ThreadDetailsComponent } from './threads/thread-details/thread-details.component';
-import { AccountComponent } from './user/account/account.component';
-import { ChatComponent } from './user/chat/chat.component';
-import { FriendListComponent } from './user/friend-list/friend-list.component';
-import { CommentListComponent } from './user/comment-list/comment-list.component';
-import { CommentComponent } from './user/comment/comment.component';
+
+import { HeaderComponent } from './components/layout/header/header.component';
+import { FooterComponent } from './components/layout/footer/footer.component';
+import { HomeContentComponent } from './components/page-content/home-content/home-content.component';
+import { AboutContentComponent } from './components/page-content/about-content/about-content.component';
+import { ContactContentComponent } from './components/page-content/contact-content/contact-content.component';
+import { ThreadListContentComponent } from './components/page-content/thread-details-content/thread-details-content.component';
+
+import { CategoryMenuComponent } from './category/category-menu/category-menu.component';
+import { CategoryListComponent } from './category/category-list/category-list.component';
+import { CategoryCardComponent } from './category/category-card/category-card.component';
+
+import { ThreadHeaderComponent } from './components/threads/thread-header/thread-header.component';
+import { ThreadListComponent } from './components/threads/thread-list/thread-list.component';
+import { ThreadCardComponent } from './components/threads/thread-card/thread-card.component';
+import { ThreadDetailsComponent } from './components/threads/thread-details/thread-details.component';
+
+import { AccountComponent } from './components/user/account/account.component';
+import { ChatComponent } from './components/user/chat/chat.component';
+import { FriendListComponent } from './components/user/friend-list/friend-list.component';
+import { CommentListComponent } from './components/comments/comment-list/comment-list.component';
+import { CommentComponent } from './components/comments/comment/comment.component';
 // FORM COMPONENTS
-import { LoginComponent } from './forms/login/login.component';
-import { RegisterComponent } from './forms/register/register.component';
-import { SearchComponent } from './forms/search/search.component';
-import { ReactDislikeComponent } from './forms/react-dislike/react-dislike.component';
-import { ReactLikeComponent } from './forms/react-like/react-like.component';
-import { ReactFavouriteComponent } from './forms/react-favourite/react-favourite.component';
+import { LoginComponent } from './components/forms/login/login.component';
+import { RegisterComponent } from './components/forms/register/register.component';
+import { SearchComponent } from './components/forms/search/search.component';
+import { ReactDislikeComponent } from './components/forms/react-dislike/react-dislike.component';
+import { ReactLikeComponent } from './components/forms/react-like/react-like.component';
+import { ReactFavouriteComponent } from './components/forms/react-favourite/react-favourite.component';
 
 // SERVICES
 import { ThreadsService } from './services/threads.service';
 import { CommentsService } from './services/comments.service';
-import { UsersService } from './services/users.service';
+import { UserService } from './services/user.service';
 import { ThreadMarginService } from './services/thread-margin.service';
-import { Router } from '@angular/router';
+import { AuthentificationService } from './services/authentification.service';
 
 // DIRECTIVES
 // import { ModHighlightDirective } from './directives/mod-highlight.directive';
@@ -67,24 +73,34 @@ const appRoutes: Routes = [
   {
     path: 'register',
     component: RegisterComponent
+  },
+  {
+    path: 'thread_test',
+    component: ThreadListContentComponent
   }
 ];
 
 @NgModule({
   declarations: [
     AppComponent,
+    // Layout Components
     HeaderComponent,
     FooterComponent,
+    // Content Components
     HomeContentComponent,
     AboutContentComponent,
     ContactContentComponent,
+    ThreadListContentComponent,
+    // Category Components
     CategoryMenuComponent,
     CategoryListComponent,
-    CategoryComponent,
+    CategoryCardComponent,
+    // Thread Components
     ThreadCardComponent,
     ThreadDetailsComponent,
     ThreadHeaderComponent,
     ThreadListComponent,
+    // User Related Components
     AccountComponent,
     FriendListComponent,
     ChatComponent,
@@ -92,6 +108,7 @@ const appRoutes: Routes = [
     CommentListComponent,
     LoginComponent,
     RegisterComponent,
+    // Interaction Components
     SearchComponent,
     ReactDislikeComponent,
     ReactLikeComponent,
@@ -102,14 +119,18 @@ const appRoutes: Routes = [
     BrowserAnimationsModule,
     AppRoutingModule,
     HttpClientModule,
+    ReactiveFormsModule,
+    FormsModule,
     RouterModule.forRoot(appRoutes)
   ],
   providers: [
+    // Services
     ThreadsService,
     CommentsService,
-    UsersService,
+    UserService,
     ThreadMarginService,
-    // ModHighlightDirective,
+    AuthentificationService
+    // Directives,
   ],
   bootstrap: [AppComponent]
 })

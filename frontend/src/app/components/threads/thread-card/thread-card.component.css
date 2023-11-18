@@ -1,0 +1,55 @@
+p{
+    margin: 0;
+}
+
+#thread{
+    padding: 15px 0;
+}
+
+#thread_header{
+    display: flex;
+    justify-content: space-between;
+
+    padding-bottom: 15px;
+
+    border-bottom: 2px solid black;
+}
+#thread_header img{
+    height: 40px;
+    padding-right: 10px;
+}
+
+#user_details{
+    display: flex;
+    align-items: center;
+
+    padding-left: 20px;
+}
+#user_details p{
+    cursor: pointer;
+}
+
+#date_posted{
+    display: flex;
+    align-items: center;
+
+    padding-right: 20px;
+}
+
+#thread_body{
+    cursor: pointer;
+
+    margin-top: 15px;
+    width: 100%;
+
+    padding-left: 20px;
+    padding-right: 20px;
+}
+
+#thread_content{
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+    
+}

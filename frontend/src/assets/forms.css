@@ -1,0 +1,16 @@
+.ng-invalid.ng-touched {
+    border-color: red;
+}
+
+.error {
+    color: red;
+}
+
+* {
+    caret-color: transparent;
+    outline: none;
+}
+
+input {
+    caret-color: black;
+}

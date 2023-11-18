@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable, map } from 'rxjs';
-import { IThread } from '../threads/IThread';
+import { IThread } from '../interfaces/IThread';
 
 @Injectable({
   providedIn: 'root'

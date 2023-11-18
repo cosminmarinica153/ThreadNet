@@ -1,0 +1,18 @@
+#login_content{
+    width: 100vw;
+    height: 100vh;
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+form {
+    margin-top: 50px;
+}
+
+.form-group {
+    padding: 10px;
+
+    width: 400px;
+}
