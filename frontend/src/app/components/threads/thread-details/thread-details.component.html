@@ -1,23 +1,21 @@
 <div id="content">
-  <div id="thread_header">
-    <div id="user_details">
+  <div class="tn-header">
+    <div class="tn-user-details">
       <img src="assets/icons/user.png">
-      <p id="username"> &#64;{{username}} </p>
+      <p class="tn-username tn-clickable"> &#64;{{username}} </p>
     </div>
-    <div id="date_posted">
-      <p id="date"> {{thread.thread_date}} </p>
+    <p class="tn-date"> {{thread.thread_date}} </p>
+  </div>
+  <div class="tn-body">
+    <h2 id="thread_title"> {{thread.title}} </h2>
+    <p> {{thread.content}} </p>
+  </div>
+  <div class="tn-engagement">
+    <div class="tn-reply"> reply </div>
+    <div class="tn-reaction-container">
+      <p class="tn-reaction"> up_vote </p>
+      <p class="tn-reaction"> down_vote </p>
     </div>
   </div>
-  <div id="thread">
-    <div id="thread_title">
-      {{thread.title}}
-    </div>
-    <div id="thread_content">
-      {{thread.content}}
-    </div>
-  </div>
-  <div id="thread_engagement">
-    thread engagement
-  </div>
-  <tn-comment-list id="comment_section"></tn-comment-list>
+  <tn-comment-list></tn-comment-list>
 </div>

@@ -1,16 +1,18 @@
-<div id="comment">
-  <div id="comment_header">
-    <div id="user_details">
+<div id="content">
+  <div class="tn-header">
+    <div class="tn-user-details">
       <img src="assets/icons/user.png">
-      <div id="username"> &#64;{{username}} </div>
+      <p class="tn-username tn-clickable"> &#64;{{username}} </p>
     </div>
-    <div id="date"> {{comment.comment_date}} </div>
+    <p class="tn-date"> {{comment.comment_date}} </p>
   </div>
-  <div id="comment_content">
-    <p> {{comment.content}} </p>
-  </div>
-  <div id="comment_engagement">
-    <div class="reactions"> up_vote: {{comment.up_votes}} down_vote: {{comment.down_votes}}</div>
+  <p class="tn-body"> {{comment.content}} </p>
+  <div class="tn-engagement">
+    <div class="tn-reply"> reply </div>
+    <div class="tn-reaction-container">
+      <p class="tn-reaction"> up_votes: {{comment.up_votes}} </p>
+      <p class="tn-reaction"> down_votes: {{comment.down_votes}} </p>
+    </div>
   </div>
   <tn-comment-reply-list></tn-comment-reply-list>
 </div>

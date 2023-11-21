@@ -1,13 +1,18 @@
-#participants{
+#content{
     padding: 20px 50px 20px 20px;
 
     border-left: 2px solid black;
 }
 
-#header{
-    border: 2px solid black;
+.tn-header{
+    padding-left: 10px
 }
 
-#participants_list{
-    border: 2px solid black;
+.tn-body{
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+}
+
+#user{
+    padding-bottom: 5px;
 }

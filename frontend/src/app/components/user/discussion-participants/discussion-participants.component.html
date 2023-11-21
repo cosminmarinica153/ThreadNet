@@ -1,8 +1,6 @@
-<div id="participants">
-  <div id="header">
-    threaders particpated in discussion
-  </div>
-  <div id="participants_list">
-    <p *ngFor="let participant of participantList"> &#64;{{participant}} </p>
+<div id="content">
+  <h6 class="tn-header"> Threaders particpated in discussion </h6>
+  <div class="tn-body">
+    <p id="user" class="tn-clickable" *ngFor="let participant of participantList"> &#64;{{participant}} </p>
   </div>
 </div>
