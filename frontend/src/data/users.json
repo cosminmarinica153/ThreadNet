@@ -1,6 +1,6 @@
 [
     {
-        "id": 0,
+        "id": 1,
         "username": "admin",
         "password": "admin",
         "email": "admin@gmail.com",
@@ -10,7 +10,7 @@
         "auth_key": 1
     },
     {
-        "id": 1,
+        "id": 2,
         "username": "LoLpIo",
         "password": "1234",
         "email": "marinica.cosmin2002@gmail.com",
@@ -18,5 +18,16 @@
         "register_date": "15-11-2023",
         "auth_token": "11a2",
         "auth_key": 1
+    },
+    {
+        "id": 3,
+        "username": "Testing",
+        "password": "1234567",
+        "email": "test@gmail.com",
+        "is_verified": false,
+        "register_date": "15-01-2023",
+        "auth_token": "2ab3",
+        "auth_key": 1
     }
+    
 ]

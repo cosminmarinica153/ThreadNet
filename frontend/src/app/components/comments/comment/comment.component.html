@@ -1,3 +1,16 @@
-<p>
-  comment works!
-</p>
+<div id="comment">
+  <div id="comment_header">
+    <div id="user_details">
+      <img src="assets/icons/user.png">
+      <div id="username"> &#64;{{username}} </div>
+    </div>
+    <div id="date"> {{comment.comment_date}} </div>
+  </div>
+  <div id="comment_content">
+    <p> {{comment.content}} </p>
+  </div>
+  <div id="comment_engagement">
+    <div class="reactions"> up_vote: {{comment.up_votes}} down_vote: {{comment.down_votes}}</div>
+  </div>
+  <tn-comment-reply-list></tn-comment-reply-list>
+</div>

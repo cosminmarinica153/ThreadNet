@@ -6,5 +6,5 @@ export interface IComment {
     is_edited: boolean;
     up_votes: number;
     down_votes: number;
-    content: number;
+    content: string;
 }

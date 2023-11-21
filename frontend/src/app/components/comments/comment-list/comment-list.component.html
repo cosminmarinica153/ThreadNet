@@ -1,3 +1,7 @@
-<p>
-  comment-list works!
-</p>
+<div id="container">
+  <div id="comment_list">
+    <div *ngFor="let comment of comments" class="comment">
+      <tn-comment [comment]="comment"></tn-comment>
+    </div>
+  </div>
+</div>

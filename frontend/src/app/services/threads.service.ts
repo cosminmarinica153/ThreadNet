@@ -23,4 +23,12 @@ export class ThreadsService {
       })
     );
   }
+
+  getThreadById(thread_id: number){
+    return this.getAllThreads().pipe(
+      map(threadsArray => {
+        return threadsArray.find(thread => thread.id === thread_id);
+      })
+    )
+  }
 }

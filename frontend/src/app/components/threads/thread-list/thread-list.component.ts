@@ -22,7 +22,6 @@ export class ThreadListComponent implements OnInit {
     this.threadsService.getAllThreads().subscribe(
       data => {
         this.threads = data;
-        console.log(data);
       }, error => {
         console.log(error);
       }

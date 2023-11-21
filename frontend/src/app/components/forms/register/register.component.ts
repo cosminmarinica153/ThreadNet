@@ -72,10 +72,12 @@ export class RegisterComponent implements OnInit {
 
   userData(): IUser{
     return this.user = {
+      // id: user_id,
       username: this.username.value,
       password: this.password.value,
       email: this.email.value,
       is_verified: false,
+      // register_date: "01-01-2001",
       auth_token: "222",
       auth_key: 1
     };

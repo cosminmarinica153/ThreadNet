@@ -1,0 +1,12 @@
+#content{
+    margin-top: 150px;
+    display: flex;
+}
+
+tn-thread-details{
+    flex: 2.5;
+}
+
+tn-discussion-participants{
+    flex: 1;
+}

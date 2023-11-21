@@ -21,20 +21,24 @@ import { AboutContentComponent } from './components/page-content/about-content/a
 import { ContactContentComponent } from './components/page-content/contact-content/contact-content.component';
 import { ThreadListContentComponent } from './components/page-content/thread-details-content/thread-details-content.component';
 
-import { CategoryMenuComponent } from './category/category-menu/category-menu.component';
-import { CategoryListComponent } from './category/category-list/category-list.component';
-import { CategoryCardComponent } from './category/category-card/category-card.component';
+import { CategoryMenuComponent } from './components/category/category-menu/category-menu.component';
+import { CategoryListComponent } from './components/category/category-list/category-list.component';
+import { CategoryCardComponent } from './components/category/category-card/category-card.component';
 
 import { ThreadHeaderComponent } from './components/threads/thread-header/thread-header.component';
 import { ThreadListComponent } from './components/threads/thread-list/thread-list.component';
 import { ThreadCardComponent } from './components/threads/thread-card/thread-card.component';
 import { ThreadDetailsComponent } from './components/threads/thread-details/thread-details.component';
 
+import { CommentListComponent } from './components/comments/comment-list/comment-list.component';
+import { CommentComponent } from './components/comments/comment/comment.component';
+import { CommentReplyListComponent } from './components/comments/comment-reply-list/comment-reply-list.component';
+import { CommentReplyComponent } from './components/comments/comment-reply/comment-reply.component';
+
 import { AccountComponent } from './components/user/account/account.component';
 import { ChatComponent } from './components/user/chat/chat.component';
 import { FriendListComponent } from './components/user/friend-list/friend-list.component';
-import { CommentListComponent } from './components/comments/comment-list/comment-list.component';
-import { CommentComponent } from './components/comments/comment/comment.component';
+import { DiscussionParticipantsComponent } from './components/user/discussion-participants/discussion-participants.component';
 // FORM COMPONENTS
 import { LoginComponent } from './components/forms/login/login.component';
 import { RegisterComponent } from './components/forms/register/register.component';
@@ -77,6 +81,10 @@ const appRoutes: Routes = [
   {
     path: 'thread_test',
     component: ThreadListContentComponent
+  },
+  {
+    path: `thread/:id`,
+    component: ThreadListContentComponent
   }
 ];
 
@@ -100,14 +108,18 @@ const appRoutes: Routes = [
     ThreadDetailsComponent,
     ThreadHeaderComponent,
     ThreadListComponent,
+    // Comment Components
+    CommentListComponent,
+    CommentComponent,
+    CommentReplyListComponent,
+    CommentReplyComponent,
     // User Related Components
     AccountComponent,
     FriendListComponent,
     ChatComponent,
-    CommentComponent,
-    CommentListComponent,
     LoginComponent,
     RegisterComponent,
+    DiscussionParticipantsComponent,
     // Interaction Components
     SearchComponent,
     ReactDislikeComponent,

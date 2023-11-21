@@ -1,4 +1,6 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
+import { IComment } from 'src/app/interfaces/IComment';
+import { UserService } from 'src/app/services/user.service';
 
 @Component({
   selector: 'tn-comment',
@@ -6,11 +8,17 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./comment.component.css']
 })
 export class CommentComponent implements OnInit {
-  comment: any;
+@Input() comment: IComment;
+  username: string;
 
-  constructor() { }
+  constructor(private userService: UserService) { }
 
   ngOnInit() {
+    this.userService.getUsernameById(this.comment.user_id).subscribe(
+      data => {
+        this.username = data;
+      }
+    )
   }
 
 }

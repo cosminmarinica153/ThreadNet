@@ -1,0 +1,47 @@
+p{
+    margin: 0;
+}
+
+#comment{
+
+    margin: 20px 0;
+    margin-left: 25px;
+
+    border:2px solid black;
+}
+
+#comment_header{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+
+}
+
+#user_details{
+    display: flex;
+    align-items: center;
+
+    margin: 10px;
+}
+#user_details img{
+    height: 30px;
+    padding-right: 5px;
+}
+
+#date{
+    padding-right: 15px;
+}
+
+#comment_content{
+
+    padding: 5px;
+
+    border-top: 2px solid black;
+    border-bottom: 2px solid black;
+}
+
+#comment_engagement{
+    display: flex;
+    justify-content: flex-end;
+    padding: 5px 15px;
+}
