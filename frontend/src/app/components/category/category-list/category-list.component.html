@@ -1,7 +1,21 @@
 <div id="category_list">
-  <div id="list">
-    <tn-category></tn-category>
-    <tn-category></tn-category>
-    <tn-category></tn-category>
+  <div id="popular" class="tn-category-class">
+    <p class="tn-clickable" (click)="togglePopular()"> Popular > </p>
+    <div [style.display]="isPopularOpen ? 'block': 'none'" *ngFor="let category of popular" class="category">
+      <tn-category [category_id] = "category"></tn-category>
+    </div>
+  </div>
+  <div id="favourites" class="tn-category-class">
+    <p class="tn-clickable" (click)="toggleFavourites()"> Favourites > </p>
+    <div [style.display]="isFavouritesOpen ? 'block': 'none'" *ngFor="let category of favourites" class="category">
+      <tn-category [category_id]="category"></tn-category>
+    </div>
+  </div>
+  <div id="other" class="tn-category-class">
+    <p class="tn-clickable" (click)="toggleOther()"> Other > </p>
+    <div [style.display]="isOtherOpen ? 'block': 'none'" *ngFor="let category of categories" class="category">
+      
+      <tn-category [category_id]="category.id"></tn-category>
+    </div>
   </div>
 </div>

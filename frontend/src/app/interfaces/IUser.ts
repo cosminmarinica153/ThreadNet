@@ -1,10 +1,10 @@
 export interface IUser {
-    // id: number;
+    id: number;
     username: string;
     password: string;
     email: string;
     is_verified: boolean;
-    // register_date: string;
+    register_date: string;
     auth_token: string;
     auth_key: number;
 }

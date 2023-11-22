@@ -18,6 +18,7 @@ export class ThreadDetailsComponent implements OnInit {
     // Initializer for thread id to avoid errors and commit page not found  ------------ FIX
     this.thread = {
       id : -1,
+      category_id: -1,
       user_id: -1,
       thread_date: "",
       title: "",
@@ -27,16 +28,9 @@ export class ThreadDetailsComponent implements OnInit {
   ngOnInit() {
     this.route.params.subscribe((params) => {
       this.thread_id = +params['id'];
-      this.threadService.getThreadById(this.thread_id).subscribe(
-        (thread: IThread) => {
-          this.thread = thread;
-          this.userService.getUsernameById(this.thread.user_id).subscribe(
-            username => {
-              this.username = username;
-              if(!this.username) this.username = "not_set";
-            }
-          )
-        })
+
+      this.thread = this.threadService.getThreadById(this.thread_id);
+      this.username = this.userService.getUsernameById(this.thread.user_id);
     });
     
   }

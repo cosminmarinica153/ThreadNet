@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
 
 @Component({
   selector: 'tn-thread-header',
@@ -6,6 +6,7 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./thread-header.component.css']
 })
 export class ThreadHeaderComponent implements OnInit {
+@Input() title: string;
 
   constructor() { }
 

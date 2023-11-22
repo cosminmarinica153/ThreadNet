@@ -1,5 +1,5 @@
 <div [style.margin-left.px]="leftComponentWidth" id="container">
-  <tn-thread-header id="thread_header"></tn-thread-header>
+  <tn-thread-header id="thread_header" [title] = "title"></tn-thread-header>
   <div id="thread_list">
     <div *ngFor="let thread of threads" class="thread">
       <tn-thread-card [thread] = "thread"></tn-thread-card>

@@ -15,8 +15,12 @@ export class RegisterComponent implements OnInit {
   registerForm: FormGroup;
   submit: boolean;
   user: IUser;
+  user_id: number;
 
-  constructor(private router: Router, private fb: FormBuilder, private userService: UserService) { this.submit = false }
+  constructor(private router: Router, private fb: FormBuilder, private userService: UserService) { 
+    this.submit = false 
+    this.user_id = userService.getLastId();
+  }
 
   get email(){
     return this.registerForm.get('email') as FormControl;
@@ -72,12 +76,12 @@ export class RegisterComponent implements OnInit {
 
   userData(): IUser{
     return this.user = {
-      // id: user_id,
+      id: this.user_id,
       username: this.username.value,
       password: this.password.value,
       email: this.email.value,
       is_verified: false,
-      // register_date: "01-01-2001",
+      register_date: "01-01-2001",
       auth_token: "222",
       auth_key: 1
     };

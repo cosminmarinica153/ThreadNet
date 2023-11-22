@@ -2,7 +2,6 @@ import { Component, Input, OnInit } from '@angular/core';
 import { IThread } from '../../../interfaces/IThread';
 import { Router } from '@angular/router';
 import { UserService } from 'src/app/services/user.service';
-import { IUser } from 'src/app/interfaces/IUser';
 
 @Component({
   selector: 'tn-thread-card',
@@ -16,12 +15,7 @@ export class ThreadCardComponent implements OnInit {
   constructor(private router: Router, private userService: UserService) {}
 
   ngOnInit() {
-    this.userService.getUsernameById(this.thread.user_id).subscribe(
-      data => {
-        this.username = data;
-        if(!this.username) this.username = "not_set";
-      }
-    )
+    this.username = this.userService.getUsernameById(this.thread.user_id);
   }
 
   loadThread(id: number){

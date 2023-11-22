@@ -20,17 +20,9 @@ export class DiscussionParticipantsComponent implements OnInit {
   ngOnInit() {
     this.route.params.subscribe((params) => {
       this.thread_id = +params['id'];
-      this.commentsService.getDiscussionParticipants(this.thread_id).subscribe(
-        data => {
-          this.participantList = data;
-        })
-      this.threadService.getThreadById(this.thread_id).subscribe(
-        data => {
-          this.userService.getUsernameById(data.user_id).subscribe(
-            username => {
-              this.participantList.push(username);
-            })
-        })
+      
+      this.participantList = this.commentsService.getDiscussionParticipants(this.thread_id);
+      this.participantList.push(this.userService.getUsernameById(this.threadService.getThreadById(this.thread_id).user_id));
     });
   }
 

@@ -17,6 +17,7 @@ import { AppComponent } from './app.component';
 import { HeaderComponent } from './components/layout/header/header.component';
 import { FooterComponent } from './components/layout/footer/footer.component';
 import { HomeContentComponent } from './components/page-content/home-content/home-content.component';
+import { CategoryContentComponent } from './components/page-content/category-content/category-content.component';
 import { AboutContentComponent } from './components/page-content/about-content/about-content.component';
 import { ContactContentComponent } from './components/page-content/contact-content/contact-content.component';
 import { ThreadListContentComponent } from './components/page-content/thread-details-content/thread-details-content.component';
@@ -85,6 +86,10 @@ const appRoutes: Routes = [
   {
     path: `thread/:id`,
     component: ThreadListContentComponent
+  },
+  {
+    path: 'category/:category_name',
+    component: CategoryContentComponent
   }
 ];
 
@@ -96,6 +101,7 @@ const appRoutes: Routes = [
     FooterComponent,
     // Content Components
     HomeContentComponent,
+    CategoryContentComponent,
     AboutContentComponent,
     ContactContentComponent,
     ThreadListContentComponent,

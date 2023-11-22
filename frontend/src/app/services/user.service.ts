@@ -14,7 +14,7 @@ constructor(private http: HttpClient) { }
     let users = [];
     if(localStorage.getItem('Users')){
       users = JSON.parse(localStorage.getItem('Users'));
-      users = [user, ...users];
+      users = [...users, user];
     }
     else{
       users = [user];
@@ -22,42 +22,23 @@ constructor(private http: HttpClient) { }
     localStorage.setItem('Users', JSON.stringify(users));
   }
 
-  getAllUsers(){
-    return this.http.get('data/comments.json').pipe(
-      map(data => {
-        const usersArray: Array<IUser> = [];
-        for(const id in data){
-          if(data.hasOwnProperty(id)){
-            usersArray.push(data[id]);
-          }
-        }
-        return usersArray;
-      })
-    );
+  getLastId(): number{
+    let users = JSON.parse(localStorage.getItem('Users'));
+    return +users.length + 1;
   }
 
-  getUserById(user_id: number): Observable<IUser>{
-    return this.http.get('data/users.json').pipe(
-      map(data => {
-        for(const id in data){
-          if(data.hasOwnProperty(id) && data[id].id === user_id){
-            return data[id];
-          }
-        }
-      })
-    )
+  getAllUsers(): IUser[]{
+    return JSON.parse(localStorage.getItem('Users'));
   }
 
-  getUsernameById(user_id: number): Observable<string>{
-    return this.http.get('data/users.json').pipe(
-      map(data => {
-        for(const id in data){
-          if(data.hasOwnProperty(id) && data[id].id === user_id){
-            return data[id].username;
-          }
-        }
-      })
-    )
+  getUserById(user_id: number): IUser{
+    let users = this.getAllUsers();
+    return users.find(user => user.id === user_id);
+  }
+
+  getUsernameById(user_id: number): string{
+    let users = this.getAllUsers();
+    return users.find(user => user.id === user_id).username;
   }
 
 }

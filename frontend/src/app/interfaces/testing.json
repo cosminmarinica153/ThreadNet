@@ -2,6 +2,7 @@
     {
         "id" : 1,
         "user_id" : 1,
+        "category_id": 1,
         "thread_date" : "11-12-2023",
         "title" : "Why Angular",
         "content" : "Cause why would you not even try to make smth up just to show and tell and read and scream and fuck and fuck this shit, i am goping the fuck home read and scream and fuck and fuck this shit, i am goping the fuck home"
@@ -9,6 +10,7 @@
     {
         "id" : 2,
         "user_id" : 1,
+        "category_id": 1,
         "thread_date" : "11-08-2023",
         "title" : "Why React",
         "content" : "Cause why would you not even try"
@@ -16,6 +18,7 @@
     {
         "id" : 3,
         "user_id" : 3,
+        "category_id": 4,
         "thread_date" : "10-12-2023",
         "title" : "Why Django",
         "content" : "Cause why would you not even try"
@@ -23,6 +26,7 @@
     {
         "id" : 4,
         "user_id" : 1,
+        "category_id": 3,
         "thread_date" : "10-12-2023",
         "title" : "Why Django",
         "content" : "Cause why would you not even try"
@@ -30,6 +34,7 @@
     {
         "id" : 5,
         "user_id" : 2,
+        "category_id": 3,
         "thread_date" : "10-11-2023",
         "title" : "Why JUST WHY??",
         "content" : "Cause why would you not even try"
@@ -37,6 +42,7 @@
     {
         "id" : 6,
         "user_id" : 3,
+        "category_id": 1,
         "thread_date" : "10-12-2025",
         "title" : "Why ???",
         "content" : "Cause why would you not even try"
