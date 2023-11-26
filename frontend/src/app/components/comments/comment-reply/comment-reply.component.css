@@ -1,3 +1,7 @@
 .tn-engagement{
     justify-content: flex-end;
 }
+
+.tn-body {
+    border-radius: 0;
+}

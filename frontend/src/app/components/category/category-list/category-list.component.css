@@ -1,15 +1,27 @@
 #category_list{
     position: relative;
-    background-color: black;
     top: 25px;
 
-    color: white;
-    width: 200px;
-    height: calc(100vh - 100px - 50px);
+    overflow-y: scroll;
 
     display: flex;
     flex-direction: column;
 
-    border-top: 2px solid red;
-    border-bottom: 2px solid red;
+    padding-top: 25px;
+    padding-left: 10px;
+    
+    width: 200px;
+    height: calc(100vh - 100px - 50px);
+    
+    background-color: var(--layout-color);
+    border: 2px solid black;
+    border-left: none;
+    color: var(--text-color-light);
+}
+#category_list::-webkit-scrollbar-thumb{
+    background-color: black;
+}
+
+.not-found{
+    margin: 10px 15px;
 }

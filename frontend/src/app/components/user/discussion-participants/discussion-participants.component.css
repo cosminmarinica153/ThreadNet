@@ -4,11 +4,12 @@
     border-left: 2px solid black;
 }
 
-.tn-header{
-    padding-left: 10px
+.tn-thread-header{
+    padding-left: 10px;
+    margin: 0;
 }
 
-.tn-body{
+.tn-thread-body{
     display: grid;
     grid-template-columns: 1fr 1fr;
 }

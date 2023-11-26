@@ -55,16 +55,25 @@ export class RegisterComponent implements OnInit {
       terms: [null, [Validators.required]]
     }, {validators: [this.confirmPwdValidation, this.checkTermsValidation]})
   }
-
+  // Custom Validation
   confirmPwdValidation(fg: AbstractControl): Validators{
     return fg.get('password').value === fg.get('confirmPwd').value ? null : { notMatched: true };
   }
   checkTermsValidation(fg: AbstractControl): Validators{
-    return fg.get('terms').value === true ? null : {notChecked: true};
+    return fg.get('terms').value === true ? null : { notChecked: true };
   }
+  
+  checkUniqueUsername(username: string): Boolean{
+    return this.userService.checkUniqueUsername(username);
+  }
+
 
   onRegister() {
     this.submit = true;
+
+    const uniqueUsername = this.checkUniqueUsername(this.username.value);
+
+    if(!uniqueUsername) return
 
     if(!this.registerForm.valid) return
 

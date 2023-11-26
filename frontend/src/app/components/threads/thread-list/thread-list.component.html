@@ -1,8 +1,11 @@
 <div [style.margin-left.px]="leftComponentWidth" id="container">
   <tn-thread-header id="thread_header" [title] = "title"></tn-thread-header>
   <div id="thread_list">
-    <div *ngFor="let thread of threads" class="thread">
-      <tn-thread-card [thread] = "thread"></tn-thread-card>
+    <div *ngIf="!threads.length">
+      <h5> There are no threads for this category </h5>
+    </div>
+    <div *ngFor="let thread of threads" class="tn-thread-list">
+      <tn-thread-card [thread] = "thread" class="tn-thread"></tn-thread-card>
     </div>
   </div>
 </div>

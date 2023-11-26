@@ -1,1 +1,1 @@
-<p class="tn-clickable" (click)="loadCategory(category.name)"> {{category.name}} </p>
+<p *ngIf="category.name != 'Other'" class="tn-clickable overflow-1" (click)="loadCategory(category.name)"> {{category.name}} </p>

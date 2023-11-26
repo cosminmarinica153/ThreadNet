@@ -1,4 +1,6 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
+import { IComment_Reply } from 'src/app/interfaces/IComment_Reply';
+import { CommentsService } from 'src/app/services/comments.service';
 
 @Component({
   selector: 'tn-comment-reply-list',
@@ -6,10 +8,13 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./comment-reply-list.component.css']
 })
 export class CommentReplyListComponent implements OnInit {
+@Input() comment_id: number;
+  replies: Array<IComment_Reply>;
 
-  constructor() { }
+  constructor(private replyService: CommentsService) { }
 
   ngOnInit() {
+    this.replies = this.replyService.getAllRepliesForComment(this.comment_id);
   }
 
 }

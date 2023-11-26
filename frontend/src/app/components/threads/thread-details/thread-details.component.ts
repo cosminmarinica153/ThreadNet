@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { IThread } from 'src/app/interfaces/IThread';
+import { AuthentificationService } from 'src/app/services/authentification.service';
 import { ThreadsService } from 'src/app/services/threads.service';
 import { UserService } from 'src/app/services/user.service';
 
@@ -14,24 +15,42 @@ export class ThreadDetailsComponent implements OnInit {
   thread_id: number;
   username: string;
 
-  constructor(private route: ActivatedRoute, private threadService: ThreadsService, private userService: UserService) { 
-    // Initializer for thread id to avoid errors and commit page not found  ------------ FIX
-    this.thread = {
-      id : -1,
-      category_id: -1,
-      user_id: -1,
-      thread_date: "",
-      title: "",
-      content: ""
-    }}
+  isLiked: boolean;
+  isDisliked: boolean;
+
+  addComment: boolean;
+
+  constructor(private router: Router, private route: ActivatedRoute, private authService: AuthentificationService,
+              private threadService: ThreadsService, private userService: UserService) {
+                this.isLiked = false;
+                this.isDisliked = false;
+                this.addComment = false;
+              }
 
   ngOnInit() {
     this.route.params.subscribe((params) => {
       this.thread_id = +params['id'];
-
       this.thread = this.threadService.getThreadById(this.thread_id);
       this.username = this.userService.getUsernameById(this.thread.user_id);
     });
-    
   }
+
+  likePost(){
+    this.isLiked = !this.isLiked;
+    if(this.isLiked === true && this.isDisliked === true)
+      this.isDisliked = false;
+  }
+  dislikePost(){
+    this.isDisliked = !this.isDisliked;
+    if(this.isDisliked === true && this.isLiked === true)
+      this.isLiked = false;
+  }
+
+  toggleCreateComment(){
+    if(!this.authService.isLoggedIn())
+      this.router.navigate(['/login']);
+
+    this.addComment = !this.addComment;
+  }
+
 }

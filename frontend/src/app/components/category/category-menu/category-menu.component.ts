@@ -6,17 +6,6 @@ import { ThreadMarginService } from 'src/app/services/thread-margin.service';
   selector: 'tn-category-menu',
   templateUrl: './category-menu.component.html',
   styleUrls: ['./category-menu.component.css'],
-  // animations: [
-  //   trigger('fadeInOut', [
-  //     state('void', style({ opacity: 0, transform: 'translateX(-100%)' })),
-  //     transition(':enter', [
-  //       animate('300ms ease-in', style({ opacity: 1, transform: 'translateX(0)' }))
-  //     ]),
-  //     transition(':leave', [
-  //       animate('300ms ease-out', style({ opacity: 0, transform: 'translateX(-100%)' }))
-  //     ])
-  //   ])
-  // ]
 })
 export class CategoryMenuComponent implements OnInit {
   isOpen = true;

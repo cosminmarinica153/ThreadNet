@@ -1,15 +1,3 @@
-header{
-    display: flex;
-    align-items: center;
-    justify-items: center;
-
-    height: 100px;
-    width: 100vw;
-
-    background-color: black;
-    color: white;
-}
-
 #logo{
     flex: 1;
     display: flex;
@@ -18,8 +6,8 @@ header{
     padding-left: 20px;
 }
 
-#logo a img{
-    height: 40px;
+#logo img{
+    height: 35px;
 }
 
 #nav{
@@ -35,7 +23,7 @@ header{
     text-decoration: none;
 }
 #nav a:hover{
-    color: green;
+    color: var(--accent-color);
 }
 
 #profile{
@@ -57,7 +45,7 @@ header{
     border-radius: 50%;
     border-style: solid;
 
-    background-image: url("/assets/icons/user.png");
+    background-image: url("/assets/icons//user/user.png");
     background-size: contain;
     background-color: inherit;
 }

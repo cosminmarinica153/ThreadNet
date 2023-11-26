@@ -4,7 +4,7 @@
     </div>
     <div id="nav">
         <a routerLink="/">Home</a>
-        <a routerLink="/thread_test">thread test</a>
+        <a *ngIf="isLoggedIn()" (click)="loadMyThreads()">My Threads</a>
         <a routerLink="More">More</a>
     </div>
     <div id="profile">

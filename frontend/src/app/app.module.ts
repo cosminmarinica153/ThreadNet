@@ -44,9 +44,18 @@ import { DiscussionParticipantsComponent } from './components/user/discussion-pa
 import { LoginComponent } from './components/forms/login/login.component';
 import { RegisterComponent } from './components/forms/register/register.component';
 import { SearchComponent } from './components/forms/search/search.component';
+
 import { ReactDislikeComponent } from './components/forms/react-dislike/react-dislike.component';
 import { ReactLikeComponent } from './components/forms/react-like/react-like.component';
 import { ReactFavouriteComponent } from './components/forms/react-favourite/react-favourite.component';
+
+import { CreateThreadComponent } from './components/forms/create-thread/create-thread.component';
+import { CreateCommentComponent } from './components/forms/create-comment/create-comment.component';
+import { CreateReplyComponent } from './components/forms/create-reply/create-reply.component';
+import { CreateCategoryComponent } from './components/forms/create-category/create-category.component';
+import { EditThreadComponent } from './components/forms/edit-thread/edit-thread.component';
+import { EditCommentComponent } from './components/forms/edit-comment/edit-comment.component';
+import { EditReplyComponent } from './components/forms/edit-reply/edit-reply.component';
 
 // SERVICES
 import { ThreadsService } from './services/threads.service';
@@ -80,8 +89,12 @@ const appRoutes: Routes = [
     component: RegisterComponent
   },
   {
-    path: 'thread_test',
-    component: ThreadListContentComponent
+    path: 'logout',
+    component: HomeContentComponent
+  },
+  {
+    path: 'my_threads',
+    component: CategoryContentComponent
   },
   {
     path: `thread/:id`,
@@ -126,6 +139,13 @@ const appRoutes: Routes = [
     LoginComponent,
     RegisterComponent,
     DiscussionParticipantsComponent,
+    CreateThreadComponent,
+    CreateCommentComponent,
+    CreateReplyComponent,
+    CreateCategoryComponent,
+    EditThreadComponent,
+    EditCommentComponent,
+    EditReplyComponent,
     // Interaction Components
     SearchComponent,
     ReactDislikeComponent,

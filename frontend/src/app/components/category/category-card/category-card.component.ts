@@ -12,13 +12,16 @@ export class CategoryCardComponent implements OnInit{
 @Input()category_id: number;
     category: ICategory;
 
-    constructor(private router: Router, private categoryService: CategoryService) {}
+    constructor(private router: Router,
+                private categoryService: CategoryService) {}
 
     ngOnInit(){
         this.category = this.categoryService.getCategoryById(this.category_id);
     }
 
     loadCategory(category_name: string){
-        this.router.navigate(['/category', category_name]);
+        this.router.navigateByUrl('/', { skipLocationChange: true }).then(() => {
+            this.router.navigate(['/category', category_name]);
+        });
     }
 }

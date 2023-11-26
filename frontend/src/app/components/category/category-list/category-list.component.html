@@ -1,6 +1,9 @@
 <div id="category_list">
   <div id="popular" class="tn-category-class">
-    <p class="tn-clickable" (click)="togglePopular()"> Popular > </p>
+    <div class="tn-category-collapse" (click)="togglePopular()">
+      <p class="tn-clickable"> Popular </p>
+      
+    </div>
     <div [style.display]="isPopularOpen ? 'block': 'none'" *ngFor="let category of popular" class="category">
       <tn-category [category_id] = "category"></tn-category>
     </div>
@@ -10,11 +13,11 @@
     <div [style.display]="isFavouritesOpen ? 'block': 'none'" *ngFor="let category of favourites" class="category">
       <tn-category [category_id]="category"></tn-category>
     </div>
+    <p [style.display]="isFavouritesOpen ? 'block': 'none'" *ngIf="!favourites.length" class="not-found"> You don't have any favourites! </p>
   </div>
   <div id="other" class="tn-category-class">
     <p class="tn-clickable" (click)="toggleOther()"> Other > </p>
     <div [style.display]="isOtherOpen ? 'block': 'none'" *ngFor="let category of categories" class="category">
-      
       <tn-category [category_id]="category.id"></tn-category>
     </div>
   </div>

@@ -13,15 +13,14 @@
 
     border-radius: 50%;
     border-style: none;
-    border: 2px solid red;
+    border: 0.5px solid var(--accent-color);
 
-    background-image: url("/assets/icons/category-menu.png");
+    background-image: url("/assets/icons/misc/category-menu.png");
     background-size: contain;
 }
 
 #body{
     display: flex;
     
-    background-color: black;
-    color: white;
+    background-color: var(--dark-blue);
 }

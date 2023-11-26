@@ -1,21 +1,28 @@
 <div id="content">
-  <div class="tn-header">
+  <div class="tn-thread-header">
     <div class="tn-user-details">
-      <img src="assets/icons/user.png">
+      <img src="assets/icons/user/user.png">
       <p class="tn-username tn-clickable"> &#64;{{username}} </p>
     </div>
     <p class="tn-date"> {{thread.thread_date}} </p>
   </div>
-  <div class="tn-body">
+  <div class="tn-thread-body">
     <h2 id="thread_title"> {{thread.title}} </h2>
     <p> {{thread.content}} </p>
   </div>
-  <div class="tn-engagement">
-    <div class="tn-reply"> reply </div>
+  <div class="tn-thread-engagement">
+    <div class="tn-reply tn-clickable" (click)="toggleCreateComment()"> Reply </div>
     <div class="tn-reaction-container">
-      <p class="tn-reaction"> up_vote </p>
-      <p class="tn-reaction"> down_vote </p>
+      <div class="tn-react"> <p> 5 </p> 
+        <img *ngIf="!isLiked" src="/assets/icons/interactions/up-vote-empty.png" alt="" class="tn-reaction tn-icon" (click)="likePost()">
+        <img *ngIf="isLiked" src="/assets/icons/interactions/up-vote-full.png" alt="" class="tn-reaction tn-icon" (click)="likePost()">
+      </div>
+      <div class="tn-react"> <p> 4 </p>
+        <img *ngIf="!isDisliked" src="/assets/icons/interactions/down-vote-empty.png" alt="" class="tn-reaction tn-icon" (click)="dislikePost()">
+        <img *ngIf="isDisliked" src="/assets/icons/interactions/down-vote-full.png" alt="" class="tn-reaction tn-icon" (click)="dislikePost()">
+      </div>
     </div>
   </div>
+  <div *ngIf="addComment" class="tn-reply-container"><tn-create-comment class="fill-available"></tn-create-comment></div>
   <tn-comment-list></tn-comment-list>
 </div>

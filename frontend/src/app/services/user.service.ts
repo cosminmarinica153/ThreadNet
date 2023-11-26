@@ -8,8 +8,9 @@ import { IUser } from '../interfaces/IUser';
 })
 export class UserService {
 
-constructor(private http: HttpClient) { }
+  constructor(private http: HttpClient) { }
 
+  // Create new User
   addUser(user: IUser){
     let users = [];
     if(localStorage.getItem('Users')){
@@ -21,24 +22,45 @@ constructor(private http: HttpClient) { }
     }
     localStorage.setItem('Users', JSON.stringify(users));
   }
+  // User Validation Checks
+  checkUniqueUsername(username: string): Boolean{
+    if(!localStorage.getItem('Users')) return true;
 
-  getLastId(): number{
-    let users = JSON.parse(localStorage.getItem('Users'));
-    return +users.length + 1;
+    const users = this.getAllUsers();
+    let isUnique = true;
+    if(users.find(user => user.username === username)){
+      isUnique = false;
+    }
+    return isUnique;
   }
 
   getAllUsers(): IUser[]{
+    if(!localStorage.getItem('Users')) return [];
+
     return JSON.parse(localStorage.getItem('Users'));
   }
 
+  getLastId(): number{
+    let id: number = 1;
+    if(!localStorage.getItem('Users')) return id;
+
+    const users = this.getAllUsers();
+    if(users.length === 0) return id ;
+
+    id = users[users.length - 1].id + 1;
+    return id;
+  }
+
   getUserById(user_id: number): IUser{
-    let users = this.getAllUsers();
-    return users.find(user => user.id === user_id);
+    if(!localStorage.getItem('Users')) return null;
+
+    return this.getAllUsers().find(user => user.id === user_id);
   }
 
   getUsernameById(user_id: number): string{
-    let users = this.getAllUsers();
-    return users.find(user => user.id === user_id).username;
+    if(!localStorage.getItem('Users')) return "";
+
+    return this.getAllUsers().find(user => user.id === user_id).username;
   }
 
 }

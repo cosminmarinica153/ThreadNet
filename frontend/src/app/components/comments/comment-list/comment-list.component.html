@@ -1,7 +1,5 @@
-<div id="container">
-  <div id="comment_list">
-    <div *ngFor="let comment of comments" class="comment">
+<div>
+    <div *ngFor="let comment of comments">
       <tn-comment [comment]="comment"></tn-comment>
     </div>
-  </div>
 </div>

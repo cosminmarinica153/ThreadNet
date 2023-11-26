@@ -3,6 +3,7 @@
     height: 100vh;
 
     display: flex;
+    flex-direction: column;
     justify-content: center;
     align-items: center;
 }
@@ -12,7 +13,10 @@ form {
 }
 
 .form-group {
-    padding: 10px;
-
     width: 400px;
+}
+
+a{
+    color: var(--primary-color);
+    text-decoration: none;
 }

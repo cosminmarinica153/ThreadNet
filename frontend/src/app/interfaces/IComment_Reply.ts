@@ -3,5 +3,8 @@ export interface IComment_Reply {
     comment_id: number,
     user_id: number,
     comment_date: string,
-    content: string
+    is_edited: boolean,
+    content: string,
+    up_votes: number,
+    down_votes: number
 }

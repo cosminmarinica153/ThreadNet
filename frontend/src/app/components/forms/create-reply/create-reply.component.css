@@ -1,0 +1,12 @@
+.form-control {
+    max-height: 100px;
+
+    border-color: black;
+    border-radius: 15px;
+    border-bottom-left-radius: 0;
+    border-bottom-right-radius: 0;
+}
+
+span{
+    margin-left: 10px;
+}

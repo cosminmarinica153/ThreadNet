@@ -8,3 +8,5 @@ export interface IComment {
     down_votes: number;
     content: string;
 }
+
+

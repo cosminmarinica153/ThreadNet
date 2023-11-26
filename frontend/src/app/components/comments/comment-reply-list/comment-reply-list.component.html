@@ -1,3 +1,5 @@
 <div id="reply_list">
-  <tn-comment-reply></tn-comment-reply>
+  <div *ngFor="let reply of replies" class="comment">
+    <tn-comment-reply [reply]="reply"></tn-comment-reply>
+  </div>
 </div>

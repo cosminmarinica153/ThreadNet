@@ -32,18 +32,13 @@ export class LoginComponent implements OnInit {
   }
 
   onLogin(){
-    console.log(this.loginForm);
     const user = this.authService.authUser(this.loginForm.value);
 
-    if(user){
-      localStorage.setItem('token', user.auth_token);
-      // console.log("Succes");
+    if(this.authService.login(user)){
       this.accountFound = true;
       this.router.navigate(['/']);
-    } else {
-      // console.log("Smth went wrong");
+    } else
       this.accountFound = false;
-    }
 
     this.submit =  true;
   }

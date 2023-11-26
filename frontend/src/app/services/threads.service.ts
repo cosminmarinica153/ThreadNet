@@ -1,15 +1,18 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { Observable, map } from 'rxjs';
 import { IThread } from '../interfaces/IThread';
 import { CategoryService } from './category.service';
+import { AuthentificationService } from './authentification.service';
+import { Router } from '@angular/router';
+import { CommentsService } from './comments.service';
 
 @Injectable({
   providedIn: 'root'
 })
 export class ThreadsService {
 
-  constructor(private http : HttpClient, private categoryService: CategoryService) { }
+  constructor(private router: Router, private http : HttpClient, private authService: AuthentificationService,
+              private categoryService: CategoryService, private commentsService: CommentsService) { }
 
   addThread(thread: IThread){
     let threads = [];
@@ -17,25 +20,35 @@ export class ThreadsService {
       threads = JSON.parse(localStorage.getItem('Threads'));
       threads = [...threads, thread];
     }
-    else{
-      threads = [thread];
-    }
+    else threads = [thread];
+
     localStorage.setItem('Threads', JSON.stringify(threads));
   }
 
-  getLastId(): number{
-    let threads = JSON.parse(localStorage.getItem('Threads'));
-    return +threads.length + 1;
-  }
-
   getAllThreads(): IThread[]{
+    if(!localStorage.getItem('Threads')) return [];
+
     return JSON.parse(localStorage.getItem('Threads'));
   }
+
+  getLastId(): number{
+    let id: number = 1;
+    if(!localStorage.getItem('Threads')) return id;
+
+    const threads = this.getAllThreads();
+    if(threads.length === 0) return id ;
+
+    id = threads[threads.length - 1].id + 1;
+    return id;
+  }
+
   getAllThreadsByCategory(category_name: string): IThread[]{
+    if(!localStorage.getItem('Threads')) return [];
+
     const threadsArray: Array<IThread> = [];
     const category_id = this.categoryService.getCategoryId(category_name);
-    const data = this.getAllThreads();
-    data.forEach(thread => {
+
+    this.getAllThreads().forEach(thread => {
       if(thread.category_id === category_id)
         threadsArray.push(thread);
     })
@@ -43,7 +56,35 @@ export class ThreadsService {
   }
 
   getThreadById(thread_id: number): IThread{
-    let threads = this.getAllThreads();
-    return threads.find(thread => thread.id === thread_id);
+    if(!localStorage.getItem('Threads')) return null;
+
+    return this.getAllThreads().find(thread => thread.id === thread_id);
   }
+
+  getUserThreads(user_id: number): Array<IThread>{
+    if(!localStorage.getItem('Threads')) return [];
+
+    const threadsArray: Array<IThread> = [];
+    this.getAllThreads().forEach((thread: IThread) => {
+      if(thread.user_id === user_id)
+        threadsArray.push(thread);
+    });
+    return threadsArray;
+  }
+
+  deleteThread(thread_id: number){
+    const threads = this.getUserThreads(this.authService.getUserId());
+    const index = threads.findIndex(thread => thread.id === thread_id);
+
+    threads.splice(index, 1);
+
+    localStorage.setItem('Threads', JSON.stringify(threads));
+
+    this.commentsService.deleteThreadComments(thread_id);
+
+    this.router.navigateByUrl('/', { skipLocationChange: true }).then(() => {
+        this.router.navigate(['/category', "My Threads"]);
+    });
+  }
+
 }

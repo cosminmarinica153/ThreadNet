@@ -1,32 +1,10 @@
 #thread_header{
     display: flex;
     align-items: center;
-    
 }
 
-#category{
-    flex: 1;
+.tn-search-bar{ flex: 1; }
 
-    padding-left: 15px;
-}
-
-#search_bar{
-    flex: 1;
-    display: flex;
-    justify-content: center;
-}
-#search_bar input{
-    border-color: black;
-}
-
-#create_group{
-    flex: 1;
-    display: flex;
-    justify-content: flex-end;
-
-    padding-right: 15px;
-}
-#create_group button{
-    background-color: greenyellow;
-    border: 1px solid black;
+.dropdown-item:hover{
+    background-color: var(--secondary-color);
 }

@@ -1,7 +1,8 @@
 #thread{
-    padding: 15px 0;
+    min-width: 250px;
 }
 
 .tn-body *{
     cursor: pointer;
+    height: 50px;
 }

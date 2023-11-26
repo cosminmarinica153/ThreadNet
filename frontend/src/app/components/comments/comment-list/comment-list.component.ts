@@ -17,7 +17,7 @@ export class CommentListComponent implements OnInit {
   ngOnInit() {
     this.route.params.subscribe((params) => {
       this.thread_id = +params['id'];
-      this.comments = this.commentsService.getAllComments(this.thread_id);
+      this.comments = this.commentsService.getAllCommentsForThread(this.thread_id);
     });
   }
 

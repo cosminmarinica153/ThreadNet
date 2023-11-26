@@ -1,17 +1,10 @@
 #container{
     padding-top: 120px;
     padding-bottom: 50px;
+
     display: flex;
     flex-direction: column;
     align-items: center;
-}
-
-#thread_list{
-    padding: 50px;
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-
-    width: 75%;
 }
 
 #thread_header{
@@ -19,11 +12,16 @@
 
     width: 60%;
     
-    border-bottom: 2px solid black;
+    border-bottom: 2px solid var(--primary-color);
 }
 
-.thread{
-    border: 2px solid black;
-    border-radius: 25px;
-    margin: 15px; 
+#thread_list{
+    padding: 50px;
+
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    align-items: stretch;
+    gap: 50px;
+
+    width: 75%;
 }

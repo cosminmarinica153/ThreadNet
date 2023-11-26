@@ -1,4 +1,5 @@
 import { Component, Input, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'tn-thread-header',
@@ -8,9 +9,14 @@ import { Component, Input, OnInit } from '@angular/core';
 export class ThreadHeaderComponent implements OnInit {
 @Input() title: string;
 
-  constructor() { }
+  constructor(private router: Router) { }
 
   ngOnInit() {
+  }
+
+  checkLoggedIn(){
+    if(localStorage.getItem('token')) return
+    this.router.navigate(['/login']);
   }
 
 }
