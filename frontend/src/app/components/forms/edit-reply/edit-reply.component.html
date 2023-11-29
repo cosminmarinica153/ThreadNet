@@ -1,3 +1,21 @@
-<p>
-  edit-reply works!
-</p>
+<div id="reply">
+  <div class="tn-thread-header">
+    <div class="tn-user-details">
+      <img src="assets/icons/user/user.png">
+      <p class="tn-username tn-clickable"> &#64;{{username}}</p>
+    </div>
+    <p class="tn-date"> {{reply.comment_date | date:'dd-MM HH:mm'}} </p>
+  </div>
+  <form [formGroup]="replyForm" (ngSubmit)="onCreate()">
+    <div class="tn-thread-body">
+      <textarea class="form-control" formControlName="content"></textarea>
+    </div>
+    <div class="tn-thread-engagement">
+      <span *ngIf="content.hasError('required') && (content.touched || submit)" class="error">
+        Reply can not be empty.
+      </span>
+      <span></span>
+      <button type="submit" class="btn tn-create-elem-btn" (click)="submit=true"> Save </button>
+    </div>
+  </form>
+</div>

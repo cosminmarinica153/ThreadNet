@@ -1,309 +1,314 @@
 /* IMPORTS */
-
+@import "@angular/material/prebuilt-themes/indigo-pink.css";
 
 /* GLOBAL VARIABLES */
-:root{
-/* COLOR PALETTE */
-    --background-color: #F5F7F8;
-    --layout-color: black;
-    
-    --text-color-light: #e2f0f3;
-    --text-color-dark: #03045e;
-    
-    --primary-color: #0077b6;
-    --secondary-color: #90e0ef;
-    --accent-color: #33ffa7;
-    
+:root {
+  /* COLOR PALETTE */
+  --background-color: #f5f7f8;
+  --layout-color: black;
 
-/* FONT-FAMILY */
+  --text-color-light: #e2f0f3;
+  --text-color-dark: #03045e;
 
+  --primary-color: #0077b6;
+  --secondary-color: #90e0ef;
+  --accent-color: #33ffa7;
 
-/* FONT-SIZE */
+  /* FONT-FAMILY */
 
-
+  /* FONT-SIZE */
 }
 
 /* PRESET */
-*{
-    box-sizing: border-box;
+* {
+  box-sizing: border-box;
 
-    cursor: default;
-    caret-color: transparent;
-    outline: none;
+  cursor: default;
+  caret-color: transparent;
+  outline: none;
 }
-p:focus{
-    outline: none;
+p:focus {
+  outline: none;
 }
 
 /* WEBKIT */
 /* SCROLL BAR */
 ::-webkit-scrollbar {
-    width: 12px;
+  width: 12px;
 }
 ::-webkit-scrollbar-thumb {
-    background-color: var(--secondary-color);
-    width: 2px;
-    border-radius: 20px;
+  background-color: var(--secondary-color);
+  width: 2px;
+  border-radius: 20px;
 }
 ::-webkit-scrollbar-track {
-    background-color: black;
+  background-color: black;
 }
-select::-webkit-scrollbar-track{
-    background-color: white;
+select::-webkit-scrollbar-track {
+  background-color: white;
 }
 /* OVERFLOW */
-.overflow-1{
-    display: -webkit-box;
-    -webkit-line-clamp: 1;
-    -webkit-box-orient: vertical;
-    overflow: hidden;
+.overflow-1 {
+  display: -webkit-box;
+  -webkit-line-clamp: 1;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
 }
-.overflow-2{
-    display: -webkit-box;
-    -webkit-line-clamp: 2;
-    -webkit-box-orient: vertical;
-    overflow: hidden;
+.overflow-2 {
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
 }
 .overflow-3 {
-    display: -webkit-box;
-    -webkit-line-clamp: 3;
-    -webkit-box-orient: vertical;
-    overflow: hidden;
+  display: -webkit-box;
+  -webkit-line-clamp: 3;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
 }
-.fill-available{
-    width: -webkit-fill-available;
+.fill-available {
+  width: -webkit-fill-available;
 }
 
 /* GENERAL STYLES */
 /* BASE TAGS */
 body {
-    background-color: var(--background-color);
+  background-color: var(--background-color);
 }
 header {
-    display: flex;
-    align-items: center;
-    justify-items: center;
+  display: flex;
+  align-items: center;
+  justify-items: center;
 
-    height: 100px;
-    width: 100vw;
+  height: 100px;
+  width: 100vw;
 
-    background-color: var(--layout-color);
-    border-bottom: 2px solid var(--accent-color);
-    color: var(--text-color-light);
+  background-color: var(--layout-color);
+  border-bottom: 2px solid var(--accent-color);
+  color: var(--text-color-light);
 }
 footer {
-    display: flex;
-    align-items: center;
+  display: flex;
+  align-items: center;
 
-    height: 50px;
+  height: 50px;
 
-    background-color: var(--layout-color);
-    border-top: 2px solid var(--accent-color);
-    color: var(--text-color-light);
+  background-color: var(--layout-color);
+  border-top: 2px solid var(--accent-color);
+  color: var(--text-color-light);
 }
 input {
-    caret-color: black;
+  caret-color: black;
 }
-textarea{
-    caret-color: black;
+textarea {
+  caret-color: black;
 }
-textarea::-webkit-scrollbar-track{
-    background-color: white;
+textarea::-webkit-scrollbar-track {
+  background-color: white;
 }
-img{
-    height: 40px;
+img {
+  height: 40px;
 }
-h3{
-    margin: 0;
+h3 {
+  margin: 0;
 }
-p{
-    margin: 0;
+p {
+  margin: 0;
 }
-label{
-    color: var(--text-color-dark);
+label {
+  color: var(--text-color-dark);
 }
 
 /* FONT VALIDATION */
 .ng-invalid.ng-touched {
-    border-color: red;
+  border-color: red;
 }
 .error {
-    color: red;
+  color: red;
 }
 
 /* INTERACTIVE */
-.tn-clickable{
-    cursor: pointer;
+.tn-clickable {
+  cursor: pointer;
 }
 
 /* CLASSES */
 /* Thread Styles */
-.tn-thread-header{
-    display: flex;
-    justify-content: space-between;
+.tn-thread-header {
+  display: flex;
+  justify-content: space-between;
 
-    padding: 15px 0;
+  padding: 15px 0;
 
-    background-color: var(--primary-color);
-    border: 2px solid black;
-    border-top-right-radius: 25px;
-    border-top-left-radius: 25px;
-    color: var(--text-color-light);
+  background-color: var(--primary-color);
+  border: 2px solid black;
+  border-top-right-radius: 25px;
+  border-top-left-radius: 25px;
+  color: var(--text-color-light);
 }
-.tn-thread-body{
-    padding: 15px 20px;
+.tn-thread-body {
+  padding: 15px 20px;
 
-    width: 100%;
-    height: max-content;  
+  width: 100%;
+  height: max-content;
 
-    background-color: white;
-    color: var(--text-color-dark);
-    border: 2px solid black;
+  background-color: white;
+  color: var(--text-color-dark);
+  border: 2px solid black;
 }
-.tn-thread-engagement{
-    display: flex;
-    justify-content: space-between;
+.tn-thread-engagement {
+  display: flex;
+  justify-content: space-between;
 
-    padding: 5px 20px;
+  padding: 5px 20px;
 
-    background-color: white;
-    border: 2px solid black;
-    border-bottom-left-radius: 25px;
-    border-bottom-right-radius: 25px;
+  background-color: white;
+  border: 2px solid black;
+  border-bottom-left-radius: 25px;
+  border-bottom-right-radius: 25px;
 }
 .tn-edit-group {
-    display: flex;
+  display: flex;
 }
 
 .tn-icon {
-    width: 30px;
-    height: 30px;
+  width: 30px;
+  height: 30px;
 }
-.tn-reaction-container{
-    display:flex;
+.tn-reaction-container {
+  display: flex;
 }
-.tn-reaction{
-    cursor: pointer;
+.tn-reaction {
+  cursor: pointer;
 
-    margin-left: 5px;
-    margin-right: 5px;
+  margin-left: 5px;
+  margin-right: 5px;
 }
-.tn-react{
-    display: flex;
-    align-items: center;
+.tn-react {
+  display: flex;
+  align-items: center;
 }
-.tn-user-details{
-    display: flex;
-    align-items: center;
-        
-    padding-left: 20px;
-}
-.tn-username{
-    padding-left: 10px;
-}
-.tn-date{
-    display: flex;
-    align-items: center;
-    
-    padding-right: 20px;
-}
-.tn-header-category-title{
-    flex: 1;
+.tn-user-details {
+  display: flex;
+  align-items: center;
 
-    padding-left: 15px;
+  padding-left: 20px;
 }
-.tn-search-bar {    
-    display: flex;
-    justify-content: center;
-}  
-.tn-header-create-group{
-    flex: 1;
+.tn-username {
+  padding-left: 10px;
+}
+.tn-date {
+  display: flex;
+  align-items: center;
 
-    display: flex;
-    justify-content: flex-end;
+  padding-right: 20px;
+}
+.tn-header-title {
+  flex: 1;
 
-    padding-right: 15px;
+  display: flex;
+
+  padding-left: 15px;
+}
+.tn-search-bar {
+  display: flex;
+  justify-content: center;
+}
+.tn-header-create-group {
+  flex: 1;
+
+  display: flex;
+  justify-content: flex-end;
+
+  padding-right: 15px;
 }
 /* Category Styles */
-.tn-category-class{
-    margin: 10px 15px 0;
+.tn-category-class {
+  margin: 10px 15px 0;
 }
-.tn-category-collapse{
-    display: flex;
+.tn-category-collapse {
+  display: flex;
 }
 /* Form Styles */
-.tn-create-btn{
-    background-color: var(--secondary-color);
-    border: 1px solid black;
+.tn-create-btn {
+  background-color: var(--secondary-color);
+  border: 1px solid black;
 }
-.tn-create-btn:hover{
-    background-color: var(--primary-color);
-    border: 1px solid black;
+.tn-create-btn:hover {
+  background-color: var(--primary-color);
+  border: 1px solid black;
 }
-.tn-cancel-btn{
-    background-color: var(--primary-color);
-    color: var(--text-color-light);
-    border: 1px solid black;
+.tn-cancel-btn {
+  background-color: var(--primary-color);
+  color: var(--text-color-light);
+  border: 1px solid black;
 }
 .tn-cancel-btn:hover {
-    background-color: var(--primary-color);
-    color: var(--text-color-light);
-    border: 1px solid black;
+  background-color: var(--primary-color);
+  color: var(--text-color-light);
+  border: 1px solid black;
 }
-.tn-create-elem-btn{
-    margin-left: 10px;
+.tn-create-elem-btn {
+  margin-left: 10px;
 
-    background-color: var(--secondary-color);
-    color: var(--text-color-dark);
-    border: 1px solid black;
+  background-color: var(--secondary-color);
+  color: var(--text-color-dark);
+  border: 1px solid black;
 }
 .tn-create-elem-btn:hover {
-    background-color: var(--secondary-color);
-    color: var(--text-color-dark); 
-    border: 1px solid black;
+  background-color: var(--secondary-color);
+  color: var(--text-color-dark);
+  border: 1px solid black;
 }
-.form-group{
-    padding: 10px;
+.form-group {
+  padding: 10px;
 }
-.tn-reply-form{
-    margin-top: 20px;
-    margin-left: 50px;
+.tn-reply {
+  display: flex;
+  justify-content: flex-end;
 }
-.tn-reply-container{
-    display: flex;
-    flex-direction: column;
-
+.tn-reply-form {
+  margin-top: 20px;
+  margin-left: 50px;
+}
+.tn-reply-container {
+  display: flex;
+  flex-direction: column;
 }
 .tn-reply-btn {
-    background-color: var(--secondary-color);
-    border: none;
-    border-left: 1px solid black;
-    border-radius: 0;
-    border-bottom-right-radius: 15px;
+  background-color: var(--secondary-color);
+  border: none;
+  border-left: 1px solid black;
+  border-radius: 0;
+  border-bottom-right-radius: 15px;
 }
-.tn-reply-btn:hover{
-    background-color: var(--primary-color);
-    border-left: 1px solid black;
+.tn-reply-btn:hover {
+  background-color: var(--primary-color);
+  border-left: 1px solid black;
 }
 .tn-reply-btn-container {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
 
-    background-color: white;
+  background-color: white;
 
-    border: 1px solid black;
-    border-top: none;
-    border-bottom-left-radius: 15px;
-    border-bottom-right-radius: 15px;
-
+  border: 1px solid black;
+  border-top: none;
+  border-bottom-left-radius: 15px;
+  border-bottom-right-radius: 15px;
 }
 
-
-.tn-modal-btn-group{
-    display: flex;
-    justify-content: flex-end; 
+.tn-modal-btn-group {
+  display: flex;
+  justify-content: flex-end;
 }
 
-
-
+html,
+body {
+  height: 100%;
+}
+body {
+  margin: 0;
+  font-family: Roboto, "Helvetica Neue", sans-serif;
+}

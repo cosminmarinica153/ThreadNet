@@ -1,19 +1,19 @@
 <div id="content">
-  <div class="tn-thread-header">
-    <div class="tn-user-details">
-      <img src="assets/icons/user/user.png">
-      <p class="tn-username tn-clickable"> &#64;{{username}} </p>
+  <div *ngIf="!isEditing">
+    <div class="tn-thread-header">
+      <div class="tn-user-details">
+        <img src="assets/icons/user/user.png">
+        <p class="tn-username tn-clickable"> &#64;{{username}} </p>
+      </div>
+      <p class="tn-date"> {{comment.comment_date | date:'dd:MM HH:mm'}} </p>
     </div>
-    <p class="tn-date"> {{comment.comment_date}} </p>
-  </div>
-  <p class="tn-thread-body"> {{comment.content}} </p>
-  <div class="tn-thread-engagement">
-    <div class="tn-reply tn-clickable" (click)="toggleCreateReply()"> Reply </div>
-    <div class="tn-reaction-container">
-      <p class="tn-reaction"> up_votes: {{comment.up_votes}} </p>
-      <p class="tn-reaction"> down_votes: {{comment.down_votes}} </p>
+    <div class="tn-thread-body">
+      <p> {{comment.content}} </p>
+      <p class="tn-reply tn-clickable" (click)="toggleCreateReply()"> Reply </p>
     </div>
+    <tn-interaction-group [comment]="comment"></tn-interaction-group>
   </div>
+  <tn-edit-comment *ngIf="isEditing" [comment]="comment" id="comment"></tn-edit-comment>
   <div *ngIf="addReply" class="tn-reply-container"><tn-create-reply [comment_id]="comment.id" class="fill-available"></tn-create-reply></div>
   <tn-comment-reply-list [comment_id]="comment.id"></tn-comment-reply-list>
 </div>

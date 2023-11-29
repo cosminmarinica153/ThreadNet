@@ -1,14 +1,13 @@
 import { Injectable } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
-import { Observable, map } from 'rxjs';
 import { IUser } from '../interfaces/IUser';
+import { IInteraction } from '../interfaces/IInteraction';
 
 @Injectable({
   providedIn: 'root'
 })
 export class UserService {
 
-  constructor(private http: HttpClient) { }
+  constructor() { }
 
   // Create new User
   addUser(user: IUser){
@@ -21,6 +20,29 @@ export class UserService {
       users = [user];
     }
     localStorage.setItem('Users', JSON.stringify(users));
+
+    const array: Array<number> = [];
+
+    const interaction: IInteraction = {
+      user_id: user.id,
+      liked_threads: array,
+      disliked_threads: array,
+      liked_comments: array,
+      disliked_comments: array,
+      liked_replies: array,
+      disliked_replies: array,
+      favourite_threads: array,
+      favourite_categories: array
+    }
+    let interactions = [];
+    if(localStorage.getItem('Interactions')){
+      interactions = JSON.parse(localStorage.getItem('Interactions'));
+      interactions = [...interactions, interaction];
+    }
+    else{
+      interactions = [interaction];
+    }
+    localStorage.setItem('Interactions', JSON.stringify(interactions));
   }
   // User Validation Checks
   checkUniqueUsername(username: string): Boolean{

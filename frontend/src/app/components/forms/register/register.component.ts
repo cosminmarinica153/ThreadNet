@@ -1,9 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { AbstractControl, FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
-// import { generate } from 'randomstring';
 
 import { IUser } from 'src/app/interfaces/IUser';
+import { AuthentificationService } from 'src/app/services/authentification.service';
 import { UserService } from 'src/app/services/user.service';
 
 @Component({
@@ -16,8 +16,10 @@ export class RegisterComponent implements OnInit {
   submit: boolean;
   user: IUser;
   user_id: number;
+  token: string;
 
-  constructor(private router: Router, private fb: FormBuilder, private userService: UserService) { 
+  constructor(private router: Router, private fb: FormBuilder, private authService: AuthentificationService,
+              private userService: UserService) { 
     this.submit = false 
     this.user_id = userService.getLastId();
   }
@@ -43,6 +45,7 @@ export class RegisterComponent implements OnInit {
   }
 
   ngOnInit() {
+    this.token = this.authService.generateUniqueToken(10);
     this.createRegistrationForm();
   }
 
@@ -67,7 +70,6 @@ export class RegisterComponent implements OnInit {
     return this.userService.checkUniqueUsername(username);
   }
 
-
   onRegister() {
     this.submit = true;
 
@@ -90,9 +92,9 @@ export class RegisterComponent implements OnInit {
       password: this.password.value,
       email: this.email.value,
       is_verified: false,
-      register_date: "01-01-2001",
-      auth_token: "222",
-      auth_key: 1
+      register_date: new Date(),
+      auth_token: this.token,
+      auth_key: 0
     };
   }
 

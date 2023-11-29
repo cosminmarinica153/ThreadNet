@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { ICategory } from 'src/app/interfaces/ICategory';
 import { AuthentificationService } from 'src/app/services/authentification.service';
 import { CategoryService } from 'src/app/services/category.service';
+import { InteractionsService } from 'src/app/services/interactions.service';
 import { ThreadsService } from 'src/app/services/threads.service';
 
 @Component({
@@ -20,7 +21,7 @@ export class CategoryListComponent implements OnInit {
 
   isLoggedIn: boolean;
 
-  constructor(private categoryService: CategoryService, private authService: AuthentificationService) {
+  constructor(private categoryService: CategoryService, private authService: AuthentificationService, private interaction: InteractionsService) {
     this.categories = [];
     this.popular = [];
     this.favourites = [];
@@ -34,19 +35,11 @@ export class CategoryListComponent implements OnInit {
     this.isLoggedIn = this.authService.isLoggedIn();
 
     this.categories = this.categoryService.getAllCategories();
-
-    this.categories.forEach(category => {
-      if(category.type.length && category.type.includes("Popular"))
-        this.popular.push(category.id);
-      if(category.type.length && category.type.includes("Favourites"))
-        this.favourites.push(category.id);
-    });
+    this.favourites = this.interaction.getFavouriteCategories();
   }
 
   // Category Toggles
   togglePopular() { this.isPopularOpen = !this.isPopularOpen; }
   toggleFavourites() { this.isFavouritesOpen = !this.isFavouritesOpen; }
   toggleOther() { this.isOtherOpen = !this.isOtherOpen; }
-
-
 }

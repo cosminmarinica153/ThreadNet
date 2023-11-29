@@ -3,9 +3,8 @@
         <a routerLink="/"><img src="assets/logo/logo-no-background.png" class="tn-clickable"></a>
     </div>
     <div id="nav">
-        <a routerLink="/">Home</a>
         <a *ngIf="isLoggedIn()" (click)="loadMyThreads()">My Threads</a>
-        <a routerLink="More">More</a>
+        <a *ngIf="isLoggedIn()" (click)="loadMyFavourites()">My Favourites</a>
     </div>
     <div id="profile">
         <div id="dropdown">

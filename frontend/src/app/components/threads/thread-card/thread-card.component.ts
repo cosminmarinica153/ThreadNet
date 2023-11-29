@@ -4,6 +4,7 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { UserService } from 'src/app/services/user.service';
 import { AuthentificationService } from 'src/app/services/authentification.service';
 import { ThreadsService } from 'src/app/services/threads.service';
+import { InteractionsService } from 'src/app/services/interactions.service';
 
 @Component({
   selector: 'tn-thread-card',
@@ -14,20 +15,20 @@ export class ThreadCardComponent implements OnInit {
 @Input() thread: IThread;
   username: string;
   isEditable: boolean;
-  isFavourite: boolean;
+
+  isEditing: boolean;
 
   constructor(private router: Router, private route: ActivatedRoute, private authService: AuthentificationService,
-              private userService: UserService, private threadService: ThreadsService) {
+              private userService: UserService, private threadService: ThreadsService, private interaction: InteractionsService) {
     this.isEditable = false;
-    this.isFavourite = false;
+    this.isEditing = false;
   }
 
   ngOnInit() {
-    this.route.params.subscribe((params) => {
-      this.username = this.userService.getUsernameById(this.thread.user_id);
-      if(params['category_name'] === 'My Threads')
-        this.isEditable = true;
-    });
+    this.username = this.userService.getUsernameById(this.thread.user_id);
+    this.interaction.getThreadEdit().subscribe(value =>{
+      this.isEditing = value;
+    })
   }
 
   isLoggedIn(){
@@ -38,16 +39,4 @@ export class ThreadCardComponent implements OnInit {
   loadThread(id: number){
     this.router.navigate(['/thread', id]);
   }
-
-  toggleFavourite(){
-    this.isFavourite = !this.isFavourite;
-  }
-
-  deleteThread(){
-    const isConfirmed = window.confirm('Are you sure you want to delete?');
-
-    if (isConfirmed)
-      this.threadService.deleteThread(this.thread.id);
-  }
-
 }

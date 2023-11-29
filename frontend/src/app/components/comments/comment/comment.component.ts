@@ -2,6 +2,7 @@ import { Component, Input, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { IComment } from 'src/app/interfaces/IComment';
 import { AuthentificationService } from 'src/app/services/authentification.service';
+import { InteractionsService } from 'src/app/services/interactions.service';
 import { UserService } from 'src/app/services/user.service';
 
 @Component({
@@ -14,13 +15,19 @@ export class CommentComponent implements OnInit {
   username: string;
 
   addReply: boolean;
+  isEditing: boolean;
 
-  constructor(private router: Router, private userService: UserService, private authService: AuthentificationService) {
+  constructor(private router: Router, private authService: AuthentificationService , private userService: UserService,
+              private interaction: InteractionsService) {
     this.addReply = false;
+    this.isEditing = false;
   }
 
   ngOnInit() {
     this.username = this.userService.getUsernameById(this.comment.user_id);
+    this.interaction.getCommentEdit().subscribe(value =>{
+      this.isEditing = value;
+    });
   }
 
   toggleCreateReply(){

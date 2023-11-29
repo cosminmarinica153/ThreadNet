@@ -1,3 +1,28 @@
-<p>
-  edit-thread works!
-</p>
+<div id="thread">
+  <div class="tn-thread-header">
+    <div class="tn-user-details">
+      <img src="assets/icons/user/user.png">
+      <p class="tn-username tn-clickable"> &#64;{{username}}</p>
+    </div>
+    <p class="tn-date"> {{thread.thread_date | date:'dd-MM HH:mm'}} </p>
+  </div>
+  <form [formGroup]="editForm" (ngSubmit)="onCreate()">
+    <div class="tn-thread-body">
+      <div class="form-group">
+        <input type="text" class="form-control" formControlName="threadTitle">
+        <span *ngIf="!threadTitle.valid && (threadTitle.touched || submit)" class="error">
+          Title can not be empty.
+        </span>
+      </div>
+      <div class="form-group">
+        <textarea type="text" class="form-control"formControlName="content"></textarea>
+        <span *ngIf="!content.valid && (content.touched || submit)" class="error">
+          Content can not be empty.
+        </span>
+      </div>
+    </div>
+    <div class="tn-thread-engagement">
+      <button type="submit" class="btn tn-create-elem-btn" (click)="submit=true"> Save </button>
+    </div>
+  </form>
+</div>

@@ -1,10 +1,16 @@
-#thread_header{
-    display: flex;
-    align-items: center;
+#thread_header {
+  display: flex;
+  align-items: center;
 }
 
-.tn-search-bar{ flex: 1; }
+.tn-search-bar {
+  flex: 1;
+}
 
-.dropdown-item:hover{
-    background-color: var(--secondary-color);
+.dropdown-item:hover {
+  background-color: var(--secondary-color);
+}
+
+.tn-icon {
+  margin-right: 15px;
 }

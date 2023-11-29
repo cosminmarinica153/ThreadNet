@@ -1,24 +1,16 @@
-<div id="thread">
+<div *ngIf="!isEditing" id="thread">
   <div class="tn-thread-header">
     <div class="tn-user-details">
       <img src="assets/icons/user/user.png">
       <p class="tn-username tn-clickable"> &#64;{{username}}</p>
     </div>
-    <p class="tn-date"> {{thread.thread_date}} </p>
+    <p class="tn-date"> {{thread.thread_date | date:'dd-MM HH:mm'}} </p>
   </div>
   <div class="tn-thread-body tn-clickable" (click)="loadThread(thread.id)">
     <h3 class="overflow-1 tn-clickable">{{thread.title}}</h3>
     <p class="overflow-2 tn-clickable">{{thread.content}}</p>
   </div>
-  <div class="tn-thread-engagement">
-    <img class="tn-clickable tn-icon" src="/assets/icons/interactions/share.png" (click)="isLoggedIn()">
-    <img *ngIf="!isEditable && !isFavourite" class="tn-clickable tn-icon" src="/assets/icons/interactions/star-empty.png" 
-          (click)="isLoggedIn()" (click)="toggleFavourite()">
-    <img *ngIf="!isEditable && isFavourite" class="tn-clickable tn-icon" src="/assets/icons/interactions/star-full.png"
-          (click)="isLoggedIn()" (click)="toggleFavourite()">
-    <div *ngIf="isEditable" tn-edit-group>
-      <img class="tn-clickable tn-icon" src="assets/icons/editing/edit.png">
-      <img class="tn-clickable tn-icon" src="/assets/icons/editing/trash.png" (click)="deleteThread()">
-    </div>
-  </div>
+  <tn-interaction-group [thread]="thread"></tn-interaction-group>
 </div>
+
+<tn-edit-thread *ngIf="isEditing" [thread]="thread" id="thread"></tn-edit-thread>

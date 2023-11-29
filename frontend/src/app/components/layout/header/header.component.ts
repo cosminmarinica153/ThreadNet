@@ -39,6 +39,12 @@ export class HeaderComponent{
         });
     }
 
+    loadMyFavourites(){
+        this.router.navigateByUrl('/', { skipLocationChange: true }).then(() => {
+            this.router.navigate(['/category', "My Favourites"])
+        });
+    }
+
     // Dropdown Toggle management
     public toggleDropdown(){
         this.isDropdownOpen = !this.isDropdownOpen;

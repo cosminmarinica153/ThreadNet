@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { IThread } from 'src/app/interfaces/IThread';
 import { AuthentificationService } from 'src/app/services/authentification.service';
+import { InteractionsService } from 'src/app/services/interactions.service';
 import { ThreadsService } from 'src/app/services/threads.service';
 import { UserService } from 'src/app/services/user.service';
 
@@ -19,12 +20,14 @@ export class ThreadDetailsComponent implements OnInit {
   isDisliked: boolean;
 
   addComment: boolean;
+  isEditing: boolean;
 
   constructor(private router: Router, private route: ActivatedRoute, private authService: AuthentificationService,
-              private threadService: ThreadsService, private userService: UserService) {
+              private threadService: ThreadsService, private userService: UserService, private interaction: InteractionsService) {
                 this.isLiked = false;
                 this.isDisliked = false;
                 this.addComment = false;
+                this.isEditing = false;
               }
 
   ngOnInit() {
@@ -32,6 +35,9 @@ export class ThreadDetailsComponent implements OnInit {
       this.thread_id = +params['id'];
       this.thread = this.threadService.getThreadById(this.thread_id);
       this.username = this.userService.getUsernameById(this.thread.user_id);
+      this.interaction.getThreadEdit().subscribe(value => {
+        this.isEditing = value;
+      });
     });
   }
 

@@ -69,9 +69,12 @@ export class CreateThreadComponent implements OnInit {
       id: this.thread_id,
       user_id: this.user_id,
       category_id: this.category_id,
-      thread_date: "22-22-2002",
+      thread_date: new Date(),
+      is_edited: false,
       title: this.threadTitle.value,
-      content: this.content.value
+      content: this.content.value,
+      up_votes: 0,
+      down_votes: 0
     }
   }
 

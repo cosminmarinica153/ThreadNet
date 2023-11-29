@@ -6,6 +6,9 @@ import { BrowserModule } from '@angular/platform-browser';
 import { Router, Routes, RouterModule} from '@angular/router';
 import { ReactiveFormsModule } from '@angular/forms';
 import { FormsModule } from '@angular/forms';
+import { MatTooltipModule } from '@angular/material/tooltip';
+import { MatDialogModule } from '@angular/material/dialog';
+import { MatButtonModule } from '@angular/material/button';
 
 // MODULES
 import { AppRoutingModule } from './app-routing.module';
@@ -44,10 +47,7 @@ import { DiscussionParticipantsComponent } from './components/user/discussion-pa
 import { LoginComponent } from './components/forms/login/login.component';
 import { RegisterComponent } from './components/forms/register/register.component';
 import { SearchComponent } from './components/forms/search/search.component';
-
-import { ReactDislikeComponent } from './components/forms/react-dislike/react-dislike.component';
-import { ReactLikeComponent } from './components/forms/react-like/react-like.component';
-import { ReactFavouriteComponent } from './components/forms/react-favourite/react-favourite.component';
+import { InteractionGroupComponent } from './components/forms/interaction-group/interaction-group.component';
 
 import { CreateThreadComponent } from './components/forms/create-thread/create-thread.component';
 import { CreateCommentComponent } from './components/forms/create-comment/create-comment.component';
@@ -148,9 +148,7 @@ const appRoutes: Routes = [
     EditReplyComponent,
     // Interaction Components
     SearchComponent,
-    ReactDislikeComponent,
-    ReactLikeComponent,
-    ReactFavouriteComponent
+    InteractionGroupComponent
   ],
   imports: [
     BrowserModule,
@@ -159,7 +157,10 @@ const appRoutes: Routes = [
     HttpClientModule,
     ReactiveFormsModule,
     FormsModule,
-    RouterModule.forRoot(appRoutes)
+    RouterModule.forRoot(appRoutes),
+    MatTooltipModule,
+    MatButtonModule,
+    MatDialogModule
   ],
   providers: [
     // Services

@@ -5,6 +5,7 @@ import { CategoryService } from './category.service';
 import { AuthentificationService } from './authentification.service';
 import { Router } from '@angular/router';
 import { CommentsService } from './comments.service';
+import { InteractionsService } from './interactions.service';
 
 @Injectable({
   providedIn: 'root'
@@ -12,7 +13,7 @@ import { CommentsService } from './comments.service';
 export class ThreadsService {
 
   constructor(private router: Router, private http : HttpClient, private authService: AuthentificationService,
-              private categoryService: CategoryService, private commentsService: CommentsService) { }
+              private categoryService: CategoryService, private commentsService: CommentsService, private interaction: InteractionsService) { }
 
   addThread(thread: IThread){
     let threads = [];
@@ -82,9 +83,54 @@ export class ThreadsService {
 
     this.commentsService.deleteThreadComments(thread_id);
 
+    this.interaction.removeThreadInteractions(thread_id);
+
     this.router.navigateByUrl('/', { skipLocationChange: true }).then(() => {
         this.router.navigate(['/category', "My Threads"]);
     });
+  }
+
+  editThread(newThread: IThread){
+    const threads = this.getUserThreads(this.authService.getUserId());
+    const index = threads.findIndex(thread => thread.id === newThread.id);
+
+    threads[index] = newThread;
+
+    localStorage.setItem('Threads', JSON.stringify(threads));
+  }
+
+  likeThread(thread_id: number, add: boolean){
+    const threads = this.getAllThreads();
+    const thread = threads.find(thread => thread.id === thread_id);
+
+    if(add)
+      thread.up_votes++;
+    else
+      thread.up_votes--;
+
+    const index = threads.findIndex((thread: IThread) => thread.user_id === thread_id);
+
+    delete threads[index];
+    threads[index] = thread;
+
+    localStorage.setItem('Threads', JSON.stringify(threads));
+  }
+
+  dislikeThread(thread_id: number, add: boolean){
+    const threads = this.getAllThreads();
+    const thread = threads.find(thread => thread.id === thread_id);
+
+    if(add)
+      thread.down_votes++;
+    else
+      thread.down_votes--;
+
+    const index = threads.findIndex((thread: IThread) => thread.user_id === thread_id);
+
+    delete threads[index];
+    threads[index] = thread;
+
+    localStorage.setItem('Threads', JSON.stringify(threads));
   }
 
 }

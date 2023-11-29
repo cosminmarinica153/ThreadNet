@@ -63,7 +63,6 @@ export class CreateCategoryComponent implements OnInit {
     return this.category = {
       id: this.category_id,
       name: this.name.value,
-      type: []
     }
   }
 

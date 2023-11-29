@@ -5,6 +5,7 @@ import { IComment } from '../interfaces/IComment';
 import { UserService } from './user.service';
 import { IComment_Reply } from '../interfaces/IComment_Reply';
 import { Router } from '@angular/router';
+import { InteractionsService } from './interactions.service';
 
 @Injectable({
   providedIn: 'root'
@@ -12,7 +13,7 @@ import { Router } from '@angular/router';
 export class CommentsService {
 
   constructor(private router: Router, private http: HttpClient,
-              private userService: UserService) { }
+              private userService: UserService, private interaction: InteractionsService) { }
 
   // Comment Methods
   // Create new Comment
@@ -57,6 +58,7 @@ export class CommentsService {
   deleteThreadComments(thread_id: number){
     this.getAllCommentsForThread(thread_id).forEach(comment => {
       this.deleteComment(comment.id);
+      this.interaction.removeCommentInteractions(comment.id);
     });
   }
 
@@ -86,6 +88,48 @@ export class CommentsService {
     this.deleteCommentReplies(comment_id);
   }
 
+  editComment(newComment: IComment){
+    const comments = this.getAllComments();
+    const index = comments.findIndex(comment => comment.id === newComment.id);
+
+    comments[index] = newComment;
+
+    localStorage.setItem('Comments', JSON.stringify(comments));
+  }
+
+  likeComment(comment_id: number, add: boolean){
+    const comments = this.getAllComments();
+    const comment = comments.find(comment => comment.id === comment_id);
+
+    if(add)
+      comment.up_votes++;
+    else
+      comment.up_votes--;
+
+    const index = comments.findIndex((comment: IComment) => comment.user_id === comment_id);
+
+    delete comments[index];
+    comments[index] = comment;
+
+    localStorage.setItem('Comments', JSON.stringify(comments));
+  }
+
+  dislikeComment(comment_id: number, add: boolean){
+    const comments = this.getAllComments();
+    const comment = comments.find(comment => comment.id === comment_id);
+
+    if(add)
+      comment.down_votes++;
+    else
+      comment.down_votes--;
+
+    const index = comments.findIndex((comment: IComment) => comment.user_id === comment_id);
+
+    delete comments[index];
+    comments[index] = comment;
+
+    localStorage.setItem('Comments', JSON.stringify(comments));
+  }
   
   // Reply Methods
   // Create new Reply
@@ -131,6 +175,7 @@ export class CommentsService {
   deleteCommentReplies(comment_id: number){
     this.getAllRepliesForComment(comment_id).forEach(reply => {
       this.deleteReply(reply.id);
+      this.interaction.removeReplyInteractions(reply.id);
     })
   }
 
@@ -152,6 +197,49 @@ export class CommentsService {
     const index = replies.findIndex(reply => reply.id === reply_id);
 
     replies.splice(index, 1);
+
+    localStorage.setItem('Comment_Replies', JSON.stringify(replies));
+  }
+
+  editReply(newReply: IComment_Reply){
+    const replies = this.getAllReplies();
+    const index = replies.findIndex(reply => reply.id === newReply.id);
+
+    replies[index] = newReply;
+
+    localStorage.setItem('Comment_Replies', JSON.stringify(replies));
+  }
+
+  likeReply(reply_id: number, add: boolean){
+    const replies = this.getAllReplies();
+    const reply = replies.find(reply => reply.id === reply_id);
+
+    if(add)
+      reply.up_votes++;
+    else
+      reply.up_votes--;
+
+    const index = replies.findIndex((reply: IComment_Reply) => reply.user_id === reply_id);
+
+    delete replies[index];
+    replies[index] = reply;
+
+    localStorage.setItem('Comment_Replies', JSON.stringify(replies));
+  }
+
+  dislikeReply(reply_id: number, add: boolean){
+    const replies = this.getAllReplies();
+    const reply = replies.find(reply => reply.id === reply_id);
+
+    if(add)
+      reply.down_votes++;
+    else
+      reply.down_votes--;
+
+    const index = replies.findIndex((reply: IComment_Reply) => reply.user_id === reply_id);
+
+    delete replies[index];
+    replies[index] = reply;
 
     localStorage.setItem('Comment_Replies', JSON.stringify(replies));
   }

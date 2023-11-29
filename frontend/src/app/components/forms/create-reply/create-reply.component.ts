@@ -63,7 +63,7 @@ export class CreateReplyComponent implements OnInit {
       id: this.reply_id,
       user_id: this.user_id,
       comment_id: this.comment_id,
-      comment_date: "01-01-2001",
+      comment_date: new Date(),
       is_edited: false,
       up_votes: 0,
       down_votes: 0,

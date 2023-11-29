@@ -1,0 +1,7 @@
+#thread {
+  min-width: 250px;
+}
+
+.tn-thread-engagement {
+  justify-content: flex-end;
+}

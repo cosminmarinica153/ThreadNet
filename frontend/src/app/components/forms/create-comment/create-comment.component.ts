@@ -61,7 +61,7 @@ export class CreateCommentComponent implements OnInit {
       id: this.comment_id,
       user_id: this.user_id,
       thread_id: this.thread_id,
-      comment_date: "01-01-2001",
+      comment_date: new Date(),
       is_edited: false,
       up_votes: 0,
       down_votes: 0,
