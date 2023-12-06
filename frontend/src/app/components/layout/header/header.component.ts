@@ -1,33 +1,28 @@
-import { Component, HostListener, ElementRef, Input } from "@angular/core";
-import { trigger, state, style, animate, transition } from '@angular/animations';
+import { Component } from "@angular/core";
 import { AuthentificationService } from "src/app/services/authentification.service";
 import { Router } from "@angular/router";
+import { UserService } from "src/app/services/user.service";
 
 @Component({
     selector: 'tn-header',
     templateUrl: 'header.component.html',
     styleUrls: ['header.component.css'],
-    animations: [
-    trigger('fadeInOut', [
-        state('void', style({ opacity: 0 })),
-        transition(':enter', animate('300ms ease-in')),
-        transition(':leave', animate('300ms ease-out')),
-        ]),
-    ],
 })
 export class HeaderComponent{
-    isDropdownOpen = false;
+    isDropdownOpen: boolean;
+    isLoggedIn: boolean;
+    username: string;
 
-    constructor(private router: Router, private elementRef: ElementRef,
-                private authService: AuthentificationService){
-    }
-
-    isLoggedIn(){
-        return this.authService.isLoggedIn();
+    constructor(private router: Router, private authService: AuthentificationService,
+                private userService: UserService){
+        this.isDropdownOpen = false;
+        this.isLoggedIn = this.authService.isLoggedIn();
+        if(this.authService.isLoggedIn()) this.username = userService.getUsernameById(this.authService.getUserId());
     }
 
     logout(){
         this.authService.logout();
+
         this.router.navigateByUrl('/logout', { skipLocationChange: true }).then(() => {
             this.router.navigate(['/']);
         });
@@ -45,14 +40,7 @@ export class HeaderComponent{
         });
     }
 
-    // Dropdown Toggle management
     public toggleDropdown(){
         this.isDropdownOpen = !this.isDropdownOpen;
-    }
-    @HostListener('document:click', ['$event'])
-    onDocumentClick(event: Event): void {
-    if (!this.elementRef.nativeElement.contains(event.target)) {
-      this.isDropdownOpen = false;
-    }
     }
 }

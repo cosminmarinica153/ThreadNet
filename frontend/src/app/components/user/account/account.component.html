@@ -1,3 +1,66 @@
-<p>
-  account works!
-</p>
+<div id="content">
+  <div class="acc-header">
+    <div class="tn-user-details">
+      <img src="assets/icons/user/user.png" class="tn-icon">
+      <div style="display: flex">
+        <p class="tn-username"> &#64;{{user.username}} </p>
+        <p class="tn-username" *ngIf="this.user.is_verified"> (user verified) </p>
+        <p class="tn-username" *ngIf="!this.user.is_verified"> (not verified) </p>
+        <p class="tn-username tn-clickable" *ngIf="!isUserProfile() && !isUserFriend()" (click)="addFriend()"> 
+          add friend
+        </p>
+        <p class="tn-username tn-clickable" *ngIf="!isUserProfile() && isUserFriend()" (click)="removeFriend()"> 
+          remove friend 
+        </p>
+      </div>
+    </div>
+    <div style="display: flex">
+      <p class="tn-date"> Registered: {{user.register_date | date:'dd/MM HH:mm'}} </p>
+      <img *ngIf="isUserProfile()" src="/assets/icons/editing/settings.png" class="tn-icon tn-clickable"
+          style="margin-right: 10px;" matTooltip="User Setting">
+    </div>
+  </div>
+  <div class="acc-section">
+    <h5 class="acc-section-title"> {{user.username}} Impressions </h5>
+    <div class="user-impressions">
+      <p class="acc-interaction"> Threads up voted: {{impressionsCount['liked_threads']}} </p>
+      <p class="acc-interaction"> Threads down voted: {{impressionsCount['disliked_threads']}} </p>
+      <p class="acc-interaction"> Replies up voted: {{impressionsCount['liked_replies']}} </p>
+      <p class="acc-interaction"> Replies down voted: {{impressionsCount['disliked_replies']}} </p>
+
+    </div>
+  </div>
+  <div class="acc-section">
+    <h5 class="acc-section-title"> {{user.username}} Interactions</h5>
+    <div class="user-interactions">
+      <p class="acc-interaction"> Threads up voted: {{interactionsCount['liked_threads']}} </p>
+      <p class="acc-interaction"> Threads down voted: {{interactionsCount['disliked_threads']}} </p>
+      <p class="acc-interaction"> Threads created: {{createdThreads}} </p>
+      <p class="acc-interaction"> Replies up voted: {{interactionsCount['liked_replies']}} </p>
+      <p class="acc-interaction"> Replies down voted: {{interactionsCount['disliked_replies']}} </p>
+      <p class="acc-interaction"> Replies created: {{createdReplies}} </p>
+
+    </div>
+  </div>
+  <div class="acc-section">
+    <h5 class="acc-section-title"> {{user.username}} Threads</h5>
+    <div class="user-created-list">
+      <p *ngIf="threads.length === 0"> {{user.username}} has no threads </p>
+      <div *ngFor="let thread of threads" class="tn-thread-list">
+        <tn-thread-card [thread]="thread" class="tn-thread"></tn-thread-card>
+      </div>
+    </div>
+  </div>
+  <div class="acc-section">
+    <h5 class="acc-section-title"> {{user.username}} Replies</h5>
+    <div class="user-created-list">
+      <p *ngIf="comments.length === 0 && replies.length === 0"> {{user.username}} has no replies </p>
+      <div *ngFor="let comment of comments" class="tn-thread-list">
+        <tn-comment [comment]="comment"></tn-comment>
+      </div>
+      <div *ngFor="let reply of replies" class="tn-thread-list">
+        <tn-comment-reply [reply]="reply"></tn-comment-reply>
+      </div>
+    </div>
+  </div>
+</div>

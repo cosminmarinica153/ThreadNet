@@ -1,0 +1,23 @@
+#content {
+  margin: 50px;
+  margin-left: 0;
+  padding: 10px;
+  padding-left: 50px;
+
+  border-left: 2px solid var(--primary-color);
+}
+
+.tn-thread-header {
+  padding-left: 10px;
+  margin: 0;
+}
+
+.tn-thread-body {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+}
+
+#user {
+  padding-bottom: 5px;
+  width: max-content;
+}

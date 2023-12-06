@@ -13,7 +13,8 @@ import { InteractionsService } from './interactions.service';
 export class ThreadsService {
 
   constructor(private router: Router, private http : HttpClient, private authService: AuthentificationService,
-              private categoryService: CategoryService, private commentsService: CommentsService, private interaction: InteractionsService) { }
+              private categoryService: CategoryService, private commentsService: CommentsService,
+              private interaction: InteractionsService) { }
 
   addThread(thread: IThread){
     let threads = [];

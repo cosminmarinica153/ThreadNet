@@ -1,33 +1,33 @@
 <header class="fixed-top">
-    <div id="logo">
-        <a routerLink="/"><img src="assets/logo/logo-no-background.png" class="tn-clickable"></a>
+    <div class="header-logo-container">
+        <a routerLink="/"><img src="assets/logo/logo-no-background.png" class="tn-clickable logo"></a>
     </div>
-    <div id="nav">
-        <a *ngIf="isLoggedIn()" (click)="loadMyThreads()">My Threads</a>
-        <a *ngIf="isLoggedIn()" (click)="loadMyFavourites()">My Favourites</a>
+    <div class="header-nav-container">
+        <a class="header-nav-link" *ngIf="isLoggedIn" (click)="loadMyThreads()">My Threads</a>
+        <a class="header-nav-link" *ngIf="isLoggedIn" (click)="loadMyFavourites()">My Favourites</a>
     </div>
-    <div id="profile">
-        <div id="dropdown">
-            <button id="dropdown-btn" (click)="toggleDropdown()"></button>
-            <div [@fadeInOut] *ngIf="isDropdownOpen" id="dropdown-menu">
-                <div *ngIf="isLoggedIn()">  </div>
-                <ul *ngIf="!isLoggedIn()">
-                    <a routerLink="/about" (click)="toggleDropdown()">about</a>
-                    <a routerLink="/contact" (click)="toggleDropdown()">contact</a>
-                    <div class="separator"></div>
-                    <a routerLink="/login" (click)="toggleDropdown()">login</a>
-                    <a routerLink="/register" (click)="toggleDropdown()">register</a>
-                </ul>
-                <ul *ngIf="isLoggedIn()">
-                    <a routerLink="/about" (click)="toggleDropdown()">about</a>
-                    <a routerLink="/contact" (click)="toggleDropdown()">contact</a>
-                    <div class="separator"></div>
-                    <a routerLink="#" (click)="toggleDropdown()">profile</a>
-                    <a routerLink="#" (click)="toggleDropdown()">friends</a>
-                    <a routerLink="/" (click)="[toggleDropdown(), logout()]">logout</a>
-                </ul>
-            </div>
+    <div class="header-profile-container">
+        <p *ngIf="isDropdownOpen && isLoggedIn" class="header-username"> Welcome, {{username}} </p>
+        <div class="btn-group">
+            <img src="/assets/icons/user/user.png" class="tn-clickable header-dropdown-toggle"
+                data-bs-toggle="dropdown" aria-expanded="false" (click)="isLoggedIn" (click)="toggleDropdown()">
+            <ul *ngIf="!isLoggedIn" class="dropdown-menu dropdown-menu-end header-dropdown">
+                <li class="header-spacer"></li>
+                <li><a class="dropdown-item header-menu-item" routerLink="/about"> About </a></li>
+                <li><a class="dropdown-item header-menu-item" routerLink="/contact"> Contact </a></li>
+                <li class="header-spacer"></li>
+                <li><a class="dropdown-item header-menu-item" routerLink="/login"> Login </a></li>
+                <li><a class="dropdown-item header-menu-item" routerLink="/register"> Register </a></li>
+            </ul>
+            <ul *ngIf="isLoggedIn" class="dropdown-menu dropdown-menu-end header-dropdown">
+                <li class="header-spacer"></li>
+                <li><a class="dropdown-item header-menu-item" routerLink="/about"> About </a></li>
+                <li><a class="dropdown-item header-menu-item" routerLink="/contact"> Contact </a></li>
+                <li class="header-spacer"></li>
+                <li><a class="dropdown-item header-menu-item" [routerLink]="['/profile', username]"> Profile </a></li>
+                <li><a class="dropdown-item header-menu-item" routerLink="/friends"> Friends </a></li>
+                <li><a class="dropdown-item header-menu-item" (click)="logout()"> Logout </a></li>
+            </ul>
         </div>
     </div>
 </header>
-<div id="space"></div>

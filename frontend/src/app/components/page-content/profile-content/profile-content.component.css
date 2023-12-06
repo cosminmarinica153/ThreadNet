@@ -1,0 +1,13 @@
+#content {
+  padding: 100px 50px;
+
+  display: flex;
+}
+
+tn-account {
+  flex: 3;
+}
+
+tn-friend-list {
+  flex: 1;
+}

@@ -32,7 +32,8 @@ export class UserService {
       liked_replies: array,
       disliked_replies: array,
       favourite_threads: array,
-      favourite_categories: array
+      favourite_categories: array,
+      friends: array,
     }
     let interactions = [];
     if(localStorage.getItem('Interactions')){
@@ -77,6 +78,12 @@ export class UserService {
     if(!localStorage.getItem('Users')) return null;
 
     return this.getAllUsers().find(user => user.id === user_id);
+  }
+
+  getUserByUsername(username: string): IUser{
+    if(!localStorage.getItem('Users')) return null;
+
+    return this.getAllUsers().find(user => user.username === username);
   }
 
   getUsernameById(user_id: number): string{

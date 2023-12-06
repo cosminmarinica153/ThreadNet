@@ -133,6 +133,68 @@ label {
 }
 
 /* CLASSES */
+
+.header-logo-container {
+  flex: 1;
+  display: flex;
+  justify-content: left;
+
+  padding-left: 20px;
+}
+.header-nav-container {
+  flex: 1;
+  display: flex;
+  justify-content: center;
+}
+.header-profile-container {
+  flex: 1;
+  display: flex;
+  justify-content: right;
+  align-items: center;
+
+  padding-right: 50px;
+}
+.logo {
+  height: 30px;
+}
+.header-nav-link {
+  padding-left: 10px;
+  padding-right: 10px;
+
+  color: white;
+  text-decoration: none;
+}
+.header-nav-link:hover {
+  color: var(--accent-color);
+}
+.header-dropdown-toggle {
+  height: 50px;
+}
+.header-dropdown {
+  z-index: -1;
+  top: -60px !important;
+  right: -10px !important;
+
+  padding-top: 65px;
+
+  width: 100px !important;
+
+  text-align: right;
+}
+.header-menu-item:hover {
+  background-color: var(--secondary-color);
+}
+.header-username {
+  margin-right: 10px;
+
+  width: 80px;
+
+  color: black;
+}
+.header-spacer {
+  border: 1px solid black;
+}
+
 /* Thread Styles */
 .tn-thread-header {
   display: flex;
@@ -196,6 +258,8 @@ label {
 }
 .tn-username {
   padding-left: 10px;
+  text-decoration: none;
+  color: var(--text-color-light);
 }
 .tn-date {
   display: flex;

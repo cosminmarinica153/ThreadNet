@@ -1,6 +1,8 @@
 <div id="content">
   <h6 class="tn-thread-header"> Threaders particpated in discussion </h6>
   <div class="tn-thread-body">
-    <p id="user" class="tn-clickable" *ngFor="let participant of participantList"> &#64;{{participant}} </p>
+    <p id="user" class="tn-clickable" *ngFor="let participant of participantList" [routerLink]="['/profile', participant]">
+      &#64;{{participant}} 
+    </p>
   </div>
 </div>

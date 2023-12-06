@@ -5,7 +5,7 @@
         <img src="assets/icons/user/user.png">
         <p class="tn-username tn-clickable"> &#64;{{username}} </p>
       </div>
-      <p class="tn-date"> {{reply.comment_date | date:'dd:MM HH:mm'}} </p>
+      <p class="tn-date"> {{reply.comment_date | date:'dd/MM HH:mm'}} </p>
     </div>
     <p class="tn-thread-body"> {{reply.content}} </p>
     <tn-interaction-group [reply]="reply"></tn-interaction-group>

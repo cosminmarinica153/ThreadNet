@@ -13,6 +13,7 @@ import { UserService } from 'src/app/services/user.service';
 export class CommentComponent implements OnInit {
 @Input() comment: IComment;
   username: string;
+  url: string;
 
   addReply: boolean;
   isEditing: boolean;
@@ -28,6 +29,7 @@ export class CommentComponent implements OnInit {
     this.interaction.getCommentEdit().subscribe(value =>{
       this.isEditing = value;
     });
+    this.url = this.router.url;
   }
 
   toggleCreateReply(){

@@ -24,6 +24,7 @@ import { CategoryContentComponent } from './components/page-content/category-con
 import { AboutContentComponent } from './components/page-content/about-content/about-content.component';
 import { ContactContentComponent } from './components/page-content/contact-content/contact-content.component';
 import { ThreadListContentComponent } from './components/page-content/thread-details-content/thread-details-content.component';
+import { ProfileContentComponent } from './components/page-content/profile-content/profile-content.component';
 
 import { CategoryMenuComponent } from './components/category/category-menu/category-menu.component';
 import { CategoryListComponent } from './components/category/category-list/category-list.component';
@@ -46,6 +47,7 @@ import { DiscussionParticipantsComponent } from './components/user/discussion-pa
 // FORM COMPONENTS
 import { LoginComponent } from './components/forms/login/login.component';
 import { RegisterComponent } from './components/forms/register/register.component';
+import { LogoutComponent } from './components/forms/logout/logout.component';
 import { SearchComponent } from './components/forms/search/search.component';
 import { InteractionGroupComponent } from './components/forms/interaction-group/interaction-group.component';
 
@@ -81,6 +83,14 @@ const appRoutes: Routes = [
     component: ContactContentComponent
   },
   {
+    path: 'profile/:username',
+    component: ProfileContentComponent
+  },
+  {
+    path: 'friends',
+    component: ProfileContentComponent
+  },
+  {
     path: 'login',
     component: LoginComponent
   },
@@ -90,7 +100,7 @@ const appRoutes: Routes = [
   },
   {
     path: 'logout',
-    component: HomeContentComponent
+    component: LogoutComponent
   },
   {
     path: 'my_threads',
@@ -118,6 +128,7 @@ const appRoutes: Routes = [
     AboutContentComponent,
     ContactContentComponent,
     ThreadListContentComponent,
+    ProfileContentComponent,
     // Category Components
     CategoryMenuComponent,
     CategoryListComponent,
@@ -138,6 +149,7 @@ const appRoutes: Routes = [
     ChatComponent,
     LoginComponent,
     RegisterComponent,
+    LogoutComponent,
     DiscussionParticipantsComponent,
     CreateThreadComponent,
     CreateCommentComponent,

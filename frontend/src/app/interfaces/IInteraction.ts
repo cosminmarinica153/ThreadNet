@@ -8,4 +8,5 @@ export interface IInteraction {
     disliked_replies: number[],
     favourite_threads: number[],
     favourite_categories: number[],
+    friends: number[]
 }

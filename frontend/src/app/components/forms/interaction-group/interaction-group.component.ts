@@ -87,9 +87,11 @@ export class InteractionGroupComponent implements OnInit {
 
   }
 
-  isLoggedIn(){
-    if(!this.authService.isLoggedIn())
-      this.router.navigate(['/login']);
+  isLoggedIn(): boolean{
+    if(this.authService.isLoggedIn()) return true;
+
+    this.router.navigate(['/login']);
+    return false;
   }
 
   edit(){
@@ -111,6 +113,7 @@ export class InteractionGroupComponent implements OnInit {
   }
 
   upVote(){
+    if(!this.isLoggedIn()) return;
     if(this.thread){
       if(this.isLiked){
         this.threadService.likeThread(this.thread.id, false);
@@ -163,6 +166,7 @@ export class InteractionGroupComponent implements OnInit {
   }
 
   downVote(){
+    if(!this.isLoggedIn()) return;
     if(this.thread){
       if(this.isDisliked){
         this.threadService.dislikeThread(this.thread.id, false);
@@ -215,6 +219,8 @@ export class InteractionGroupComponent implements OnInit {
   }
 
   addToFavourites(){
+    if(!this.isLoggedIn()) return;
+
     this.interaction.favouriteThread(this.thread.id);
     this.isFavouriteThread = this.interaction.isFavouriteThread(this.thread.id);
 

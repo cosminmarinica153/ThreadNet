@@ -33,12 +33,29 @@ export class CommentsService {
     return JSON.parse(localStorage.getItem('Comments'));
   }
 
+  getCommentById(comment_id: number): IComment{
+    if(!localStorage.getItem('Comments')) return null;
+
+    return this.getAllComments().find(comment => comment.id === comment_id);
+  }
+
   getAllCommentsForThread(thread_id: number): IComment[]{
     if(!localStorage.getItem('Comments')) return [];
 
     const commentsArray: Array<IComment> = [];
     this.getAllComments().forEach((comment: IComment) => {
       if(comment.thread_id === thread_id)
+        commentsArray.push(comment);
+    });
+    return commentsArray;
+  }
+
+  getUserComments(user_id: number): IComment[]{
+    if(!localStorage.getItem('Comments')) return [];
+
+    const commentsArray: Array<IComment> = [];
+    this.getAllComments().forEach((comment: IComment) => {
+      if(comment.user_id === user_id)
         commentsArray.push(comment);
     });
     return commentsArray;
@@ -150,12 +167,29 @@ export class CommentsService {
     return JSON.parse(localStorage.getItem('Comment_Replies'));
   }
 
+  getReplyById(reply_id: number): IComment_Reply{
+    if(!localStorage.getItem('Comment_Replies')) return null;
+
+    return this.getAllReplies().find(reply => reply.id === reply_id);
+  }
+
   getAllRepliesForComment(comment_id: number): IComment_Reply[]{
     if(!localStorage.getItem('Comment_Replies')) return [];
 
     const repliesArray: Array<IComment_Reply> = [];
     this.getAllReplies().forEach((reply: IComment_Reply) => {
       if(reply.comment_id === comment_id)
+        repliesArray.push(reply);
+    });
+    return repliesArray;
+  }
+
+  getUserReplies(user_id: number): IComment_Reply[]{
+    if(!localStorage.getItem('Comment_Replies')) return [];
+
+    const repliesArray: Array<IComment_Reply> = [];
+    this.getAllReplies().forEach((reply: IComment_Reply) => {
+      if(reply.user_id === user_id)
         repliesArray.push(reply);
     });
     return repliesArray;

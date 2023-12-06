@@ -25,15 +25,17 @@ constructor(private userService: UserService) { }
   }
 
   logout(){
-    localStorage.removeItem('token');
+    if(localStorage.getItem('token'))
+      localStorage.removeItem('token');
   }
 
   isLoggedIn(): boolean{
-    return Boolean(localStorage.getItem('token'));
+    if(localStorage.getItem('token')) return true;
+    else return false;
   }
 
   getUserId(): number{
-    if(!localStorage.getItem('Users')) return null;
+    if(!localStorage.getItem('token')) return null;
     const users = this.userService.getAllUsers();
     const userId: number = users.find(user => user.auth_token === localStorage.getItem('token')).id;
     return userId;

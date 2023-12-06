@@ -2,9 +2,9 @@
   <div class="tn-thread-header">
     <div class="tn-user-details">
       <img src="assets/icons/user/user.png">
-      <p class="tn-username tn-clickable"> &#64;{{username}}</p>
+      <a [routerLink]="['/profile', username]" class="tn-username tn-clickable"> &#64;{{username}}</a>
     </div>
-    <p class="tn-date"> {{thread.thread_date | date:'dd-MM HH:mm'}} </p>
+    <p class="tn-date"> {{thread.thread_date | date:'dd/MM HH:mm'}} </p>
   </div>
   <div class="tn-thread-body tn-clickable" (click)="loadThread(thread.id)">
     <h3 class="overflow-1 tn-clickable">{{thread.title}}</h3>

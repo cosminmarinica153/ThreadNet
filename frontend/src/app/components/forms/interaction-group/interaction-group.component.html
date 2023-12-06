@@ -1,25 +1,27 @@
 <div [style.justify-content]="display" class="tn-thread-engagement">
   <div class="engagement-container">
-    <img *ngIf="thread && url != '/category/My%20Threads'" class="tn-clickable tn-icon" src="/assets/icons/interactions/share.png" (click)="isLoggedIn()"
-      matTooltip="Share Thread">
-    <img *ngIf="url!='/' && url!='/category/My%20Favourites'" class="tn-clickable tn-icon"
-          src="assets/icons/editing/edit.png" (click)="edit()"  [matTooltip]="editComponent">
-    <img *ngIf="url!='/' && url!='/category/My%20Favourites'" class="tn-clickable tn-icon"
-          src="/assets/icons/editing/trash.png" (click)="delete()" [matTooltip]="deleteComponent">
+    <img *ngIf="thread && url != '/category/My%20Threads'" class="tn-clickable tn-icon"
+        src="/assets/icons/interactions/share.png" (click)="isLoggedIn()" matTooltip="Share Thread">
+    <img *ngIf="url!='/' && url!='/category/My%20Favourites' && !url.includes('/profile') && isEditable"
+          class="tn-clickable tn-icon" src="assets/icons/editing/edit.png"
+          (click)="edit()"  [matTooltip]="editComponent">
+    <img *ngIf="url!='/' && url!='/category/My%20Favourites' && !url.includes('/profile') && isEditable"
+          class="tn-clickable tn-icon" src="/assets/icons/editing/trash.png" 
+          (click)="delete()" [matTooltip]="deleteComponent">
   </div>
   
   <div *ngIf="url != '/category/My%20Threads'" class="engagement-container">
-    <img *ngIf="!isLiked" src="/assets/icons/interactions/up-vote-empty.png" alt="" class="tn-reaction tn-icon"
+    <img *ngIf="!isLiked" src="/assets/icons/interactions/up-vote-empty.png" class="tn-reaction tn-icon"
       (click)="upVote()" [matTooltip]="upVotes">
-    <img *ngIf="isLiked" src="/assets/icons/interactions/up-vote-full.png" alt="" class="tn-reaction tn-icon"
+    <img *ngIf="isLiked" src="/assets/icons/interactions/up-vote-full.png" class="tn-reaction tn-icon"
       (click)="upVote()" [matTooltip]="upVotes">
-    <img *ngIf="!isDisliked" src="/assets/icons/interactions/down-vote-empty.png" alt="" class="tn-reaction tn-icon"
+    <img *ngIf="!isDisliked" src="/assets/icons/interactions/down-vote-empty.png" class="tn-reaction tn-icon"
       (click)="downVote()" [matTooltip]="downVotes">
-    <img *ngIf="isDisliked" src="/assets/icons/interactions/down-vote-full.png" alt="" class="tn-reaction tn-icon"
+    <img *ngIf="isDisliked" src="/assets/icons/interactions/down-vote-full.png" class="tn-reaction tn-icon"
       (click)="downVote()" [matTooltip]="downVotes">
     <img *ngIf="!isFavouriteThread && thread" class="tn-clickable tn-icon" src="/assets/icons/interactions/star-empty.png"
-      (click)="isLoggedIn()" (click)="addToFavourites()" matTooltip="Add to Favourites">
+      (click)="addToFavourites()" matTooltip="Add to Favourites">
     <img *ngIf="isFavouriteThread && thread" class="tn-clickable tn-icon" src="/assets/icons/interactions/star-full.png"
-      (click)="isLoggedIn()" (click)="addToFavourites()" matTooltip="Remove from Favourites">
+      (click)="addToFavourites()" matTooltip="Remove from Favourites">
   </div>
 </div>

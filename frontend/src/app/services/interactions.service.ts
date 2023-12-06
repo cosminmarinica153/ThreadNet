@@ -2,6 +2,8 @@ import { Injectable } from '@angular/core';
 import { AuthentificationService } from './authentification.service';
 import { IInteraction } from '../interfaces/IInteraction';
 import { BehaviorSubject, Observable } from 'rxjs';
+import { ThreadsService } from './threads.service';
+import { CommentsService } from './comments.service';
 
 @Injectable({
   providedIn: 'root'
@@ -13,11 +15,18 @@ export class InteractionsService {
   private commentEdit = new BehaviorSubject<boolean>(false);
   private replyEdit = new BehaviorSubject<boolean>(false);
 
-
-  constructor(private authService: AuthentificationService) {
+  constructor(private authService: AuthentificationService,
+              ) {
     this.user_id = authService.getUserId();
   }
+  getAllInteractions(): IInteraction[]{
+    if(!localStorage.getItem('Interactions')) return [];
+    const interactions = JSON.parse(localStorage.getItem('Interactions'));
 
+    return interactions;
+  }
+
+  // USER INTERACTIONS
   getUserInteractions(user_id: number): IInteraction{
     if(!localStorage.getItem('Interactions')) return null;
 
@@ -25,6 +34,52 @@ export class InteractionsService {
     const interaction = interactions.find((interaction: IInteraction) => interaction.user_id === user_id);
 
     return interaction;
+  }
+  getUserInteractionsObj(user_id: number): Object{
+    const interactions = this.getUserInteractions(user_id);
+    if(!interactions) return {
+      liked_threads: 0,
+      disliked_threads: 0,
+      liked_replies: 0,
+      disliked_replies: 0
+    };
+
+    const likedThreads = interactions.liked_threads.length;
+    const dislikedThreads = interactions.disliked_threads.length;
+    const likedReplies = interactions.liked_comments.length + interactions.liked_replies.length;
+    const dislikedReplies = interactions.disliked_comments.length + interactions.disliked_replies.length;
+
+    const interactionsObject: Object = {
+      liked_threads: likedThreads,
+      disliked_threads: dislikedThreads,
+      liked_replies: likedReplies,
+      disliked_replies: dislikedReplies
+    };
+
+    return interactionsObject;
+  }
+  addFriend(user_id: number){
+    if(!this.getUserInteractions(this.user_id)) return;
+
+    const interaction: IInteraction = this.getUserInteractions(this.user_id);
+
+    if(!interaction.friends.find(id => id === user_id)){
+      interaction.friends.push(user_id);
+      this.updateInteraction(interaction);
+    }
+  }
+  removeFriend(user_id: number){
+    if(!this.getUserInteractions(this.user_id)) return;
+
+    const interaction: IInteraction = this.getUserInteractions(this.user_id);
+
+    if(interaction.friends.find(id => id === user_id)){
+      interaction.friends.splice(interaction.friends.indexOf(user_id), 1);
+      this.updateInteraction(interaction);
+    }
+  }
+  isUserFriend(user_id: number, friend_id: number): boolean{
+    return Boolean(this.getUserInteractions(user_id).friends.find(user => user === friend_id));
   }
   // THREAD INTERACTIONS
   setThreadEdit(value: boolean) {
