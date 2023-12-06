@@ -23,7 +23,7 @@ export class FriendListComponent implements OnInit {
       this.user = this.userService.getUserByUsername(params['username']);
       const friendsIdArray = this.interaction.getUserInteractions(this.user.id).friends;
 
-      console.log(this.user);
+      console.log();
 
       friendsIdArray.forEach(id => {
         this.friends.push(this.userService.getUsernameById(id));
