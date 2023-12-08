@@ -1,9 +1,8 @@
 // EXTERNAL IMPORTS
-import { NgModule, createNgModule } from '@angular/core';
+import { NgModule } from '@angular/core';
 import { HttpClientModule} from '@angular/common/http';
-import { HttpClient } from '@angular/common/http';
 import { BrowserModule } from '@angular/platform-browser';
-import { Router, Routes, RouterModule} from '@angular/router';
+import { Routes, RouterModule} from '@angular/router';
 import { ReactiveFormsModule } from '@angular/forms';
 import { FormsModule } from '@angular/forms';
 import { MatTooltipModule } from '@angular/material/tooltip';
@@ -66,6 +65,11 @@ import { UserService } from './services/user.service';
 import { ThreadMarginService } from './services/thread-margin.service';
 import { AuthentificationService } from './services/authentification.service';
 
+// PIPES
+import { FilterPipe } from './pipes/filter.pipe';
+import { SearchPipe } from './pipes/search.pipe';
+import { SortPipe } from './pipes/sort.pipe';
+
 // DIRECTIVES
 // import { ModHighlightDirective } from './directives/mod-highlight.directive';
 
@@ -113,12 +117,24 @@ const appRoutes: Routes = [
   {
     path: 'category/:category_name',
     component: CategoryContentComponent
-  }
+  },
+  {
+    path: 'category/:category_name/search',
+    component: CategoryContentComponent,
+  },
+  {
+    path: 'category/:category_name/search/:keyword',
+    component: CategoryContentComponent,
+  },
 ];
 
 @NgModule({
   declarations: [
     AppComponent,
+    // Pipes
+    FilterPipe,
+    SearchPipe,
+    SortPipe,
     // Layout Components
     HeaderComponent,
     FooterComponent,

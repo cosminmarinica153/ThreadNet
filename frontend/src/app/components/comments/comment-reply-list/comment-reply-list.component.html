@@ -1,5 +1,5 @@
 <div id="reply_list">
-  <div *ngFor="let reply of replies" class="comment">
+  <div *ngFor="let reply of replies | sort:'date':'reply_date'" class="comment">
     <tn-comment-reply [reply]="reply"></tn-comment-reply>
   </div>
 </div>

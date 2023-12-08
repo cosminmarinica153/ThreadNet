@@ -7,10 +7,14 @@
   flex: 1;
 }
 
-.dropdown-item:hover {
+.highlight:hover {
   background-color: var(--secondary-color);
 }
 
 .tn-icon {
   margin-right: 15px;
+}
+
+.search-group {
+  display: flex;
 }

@@ -10,6 +10,7 @@ import { CommentsService } from './comments.service';
 })
 export class InteractionsService {
   user_id: number;
+  sortObj: Object;
 
   private threadEdit = new BehaviorSubject<boolean>(false);
   private commentEdit = new BehaviorSubject<boolean>(false);
@@ -18,12 +19,19 @@ export class InteractionsService {
   constructor(private authService: AuthentificationService,
               ) {
     this.user_id = authService.getUserId();
+    this.sortObj = {type: 'date', order: "desc"};
   }
   getAllInteractions(): IInteraction[]{
     if(!localStorage.getItem('Interactions')) return [];
     const interactions = JSON.parse(localStorage.getItem('Interactions'));
 
     return interactions;
+  }
+  getSort(){
+    return this.sortObj;
+  }
+  setSort(obj: Object){
+    this.sortObj = obj;
   }
 
   // USER INTERACTIONS

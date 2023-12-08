@@ -278,6 +278,23 @@ label {
   display: flex;
   justify-content: center;
 }
+.tn-search-bar input {
+  border-top-right-radius: 0;
+  border-bottom-right-radius: 0;
+}
+.tn-filter-btn {
+  border: 1px solid grey;
+  border-radius: 0;
+  border-top-right-radius: 5px !important;
+  border-bottom-right-radius: 5px !important;
+
+  background-color: var(--secondary-color);
+}
+.tn-filter-btn:hover {
+  border: 1px solid grey !important;
+
+  background-color: var(--primary-color);
+}
 .tn-header-create-group {
   flex: 1;
 

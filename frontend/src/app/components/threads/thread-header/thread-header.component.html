@@ -1,24 +1,41 @@
 <div id="thread_header">
   <div class="tn-header-title">
-    <img *ngIf="(!isFavouriteCategory && title) && title != 'My Threads' && title != 'My Favourites'"
+    <img *ngIf="(!isFavouriteCategory && title) && title != 'My Threads' && title != 'My Favourites' && title != 'Other'"
         class="tn-clickable tn-icon" src="/assets/icons/interactions/star-empty.png"
         (click)="isLoggedIn()" (click)="addToFavourites()" matTooltip="Add to Favourites">
     <img *ngIf="(isFavouriteCategory && title) && title != 'My Threads' && title != 'My Favourites'"
         class="tn-clickable tn-icon" src="/assets/icons/interactions/star-full.png"
     (click)="isLoggedIn()" (click)="addToFavourites()" matTooltip="Remove from Favourites">
-    <h3 *ngIf="title"> {{title}} </h3>
-    <h3 *ngIf="!title"> Home </h3>
+    <h3 *ngIf="title != 'Other'"> {{title}} </h3>
+    <h3 *ngIf="title === 'Other'"> Home </h3>
   </div>
-  <form class="tn-search-bar">
-    <input class="form-control" type="text" placeholder="search threads...">
-  </form>
+  <div class="search-group">
+    <form class="tn-search-bar" (submit)="onSubmit()">
+      <input class="form-control" type="text" placeholder="search threads..." [(ngModel)]="keyword" name="keyword">
+    </form>
+    <div>
+      <div class="btn-group">
+        <button type="button" class="btn tn-filter-btn" data-bs-toggle="dropdown" aria-expanded="false"
+          (click)="isLoggedIn()">
+          ^
+        </button>
+        <ul class="dropdown-menu dropdown-menu-end">
+          <li class="dropdown-item" style="border-bottom: 1px solid;"> Sort by: </li>
+          <li class="dropdown-item highlight" (click)="sortBy('engagement', 'desc')"> Most popular </li>
+          <li class="dropdown-item highlight" (click)="sortBy('engagement', 'asc')"> Least popular </li>
+          <li class="dropdown-item highlight" (click)="sortBy('date', 'desc')"> Most recent </li>
+          <li class="dropdown-item highlight" (click)="sortBy('date', 'asc')"> Oldest </li>
+        </ul>
+      </div>
+    </div>
+  </div>
   <div class="tn-header-create-group">
     <div class="btn-group">
       <button type="button" class="btn dropdown-toggle tn-create-btn" data-bs-toggle="dropdown" aria-expanded="false"
               (click)="isLoggedIn()">
         Create
       </button>
-      <ul class="dropdown-menu dropdown-menu-end">
+      <ul class="dropdown-menu dropdown-menu-end" style="text-align: right;">
         <li><a class="dropdown-item" href="#" data-bs-toggle="modal" data-bs-target="#createThread">Thread</a></li>
         <li><a class="dropdown-item" href="#" data-bs-toggle="modal" data-bs-target="#createCategory">Category</a></li>
         <li><a class="dropdown-item" href="#" data-bs-toggle="modal" data-bs-target="#createComunity">Comunity</a></li>

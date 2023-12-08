@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, FormControl, Validators } from '@angular/forms';
-import { Router } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { IThread } from 'src/app/interfaces/IThread';
 import { AuthentificationService } from 'src/app/services/authentification.service';
 import { CategoryService } from 'src/app/services/category.service';
@@ -19,6 +19,7 @@ export class CreateThreadComponent implements OnInit {
   user_id: number;
   category_id: number;
   categoryOptions: Array<string>
+  presetCategory: string;
 
   get threadTitle(){
     return this.threadForm.get('threadTitle') as FormControl;
@@ -30,8 +31,9 @@ export class CreateThreadComponent implements OnInit {
     return this.threadForm.get('category') as FormControl;
   }
 
-  constructor(private router: Router, private fb: FormBuilder, private categoryService: CategoryService,
-              private threadService: ThreadsService, private authService: AuthentificationService) {
+  constructor(private router: Router, private fb: FormBuilder, private route: ActivatedRoute,
+              private categoryService: CategoryService, private threadService: ThreadsService,
+              private authService: AuthentificationService) {
     this.submit = false
     if(localStorage.getItem('token'))
       this.user_id = authService.getUserId();
@@ -40,14 +42,18 @@ export class CreateThreadComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.createThreadForm();
+    this.route.params.subscribe(params => {
+      if(!params['category_name']) this.presetCategory = 'Other';
+      else this.presetCategory = params['category_name'];
+      this.createThreadForm();
+    })
   }
 
   createThreadForm(){
     this.threadForm = this.fb.group({
       threadTitle: [null, [Validators.required, Validators.minLength(5)]],
       content: [null, [Validators.required, Validators.minLength(5)]],
-      category: ['Other']
+      category: [this.presetCategory]
     })
   }
 

@@ -15,6 +15,8 @@ export class ThreadListComponent implements OnInit {
   threads: Array<IThread>;
   title: string;
   leftComponentWidth: number;
+@Input() promt: string;
+  sortObj: Object;
 
   constructor(private route: ActivatedRoute, private authService: AuthentificationService,
               private threadsService: ThreadsService, private interaction: InteractionsService,
@@ -37,11 +39,17 @@ export class ThreadListComponent implements OnInit {
       else
         this.threads = this.threadsService.getAllThreadsByCategory(this.title);
 
+      if(!this.promt) this.promt = '';
+      
+      this.sortObj = this.interaction.getSort();
+      if(this.sortObj['type'] === 'date') this.sortObj['propertyName'] = 'thread_date';
+      else this.sortObj['propertyName'] = 'engagement';
+
       this.marginService.isLeftComponentOpen$.subscribe(
         isOpen => {
           if(isOpen) this.leftComponentWidth = 200;
           else this.leftComponentWidth = 0;
-      })
+      });
     });
   }
 }
