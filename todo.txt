@@ -1,0 +1,4 @@
+Understand .net 
+Understand CLI components
+Revision on C#
+Start with Setting up the database SCHEMA
