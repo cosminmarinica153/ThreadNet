@@ -1,3 +1,4 @@
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
 import { AbstractControl, FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
@@ -15,13 +16,25 @@ export class LoginComponent implements OnInit {
   accountFound: boolean;
 
   constructor(private router: Router, private fb: FormBuilder,
-              private userService: UserService, private authService: AuthentificationService) 
+              private authService: AuthentificationService, private http: HttpClient)
     { this.submit = false;
       this.accountFound = true;
     }
 
   ngOnInit() {
     this.createLoginForm();
+
+    let headers = new HttpHeaders({
+    'x-rapidapi-host': 'http://threadnetbackendapi.azure-api.net/threadnet',
+    'x-rapidapi-key': 'your-api-key'
+  });
+
+  this.http.get<any>('http://threadnetbackendapi.azure-api.net/threadnet/Users/getOne1', {
+    headers: headers
+  }).subscribe(data => {
+    console.log(data);
+  });
+
   }
 
   createLoginForm(){
