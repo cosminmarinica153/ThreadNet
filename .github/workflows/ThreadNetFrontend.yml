@@ -15,7 +15,7 @@ jobs:
 
       - name: Acces frontend directory
         run: |
-          cd frontend
+          cd ./frontend
 
       - name: Install Firebase CLI
         run: |
