@@ -11,7 +11,7 @@ env:
   AZURE_APIM_SERVICENAME: ThreadNetBackendApi
   AZURE_APIM_API_ID: backend-http-requests
   AZURE_APIM_APPSERVICEURL: https://threadnetbackend.azurewebsites.net
-  SWASHBUCLE_ASPNET_CORE_CLI_PACKAGE_VERSION: 5.6.3
+  SWASHBUCLE_ASPNET_CORE_CLI_PACKAGE_VERSION: 6.2.3
   SWASHBUCKLE_DOTNET_CORE_VERSION: 3.1.x
   API_IMPORT_SPECIFICATION_PATH: .\publish\swagger.json
   API_IMPORT_DLL: .\backend\bin\Release\net8.0\backend.dll
