@@ -21,7 +21,7 @@ namespace backend.Controllers
         }
 
         // GET REQUESTS
-
+        
         [HttpGet("getAll")]
         [ProducesResponseType(200, Type = typeof(IEnumerable<UserDto>))]
         public IActionResult GetAll()
