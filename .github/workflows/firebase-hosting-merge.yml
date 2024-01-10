@@ -13,9 +13,6 @@ jobs:
       - name: Checkout code
         uses: actions/checkout@v3
 
-      - name: Change to fronted directory
-        run: cd frontend
-
       - name: Deploy to firebase
         uses: FirebaseExtended/action-hosting-deploy@v0
         with:
@@ -23,4 +20,4 @@ jobs:
           firebaseServiceAccount: "${{ secrets.FIREBASE_SERVICE_ACCOUNT_THREADNET_RO }}"
           channelId: live
           projectId: threadnet-ro
-          entryPoint: "firebase.json"
+          entryPoint: "./frontend/firebase.json"
