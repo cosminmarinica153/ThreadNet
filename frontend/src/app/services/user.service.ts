@@ -1,13 +1,21 @@
 import { Injectable } from '@angular/core';
 import { IUser } from '../interfaces/IUser';
 import { IInteraction } from '../interfaces/IInteraction';
+import { environment } from 'src/environments/environment.prod';
+import { HttpClient } from '@angular/common/http';
+import { Observable } from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
 })
 export class UserService {
+  baseUrl = environment.baseUrl;
 
-  constructor() { }
+  constructor(private http: HttpClient) { }
+
+  getAllUsersApi(): Observable<string[]> {
+    return this.http.get<string[]>(this.baseUrl + 'User/getAll');
+  }
 
   // Create new User
   addUser(user: IUser){

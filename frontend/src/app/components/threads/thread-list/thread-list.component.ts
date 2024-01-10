@@ -5,6 +5,7 @@ import { ThreadMarginService } from 'src/app/services/thread-margin.service';
 import { ActivatedRoute } from '@angular/router';
 import { AuthentificationService } from 'src/app/services/authentification.service';
 import { InteractionsService } from 'src/app/services/interactions.service';
+import { UserService } from 'src/app/services/user.service';
 
 @Component({
   selector: 'tn-thread-list',
@@ -20,15 +21,15 @@ export class ThreadListComponent implements OnInit {
 
   constructor(private route: ActivatedRoute, private authService: AuthentificationService,
               private threadsService: ThreadsService, private interaction: InteractionsService,
-              private marginService: ThreadMarginService) {
-    this.threads = []; 
+              private marginService: ThreadMarginService, private userService: UserService) {
+    this.threads = [];
     this.leftComponentWidth = 200;
   }
 
   ngOnInit() {
     this.route.params.subscribe((params) => {
       this.title = params['category_name'];
-      if(!this.title) 
+      if(!this.title)
         this.threads = this.threadsService.getAllThreads();
       else if(this.title == "My Threads")
         this.threads = this.threadsService.getUserThreads(this.authService.getUserId());
@@ -40,7 +41,7 @@ export class ThreadListComponent implements OnInit {
         this.threads = this.threadsService.getAllThreadsByCategory(this.title);
 
       if(!this.promt) this.promt = '';
-      
+
       this.sortObj = this.interaction.getSort();
       if(this.sortObj['type'] === 'date') this.sortObj['propertyName'] = 'thread_date';
       else this.sortObj['propertyName'] = 'engagement';
@@ -50,6 +51,12 @@ export class ThreadListComponent implements OnInit {
           if(isOpen) this.leftComponentWidth = 200;
           else this.leftComponentWidth = 0;
       });
+
+      this.userService.getAllUsersApi().subscribe(
+        data => {
+          console.log(data);
+        }
+      );
     });
   }
 }

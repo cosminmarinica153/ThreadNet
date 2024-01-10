@@ -18,6 +18,14 @@ builder.Services.AddScoped<ICommentReplyRepository, CommentReplyRepository>();
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
+builder.Services.AddCors(options =>
+{
+    options.AddPolicy("AllowMyOrigin",
+        builder => builder.WithOrigins("http://localhost:4200")
+                        .AllowAnyHeader()
+                        .AllowAnyMethod());
+});
+
 // Database Connection
 builder.Services.AddDbContext<DataContext>(options =>
 {
@@ -33,6 +41,8 @@ if (app.Environment.IsDevelopment())
     app.UseSwagger();
     app.UseSwaggerUI();
 }
+
+app.UseCors("AllowMyOrigin");
 
 app.UseAuthorization();
 

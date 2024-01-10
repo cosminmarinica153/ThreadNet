@@ -23,18 +23,6 @@ export class LoginComponent implements OnInit {
 
   ngOnInit() {
     this.createLoginForm();
-
-    let headers = new HttpHeaders({
-    'x-rapidapi-host': 'http://threadnetbackendapi.azure-api.net/threadnet',
-    'x-rapidapi-key': 'your-api-key'
-  });
-
-  this.http.get<any>('http://threadnetbackendapi.azure-api.net/threadnet/Users/getOne1', {
-    headers: headers
-  }).subscribe(data => {
-    console.log(data);
-  });
-
   }
 
   createLoginForm(){
