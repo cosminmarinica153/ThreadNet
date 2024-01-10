@@ -10,10 +10,12 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-      - run: cd frontend
-
       - name: Checkout code
         uses: actions/checkout@v2
+
+      - name: Acces frontend directory
+        run: |
+          cd frontend
 
       - name: Install Firebase CLI
         run: |
