@@ -13,10 +13,6 @@ jobs:
       - name: Checkout code
         uses: actions/checkout@v2
 
-      - name: Acces frontend directory
-        run: |
-          cd ./frontend
-
       - name: Install Firebase CLI
         run: |
           npm install -g firebase-tools
@@ -24,3 +20,5 @@ jobs:
       - name: Deploy to Firebase Hosting
         run: |
           firebase deploy --token "$FIREBASE_TOKEN"
+
+        working-directory: ./frontend
