@@ -19,7 +19,7 @@ jobs:
 
       - name: Login to Firebase
         run: |
-          firebase login --token "$FIREBASE_TOKEN"
+          echo "$FIREBASE_TOKEN" | firebase login:ci --no-localhost
 
       - name: Deploy to Firebase Hosting
         run: |
