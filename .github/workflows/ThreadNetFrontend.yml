@@ -18,7 +18,7 @@ jobs:
           npm install -g firebase-tools
 
       - name: Authenticate with Firebase
-      run: |
+        run: |
           firebase login:ci --no-localhost
 
       - name: Deploy to Firebase Hosting
