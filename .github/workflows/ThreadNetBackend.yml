@@ -14,11 +14,11 @@ env:
   SWASHBUCLE_ASPNET_CORE_CLI_PACKAGE_VERSION: 5.6.3
   SWASHBUCKLE_DOTNET_CORE_VERSION: 3.1.x
   API_IMPORT_SPECIFICATION_PATH: .\publish\swagger.json
-  API_IMPORT_DLL: .\bin\Release\net8.0\backend.dll
+  API_IMPORT_DLL: .\backend\bin\Release\net8.0\backend.dll
   API_IMPORT_VERSION: v1
   CONFIGURATION: Release
   DOTNET_CORE_VERSION: 8.0.x
-  WORKING_DIRECTORY: .
+  WORKING_DIRECTORY: .\backend\
 jobs:
   build:
     runs-on: windows-latest
@@ -32,6 +32,8 @@ jobs:
         uses: actions/setup-dotnet@v3
         with:
           dotnet-version: ${{ env.SWASHBUCKLE_DOTNET_CORE_VERSION }}
+      - name: Restore
+        run: dotnet restore ${{ env.WORKING_DIRECTORY }} --configuration ${{ env.CONFIGURATION }}
       - name: Build
         run: dotnet build ${{ env.WORKING_DIRECTORY }} --configuration ${{ env.CONFIGURATION }} --no-restore
       - name: Test
