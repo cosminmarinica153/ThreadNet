@@ -16,7 +16,10 @@ builder.Services.AddScoped<ICommentRepository, CommentRepository>();
 builder.Services.AddScoped<ICommentReplyRepository, CommentReplyRepository>();
 
 builder.Services.AddEndpointsApiExplorer();
-builder.Services.AddSwaggerGen();
+builder.Services.AddSwaggerGen(c =>
+{
+    c.SwaggerDoc("v1", new() { Title = "ThreadNet Backend Api", Version = "v1" });
+});
 
 builder.Services.AddCors(options =>
 {
@@ -46,6 +49,20 @@ app.UseCors("AllowMyOrigin");
 
 app.UseAuthorization();
 
-app.MapControllers();
+app.UseHttpsRedirection();
+
+app.UseRouting();
+
+app.UseSwagger();
+
+app.UseSwaggerUI(c =>
+{
+    c.SwaggerEndpoint("/swagger/v1/swagger.json", "My Api V1");
+});
+
+app.UseEndpoints(endpoints =>
+{
+    endpoints.MapControllers();
+});
 
 app.Run();
