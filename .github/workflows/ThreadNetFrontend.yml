@@ -11,6 +11,7 @@ jobs:
 
     steps:
       - name: Checkout code
+        run: cd frontend
         uses: actions/checkout@v2
 
       - name: Install Firebase CLI
