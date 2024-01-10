@@ -1,6 +1,6 @@
 {
   "version": 2,
-  "dgSpecHash": "UAin0MIzFvFFf85Vaq98LmOTJMZTd+5X2kEwb2LHXzRvdhxvx4g/Ytre3M2WWHroAlNTB/1bmyNGdhs1+mLtXg==",
+  "dgSpecHash": "kMKrHSFq8hAmgl8ZEYRF9QCc75pi+JbcUigLZQgyELjaCxSzryhvmabd+eIqJuSxbavPJEuwPtzvDOIpFaUPBQ==",
   "success": true,
   "projectFilePath": "C:\\Users\\HP\\Desktop\\Stuff\\projects\\ThreadNet\\backend\\backend.csproj",
   "expectedPackageFiles": [
@@ -8,6 +8,7 @@
     "C:\\Users\\HP\\.nuget\\packages\\automapper.extensions.microsoft.dependencyinjection\\12.0.1\\automapper.extensions.microsoft.dependencyinjection.12.0.1.nupkg.sha512",
     "C:\\Users\\HP\\.nuget\\packages\\azure.core\\1.25.0\\azure.core.1.25.0.nupkg.sha512",
     "C:\\Users\\HP\\.nuget\\packages\\azure.identity\\1.7.0\\azure.identity.1.7.0.nupkg.sha512",
+    "C:\\Users\\HP\\.nuget\\packages\\costssaver-azure.powershell\\1.2.2\\costssaver-azure.powershell.1.2.2.nupkg.sha512",
     "C:\\Users\\HP\\.nuget\\packages\\humanizer\\2.14.1\\humanizer.2.14.1.nupkg.sha512",
     "C:\\Users\\HP\\.nuget\\packages\\humanizer.core\\2.14.1\\humanizer.core.2.14.1.nupkg.sha512",
     "C:\\Users\\HP\\.nuget\\packages\\humanizer.core.af\\2.14.1\\humanizer.core.af.2.14.1.nupkg.sha512",
