@@ -8,10 +8,15 @@ name: Deploy to Firebase Hosting on merge
       - master
 jobs:
   build_and_deploy:
-    run: cd .fronted
     runs-on: ubuntu-latest
     steps:
+      - name: Checkout code
       - uses: actions/checkout@v3
+
+      - name: Change to fronted directory
+        run: cd fronted
+
+      - name: Deploy to firebase
       - uses: FirebaseExtended/action-hosting-deploy@v0
         with:
           repoToken: "${{ secrets.GITHUB_TOKEN }}"
