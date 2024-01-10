@@ -14,7 +14,7 @@ jobs:
         uses: actions/checkout@v3
 
       - name: Change to fronted directory
-        run: cd fronted
+        run: cd frontend
 
       - name: Deploy to firebase
         uses: FirebaseExtended/action-hosting-deploy@v0
