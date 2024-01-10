@@ -1,0 +1,23 @@
+name: Deploy on Push
+
+on:
+  push:
+    branches:
+      - master
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v2
+
+      - name: Install Firebase CLI
+        run: |
+          npm install -g firebase-tools
+
+      - name: Deploy to Firebase Hosting
+        run: |
+          firebase login --token "$FIREBASE_TOKEN"
+          firebase deploy --only hosting
