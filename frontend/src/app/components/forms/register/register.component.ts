@@ -1,8 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { AbstractControl, FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
+import { ICreateUserDto } from 'src/app/interfaces/Dto/ICreateUserDto';
 
-import { IUser } from 'src/app/interfaces/IUser';
 import { AuthentificationService } from 'src/app/services/authentification.service';
 import { UserService } from 'src/app/services/user.service';
 
@@ -14,14 +14,12 @@ import { UserService } from 'src/app/services/user.service';
 export class RegisterComponent implements OnInit {
   registerForm: FormGroup;
   submit: boolean;
-  user: IUser;
-  user_id: number;
+  user: ICreateUserDto;
   token: string;
 
   constructor(private router: Router, private fb: FormBuilder, private authService: AuthentificationService,
-              private userService: UserService) { 
-    this.submit = false 
-    this.user_id = userService.getLastId();
+              private userService: UserService) {
+    this.submit = false
   }
 
   get email(){
@@ -65,7 +63,7 @@ export class RegisterComponent implements OnInit {
   checkTermsValidation(fg: AbstractControl): Validators{
     return fg.get('terms').value === true ? null : { notChecked: true };
   }
-  
+
   checkUniqueUsername(username: string): Boolean{
     return this.userService.checkUniqueUsername(username);
   }
@@ -79,22 +77,21 @@ export class RegisterComponent implements OnInit {
 
     if(!this.registerForm.valid) return
 
-    this.userService.addUser(this.userData());
+    this.userService.postUser(this.userData());
     this.submit = false;
 
     this.router.navigate(['/']);
   }
 
-  userData(): IUser{
+  userData(): ICreateUserDto{
     return this.user = {
-      id: this.user_id,
       username: this.username.value,
       password: this.password.value,
       email: this.email.value,
-      is_verified: false,
-      register_date: new Date(),
-      auth_token: this.token,
-      auth_key: 0
+      isVerified: 0,
+      registerDate: new Date(),
+      authToken: this.token,
+      authKey: 0
     };
   }
 

@@ -1,7 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, FormControl, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
-import { IThread } from 'src/app/interfaces/IThread';
+import { ICreateThreadDto } from 'src/app/interfaces/Dto/ICreateThreadDto';
+import { IThread } from 'src/app/interfaces/TableInterfaces/IThread';
 import { AuthentificationService } from 'src/app/services/authentification.service';
 import { CategoryService } from 'src/app/services/category.service';
 import { ThreadsService } from 'src/app/services/threads.service';
@@ -14,10 +15,9 @@ import { ThreadsService } from 'src/app/services/threads.service';
 export class CreateThreadComponent implements OnInit {
   threadForm: FormGroup;
   submit: boolean;
-  thread: IThread;
-  thread_id: number;
-  user_id: number;
-  category_id: number;
+  thread: ICreateThreadDto;
+  userId: number;
+  categoryId: number;
   categoryOptions: Array<string>
   presetCategory: string;
 
@@ -36,9 +36,13 @@ export class CreateThreadComponent implements OnInit {
               private authService: AuthentificationService) {
     this.submit = false
     if(localStorage.getItem('token'))
-      this.user_id = authService.getUserId();
-    this.thread_id = threadService.getLastId();
-    this.categoryOptions = categoryService.getAllCategoryNames();
+      this.userId = authService.getUserId();
+
+    categoryService.getAll().subscribe(data => {
+      data.forEach(category => {
+        this.categoryOptions.push(category.name);
+      })
+    })
   }
 
   ngOnInit() {
@@ -62,25 +66,30 @@ export class CreateThreadComponent implements OnInit {
 
     if(!this.threadForm.valid) return
 
-    this.category_id = +this.categoryService.getCategoryId(this.category.value);
+    this.categoryService.getAll().subscribe(data => {
+      this.categoryId = data.find(this.category.value).id;
+    })
 
-    this.threadService.addThread(this.threadData());
+    this.threadService.postThread(this.threadData());
     this.submit = false;
 
-    this.router.navigate(['/thread', this.thread_id]);
+    let threadId: number;
+    this.threadService.getAll().subscribe(data => {
+      threadId = data.find(t => t.userId == this.userId && t.categoryId == this.categoryId
+                             && t.title == this.threadTitle.value && t.content == this.content.value).id;
+    });
+
+    this.router.navigate(['/thread', threadId]);
   }
 
-  threadData(): IThread{
+  threadData(): ICreateThreadDto{
     return this.thread = {
-      id: this.thread_id,
-      user_id: this.user_id,
-      category_id: this.category_id,
-      thread_date: new Date(),
-      is_edited: false,
+      userId: this.userId,
+      categoryId: this.categoryId,
+      uploadDate: new Date(),
+      isEdited: 0,
       title: this.threadTitle.value,
       content: this.content.value,
-      up_votes: 0,
-      down_votes: 0
     }
   }
 

@@ -1,9 +1,9 @@
 import { Component, OnInit } from '@angular/core';
-import { ICategory } from 'src/app/interfaces/ICategory';
+import { ICategory } from 'src/app/interfaces/TableInterfaces/ICategory';
+
 import { AuthentificationService } from 'src/app/services/authentification.service';
 import { CategoryService } from 'src/app/services/category.service';
-import { InteractionsService } from 'src/app/services/interactions.service';
-import { ThreadsService } from 'src/app/services/threads.service';
+import { UserService } from 'src/app/services/user.service';
 
 @Component({
   selector: 'tn-category-list',
@@ -12,8 +12,8 @@ import { ThreadsService } from 'src/app/services/threads.service';
 })
 export class CategoryListComponent implements OnInit {
   categories: Array<ICategory>;
-  popular: Array<number>;
-  favourites: Array<number>;
+  popular: Array<ICategory>;
+  favourites: Array<ICategory>;
 
   isPopularOpen: boolean;
   isFavouritesOpen: boolean;
@@ -21,7 +21,8 @@ export class CategoryListComponent implements OnInit {
 
   isLoggedIn: boolean;
 
-  constructor(private categoryService: CategoryService, private authService: AuthentificationService, private interaction: InteractionsService) {
+  constructor(private categoryService: CategoryService, private authService: AuthentificationService,
+              private userService: UserService) {
     this.categories = [];
     this.popular = [];
     this.favourites = [];
@@ -34,8 +35,13 @@ export class CategoryListComponent implements OnInit {
   ngOnInit() {
     this.isLoggedIn = this.authService.isLoggedIn();
 
-    this.categories = this.categoryService.getAllCategories();
-    this.favourites = this.interaction.getFavouriteCategories();
+    this.categoryService.getAll().subscribe(data => {
+      this.categories = data;
+    });
+    if(this.isLoggedIn)
+      this.userService.getFavouriteCategories(this.authService.getUserId()).subscribe(data => {
+        this.favourites = data;
+      });
   }
 
   // Category Toggles

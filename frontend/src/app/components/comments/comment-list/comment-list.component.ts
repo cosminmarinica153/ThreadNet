@@ -1,7 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { CommentsService } from 'src/app/services/comments.service';
-import { IComment } from '../../../interfaces/IComment';
+import { IComment } from '../../../interfaces/TableInterfaces/IComment';
 import { ActivatedRoute } from '@angular/router';
+import { ThreadsService } from 'src/app/services/threads.service';
 
 @Component({
   selector: 'tn-comment-list',
@@ -10,14 +11,15 @@ import { ActivatedRoute } from '@angular/router';
 })
 export class CommentListComponent implements OnInit {
   comments: Array<IComment>;
-  thread_id: number;
 
-  constructor(private route: ActivatedRoute, private commentsService: CommentsService) { this.comments = []; }
+  constructor(private route: ActivatedRoute, private threadService: ThreadsService) { this.comments = []; }
 
   ngOnInit() {
     this.route.params.subscribe((params) => {
-      this.thread_id = +params['id'];
-      this.comments = this.commentsService.getAllCommentsForThread(this.thread_id);
+      const threadId = +params['id'];
+      this.threadService.getComments(threadId).subscribe(data => {
+        this.comments = data;
+      })
     });
   }
 

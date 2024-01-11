@@ -41,7 +41,6 @@ import { CommentReplyComponent } from './components/comments/comment-reply/comme
 
 import { AccountComponent } from './components/user/account/account.component';
 import { ChatComponent } from './components/user/chat/chat.component';
-import { FriendListComponent } from './components/user/friend-list/friend-list.component';
 import { DiscussionParticipantsComponent } from './components/user/discussion-participants/discussion-participants.component';
 // FORM COMPONENTS
 import { LoginComponent } from './components/forms/login/login.component';
@@ -161,7 +160,6 @@ const appRoutes: Routes = [
     CommentReplyComponent,
     // User Related Components
     AccountComponent,
-    FriendListComponent,
     ChatComponent,
     LoginComponent,
     RegisterComponent,

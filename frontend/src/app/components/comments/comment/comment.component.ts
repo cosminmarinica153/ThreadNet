@@ -1,6 +1,7 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
-import { IComment } from 'src/app/interfaces/IComment';
+import { IComment } from 'src/app/interfaces/TableInterfaces/IComment';
+import { IUser } from 'src/app/interfaces/TableInterfaces/IUser';
 import { AuthentificationService } from 'src/app/services/authentification.service';
 import { InteractionsService } from 'src/app/services/interactions.service';
 import { UserService } from 'src/app/services/user.service';
@@ -12,7 +13,7 @@ import { UserService } from 'src/app/services/user.service';
 })
 export class CommentComponent implements OnInit {
 @Input() comment: IComment;
-  username: string;
+  user: IUser;
   url: string;
 
   addReply: boolean;
@@ -25,7 +26,9 @@ export class CommentComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.username = this.userService.getUsernameById(this.comment.user_id);
+    this.userService.getOne(this.comment.userId).subscribe(data => {
+      this.user = data;
+    });
     this.interaction.getCommentEdit().subscribe(value =>{
       this.isEditing = value;
     });
@@ -35,7 +38,7 @@ export class CommentComponent implements OnInit {
   toggleCreateReply(){
     if(!this.authService.isLoggedIn())
       this.router.navigate(['/login']);
-    
+
     this.addReply = !this.addReply;
   }
 

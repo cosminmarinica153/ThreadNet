@@ -1,5 +1,6 @@
 import { Component, Input, OnInit } from '@angular/core';
-import { IComment_Reply } from 'src/app/interfaces/IComment_Reply';
+import { ICommentReply } from 'src/app/interfaces/TableInterfaces/ICommentReply';
+import { IUser } from 'src/app/interfaces/TableInterfaces/IUser';
 import { InteractionsService } from 'src/app/services/interactions.service';
 import { UserService } from 'src/app/services/user.service';
 
@@ -9,8 +10,8 @@ import { UserService } from 'src/app/services/user.service';
   styleUrls: ['./comment-reply.component.css']
 })
 export class CommentReplyComponent implements OnInit {
-@Input() reply: IComment_Reply;
-  username: string;
+@Input() reply: ICommentReply;
+  user: IUser;
 
   isEditing: boolean
 
@@ -19,7 +20,10 @@ export class CommentReplyComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.username = this.userService.getUsernameById(this.reply.user_id);
+    this.userService.getOne(this.reply.userId).subscribe(data => {
+      this.user = data;
+    });
+
     this.interaction.getReplyEdit().subscribe(value =>{
       this.isEditing = value;
     })

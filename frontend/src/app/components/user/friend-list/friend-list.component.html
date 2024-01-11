@@ -1,9 +1,0 @@
-<div id="content">
-  <h6 class="tn-thread-header"> {{user.username}} friends </h6>
-  <div class="tn-thread-body">
-    <p id="user" class="tn-clickable" *ngFor="let friend of friends"
-      [routerLink]="['/profile', friend]">
-      &#64;{{friend}}
-    </p>
-  </div>
-</div>

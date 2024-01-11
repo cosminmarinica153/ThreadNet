@@ -1,7 +1,9 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
-import { IComment_Reply } from 'src/app/interfaces/IComment_Reply';
+import { IUpdateCommentDto } from 'src/app/interfaces/Dto/IUpdateCommentDto';
+import { ICommentReply } from 'src/app/interfaces/TableInterfaces/ICommentReply';
+import { IUser } from 'src/app/interfaces/TableInterfaces/IUser';
 import { CommentsService } from 'src/app/services/comments.service';
 import { InteractionsService } from 'src/app/services/interactions.service';
 import { UserService } from 'src/app/services/user.service';
@@ -12,11 +14,11 @@ import { UserService } from 'src/app/services/user.service';
   styleUrls: ['./edit-reply.component.css']
 })
 export class EditReplyComponent implements OnInit {
-@Input() reply: IComment_Reply;
+@Input() reply: ICommentReply;
 
   replyForm: FormGroup;
-  username: string;
-  newReply: IComment_Reply;
+  user: IUser;
+  newReply: IUpdateCommentDto;
   submit: boolean;
 
   get content(){
@@ -24,12 +26,14 @@ export class EditReplyComponent implements OnInit {
   }
 
   constructor(private router: Router, private fb: FormBuilder, private userService: UserService,
-              private commentService: CommentsService, private interaction: InteractionsService) {
+              private commentService: CommentsService) {
                 this.submit = false;
               }
 
   ngOnInit() {
-    this.username = this.userService.getUsernameById(this.reply.user_id);
+    this.userService.getOne(this.reply.userId).subscribe(data => {
+      this.user = data;
+    });
     this.createReplyForm();
   }
 
@@ -44,8 +48,7 @@ export class EditReplyComponent implements OnInit {
 
     if(!this.replyForm.valid) return
 
-    this.commentService.editReply(this.replyData());
-    this.interaction.setReplyEdit(false);
+    this.commentService.putComment(this.replyData());
     this.submit = false;
 
     const url = this.router.url;
@@ -54,15 +57,9 @@ export class EditReplyComponent implements OnInit {
     });
   }
 
-  replyData(): IComment_Reply{
+  replyData(): IUpdateCommentDto{
     return this.newReply = {
       id: this.reply.id,
-      user_id: this.reply.user_id,
-      comment_id: this.reply.comment_id,
-      comment_date: new Date(),
-      is_edited: true,
-      up_votes: this.reply.up_votes,
-      down_votes: this.reply.down_votes,
       content: this.content.value,
     }
   }

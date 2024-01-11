@@ -1,5 +1,5 @@
 import { Component, Input, OnInit } from '@angular/core';
-import { IComment_Reply } from 'src/app/interfaces/IComment_Reply';
+import { ICommentReply } from 'src/app/interfaces/TableInterfaces/ICommentReply';
 import { CommentsService } from 'src/app/services/comments.service';
 
 @Component({
@@ -9,12 +9,14 @@ import { CommentsService } from 'src/app/services/comments.service';
 })
 export class CommentReplyListComponent implements OnInit {
 @Input() comment_id: number;
-  replies: Array<IComment_Reply>;
+  replies: Array<ICommentReply>;
 
-  constructor(private replyService: CommentsService) { }
+  constructor(private commentService: CommentsService) { }
 
   ngOnInit() {
-    this.replies = this.replyService.getAllRepliesForComment(this.comment_id);
+    this.commentService.getCommentReplies(this.comment_id).subscribe(data => {
+      this.replies = data;
+    });
   }
 
 }

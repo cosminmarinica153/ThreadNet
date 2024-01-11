@@ -1,7 +1,7 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
-import { IComment_Reply } from 'src/app/interfaces/IComment_Reply';
+import { ICreateCommentReplyDto } from 'src/app/interfaces/Dto/ICreateCommentReplyDto';
 import { AuthentificationService } from 'src/app/services/authentification.service';
 import { CommentsService } from 'src/app/services/comments.service';
 
@@ -12,10 +12,9 @@ import { CommentsService } from 'src/app/services/comments.service';
 })
 export class CreateReplyComponent implements OnInit {
   replyForm: FormGroup;
-  comment: IComment_Reply;
+  comment: ICreateCommentReplyDto;
   submit: boolean;
 
-  reply_id: number;
   user_id: number;
 @Input()comment_id: number;
 
@@ -34,7 +33,6 @@ export class CreateReplyComponent implements OnInit {
     this.route.params.subscribe((params) => {
       this.thread_id = +params['id'];
       this.user_id = this.authService.getUserId();
-      this.reply_id = this.commentService.getReplyLastId(); 
       this.createReplyForm();
     });
   }
@@ -50,7 +48,7 @@ export class CreateReplyComponent implements OnInit {
 
     if(!this.replyForm.valid) return
 
-    this.commentService.addReply(this.replyData());
+    this.commentService.postCommentReply(this.replyData());
     this.submit = false;
 
     this.router.navigateByUrl('/', { skipLocationChange: true }).then(() => {
@@ -58,16 +56,13 @@ export class CreateReplyComponent implements OnInit {
     });
   }
 
-  replyData(): IComment_Reply{
+  replyData(): ICreateCommentReplyDto{
     return this.comment = {
-      id: this.reply_id,
-      user_id: this.user_id,
-      comment_id: this.comment_id,
-      comment_date: new Date(),
-      is_edited: false,
-      up_votes: 0,
-      down_votes: 0,
+      userId: this.user_id,
+      commentId: this.comment_id,
       content: this.content.value,
+      uploadDate: new Date(),
+      isEdited: 0,
     }
   }
 }

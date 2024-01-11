@@ -21,7 +21,7 @@ namespace backend.Controllers
         }
 
         // GET REQUESTS
-        
+
         [HttpGet("getAll")]
         [ProducesResponseType(200, Type = typeof(IEnumerable<UserDto>))]
         public IActionResult GetAll()
@@ -454,10 +454,10 @@ namespace backend.Controllers
             if (id <= 0)
                 return BadRequest(ModelState);
 
-            if(!userRepository.Exists(id))
+            if (!userRepository.Exists(id))
                 return NotFound();
 
-            if(!ModelState.IsValid)
+            if (!ModelState.IsValid)
                 return BadRequest(ModelState);
 
             var user = userRepository.GetOne(id);
@@ -536,7 +536,7 @@ namespace backend.Controllers
             if (!userRepository.FeatureExists(voteThread.UserId, voteThread.ContentId, "voteThread"))
                 return NotFound();
 
-            if(!ModelState.IsValid) 
+            if (!ModelState.IsValid)
                 return BadRequest(ModelState);
 
             var vote = mapper.Map<VoteThread>(userRepository.GetFeature(voteThread.UserId, voteThread.ContentId, "voteThread"));

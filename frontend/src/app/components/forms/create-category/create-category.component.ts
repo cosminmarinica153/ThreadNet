@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, FormControl, Validators, AbstractControl } from '@angular/forms';
 import { Router } from '@angular/router';
-import { ICategory } from 'src/app/interfaces/ICategory';
+import { ICreateCategoryDto } from 'src/app/interfaces/Dto/ICreateCategoryDto';
 import { CategoryService } from 'src/app/services/category.service';
 
 @Component({
@@ -12,7 +12,7 @@ import { CategoryService } from 'src/app/services/category.service';
 export class CreateCategoryComponent implements OnInit {
   categoryForm: FormGroup;
   submit: boolean;
-  category: ICategory;
+  category: ICreateCategoryDto;
   category_id: number;
 
   get name(){
@@ -20,8 +20,7 @@ export class CreateCategoryComponent implements OnInit {
   }
 
   constructor(private router: Router, private fb: FormBuilder,
-              private categoryService: CategoryService) { 
-    this.category_id = categoryService.getLastId();
+              private categoryService: CategoryService) {
   }
 
   ngOnInit() {
@@ -51,7 +50,7 @@ export class CreateCategoryComponent implements OnInit {
 
     if(!this.categoryForm.valid) return
 
-    this.categoryService.addCategory(this.categoryData());
+    this.categoryService.postCategory(this.categoryData());
     this.submit = false;
 
     this.router.navigateByUrl('/', { skipLocationChange: true }).then(() => {
@@ -59,9 +58,8 @@ export class CreateCategoryComponent implements OnInit {
     });
   }
 
-  categoryData(): ICategory{
+  categoryData(): ICreateCategoryDto{
     return this.category = {
-      id: this.category_id,
       name: this.name.value,
     }
   }

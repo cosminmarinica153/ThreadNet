@@ -1,8 +1,12 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
+import { ICategory } from 'src/app/interfaces/TableInterfaces/ICategory';
+
 import { AuthentificationService } from 'src/app/services/authentification.service';
 import { CategoryService } from 'src/app/services/category.service';
 import { InteractionsService } from 'src/app/services/interactions.service';
+
+import { NotFoundError } from 'rxjs';
 
 @Component({
   selector: 'tn-thread-header',
@@ -10,8 +14,10 @@ import { InteractionsService } from 'src/app/services/interactions.service';
   styleUrls: ['./thread-header.component.css']
 })
 export class ThreadHeaderComponent implements OnInit {
-@Input() title: string;
-  category_id: number;
+@Input() categoryId: number;
+  category: ICategory;
+
+  title: string;
   keyword: string;
 
   isFavouriteCategory: boolean;
@@ -24,8 +30,11 @@ export class ThreadHeaderComponent implements OnInit {
   ngOnInit() {
     if(this.router.url != "/category/My%20Threads" && this.router.url != "/category/My%20Favourites" && this.router.url != "/")
     {
-      this.category_id = this.categoryService.getCategoryId(this.title);
-      this.isFavouriteCategory = this.interaction.isFavouriteCategory(this.category_id);
+      this.categoryService.getOne(this.categoryId).subscribe(
+        data => {
+          this.category = data;
+      });
+      this.title = this.category.name;
     }
     if(this.router.url === '/') this.title = 'Other'
   }
@@ -36,19 +45,7 @@ export class ThreadHeaderComponent implements OnInit {
   }
 
   addToFavourites(){
-    this.interaction.favouriteCategory(this.category_id);
-    this.isFavouriteCategory = this.interaction.isFavouriteCategory(this.category_id);
-
-    var currentUrl = decodeURIComponent(this.router.url);
-    this.router.navigateByUrl('/about', { skipLocationChange: true }).then(() => {
-      if(!currentUrl.includes('search'))
-        this.router.navigate([currentUrl]);
-      else{
-        const index = currentUrl.indexOf('search');
-        currentUrl = currentUrl.slice(0, index);
-        this.router.navigate([currentUrl]);
-      }
-    });
+    throw NotFoundError;
   }
 
   onSubmit(){

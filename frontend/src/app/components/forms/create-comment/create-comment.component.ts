@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
-import { IComment } from 'src/app/interfaces/IComment';
+import { ICreateCommentDto } from 'src/app/interfaces/Dto/ICreateCommentDto';
 import { AuthentificationService } from 'src/app/services/authentification.service';
 import { CommentsService } from 'src/app/services/comments.service';
 
@@ -12,10 +12,9 @@ import { CommentsService } from 'src/app/services/comments.service';
 })
 export class CreateCommentComponent implements OnInit {
   commentForm: FormGroup;
-  comment: IComment;
+  comment: ICreateCommentDto;
   submit: boolean;
 
-  comment_id: number;
   user_id: number;
   thread_id: number;
 
@@ -32,7 +31,6 @@ export class CreateCommentComponent implements OnInit {
     this.route.params.subscribe((params) => {
       this.thread_id = +params['id'];
       this.user_id = this.authService.getUserId();
-      this.comment_id = this.commentService.getCommentLastId(); 
       this.createCommentForm();
     });
   }
@@ -48,7 +46,7 @@ export class CreateCommentComponent implements OnInit {
 
     if(!this.commentForm.valid) return
 
-    this.commentService.addComment(this.commentData());
+    this.commentService.postComment(this.commentData());
     this.submit = false;
 
     this.router.navigateByUrl('/', { skipLocationChange: true }).then(() => {
@@ -56,16 +54,13 @@ export class CreateCommentComponent implements OnInit {
     });
   }
 
-  commentData(): IComment{
+  commentData(): ICreateCommentDto{
     return this.comment = {
-      id: this.comment_id,
-      user_id: this.user_id,
-      thread_id: this.thread_id,
-      comment_date: new Date(),
-      is_edited: false,
-      up_votes: 0,
-      down_votes: 0,
+      userId: this.user_id,
+      threadId: this.thread_id,
       content: this.content.value,
+      uploadDate: new Date(),
+      isEdited: 0
     }
   }
 

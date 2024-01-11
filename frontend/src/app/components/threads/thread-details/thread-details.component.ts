@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
-import { IThread } from 'src/app/interfaces/IThread';
+import { IUser } from 'src/app/interfaces/TableInterfaces/IUser';
+import { IThread } from 'src/app/interfaces/TableInterfaces/IThread';
+
 import { AuthentificationService } from 'src/app/services/authentification.service';
 import { InteractionsService } from 'src/app/services/interactions.service';
 import { ThreadsService } from 'src/app/services/threads.service';
@@ -13,8 +15,7 @@ import { UserService } from 'src/app/services/user.service';
 })
 export class ThreadDetailsComponent implements OnInit {
   thread: IThread;
-  thread_id: number;
-  username: string;
+  user: IUser;
 
   isLiked: boolean;
   isDisliked: boolean;
@@ -32,24 +33,22 @@ export class ThreadDetailsComponent implements OnInit {
 
   ngOnInit() {
     this.route.params.subscribe((params) => {
-      this.thread_id = +params['id'];
-      this.thread = this.threadService.getThreadById(this.thread_id);
-      this.username = this.userService.getUsernameById(this.thread.user_id);
+      const threadId = +params['id'];
+      this.threadService.getOne(threadId).subscribe(
+        data => {
+          this.thread = data;
+      });
+
+      this.userService.getOne(this.thread.userId).subscribe(
+        data => {
+          this.user = data;
+        }
+      );
+
       this.interaction.getThreadEdit().subscribe(value => {
         this.isEditing = value;
       });
     });
-  }
-
-  likePost(){
-    this.isLiked = !this.isLiked;
-    if(this.isLiked === true && this.isDisliked === true)
-      this.isDisliked = false;
-  }
-  dislikePost(){
-    this.isDisliked = !this.isDisliked;
-    if(this.isDisliked === true && this.isLiked === true)
-      this.isLiked = false;
   }
 
   toggleCreateComment(){

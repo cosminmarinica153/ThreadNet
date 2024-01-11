@@ -17,7 +17,8 @@ export class LoginComponent implements OnInit {
 
   constructor(private router: Router, private fb: FormBuilder,
               private authService: AuthentificationService, private http: HttpClient)
-    { this.submit = false;
+    {
+      this.submit = false;
       this.accountFound = true;
     }
 
@@ -33,7 +34,7 @@ export class LoginComponent implements OnInit {
   }
 
   onLogin(){
-    const user = this.authService.authUser(this.loginForm.value);
+    const user = this.authService.authUser(String(this.loginForm.get('username')), String(this.loginForm.get('password')));
 
     if(this.authService.login(user)){
       this.accountFound = true;

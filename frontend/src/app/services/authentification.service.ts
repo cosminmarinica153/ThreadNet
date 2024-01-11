@@ -1,26 +1,27 @@
 import { Injectable } from '@angular/core';
 import { UserService } from './user.service';
+import { HttpClient } from '@angular/common/http';
+import { IUser } from '../interfaces/TableInterfaces/IUser';
+import { ICreateUserDto } from '../interfaces/Dto/ICreateUserDto';
 
 @Injectable({
   providedIn: 'root'
 })
 export class AuthentificationService {
 
-constructor(private userService: UserService) { }
+constructor(private userService: UserService, private http: HttpClient) { }
 
-  authUser(user: any){
-    let UserArray = [];
-    if(localStorage.getItem('Users')){
-      UserArray = JSON.parse(localStorage.getItem('Users'));
-    }
-    return UserArray.find((p: { username: string; password: string; })=> p.username === user.username
-                                                                      && p.password === user.password);
+  authUser(username: string, password: string): IUser{
+    var user: IUser;
+    this.userService.getAll().subscribe(data => {
+      user = data.find(u => u.username == username && u.password == password);
+    });
+    return user;
   }
 
-  login(user: any): boolean{
-    if(!user)
-      return false;
-    localStorage.setItem('token', user.auth_token);
+  login(user: IUser): boolean{
+    if(!user) return false;
+    localStorage.setItem('token', user.authToken);
     return true;
   }
 
@@ -36,8 +37,15 @@ constructor(private userService: UserService) { }
 
   getUserId(): number{
     if(!localStorage.getItem('token')) return null;
-    const users = this.userService.getAllUsers();
-    const userId: number = users.find(user => user.auth_token === localStorage.getItem('token')).id;
+
+    var users: IUser[];
+
+    this.userService.getAll().subscribe(
+      data =>{
+        users = data;
+    });
+
+    const userId: number = users.find(user => user.authToken === localStorage.getItem('token')).id;
     return userId;
   }
 

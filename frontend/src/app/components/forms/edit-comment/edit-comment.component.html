@@ -2,9 +2,9 @@
   <div class="tn-thread-header">
     <div class="tn-user-details">
       <img src="assets/icons/user/user.png">
-      <p class="tn-username tn-clickable"> &#64;{{username}}</p>
+      <p class="tn-username tn-clickable"> &#64;{{user.username}}</p>
     </div>
-    <p class="tn-date"> {{comment.comment_date | date:'dd-MM HH:mm'}} </p>
+    <p class="tn-date"> {{comment.commentDate | date:'dd-MM HH:mm'}} </p>
   </div>
   <form [formGroup]="commentForm" (ngSubmit)="onCreate()">
     <div class="tn-thread-body">
