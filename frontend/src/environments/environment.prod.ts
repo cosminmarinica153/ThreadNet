@@ -1,4 +1,4 @@
 export const environment = {
   production : true,
-  baseUrl: "https://threadnetbackend.azurewebsites.net/api/"
+  baseUrl: "https://threadnetbackendapi.azurewebsites.net/threadnet/api/"
 }

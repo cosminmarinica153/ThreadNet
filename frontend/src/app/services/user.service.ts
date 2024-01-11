@@ -65,8 +65,10 @@ export class UserService {
   }
 
   // POST
-  postUser(user: ICreateUserDto): boolean{
-    return Boolean(this.http.post<IUser>(environment.baseUrl + `User/createUser`, user));
+  postUser(user: ICreateUserDto){
+    this.http.post<IUser>(environment.baseUrl + 'User/createUser', user).subscribe(data => {
+      console.log(data);
+    });
   }
 
   postFollower(follower: IFollower): boolean{

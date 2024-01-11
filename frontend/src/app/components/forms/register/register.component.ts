@@ -77,10 +77,10 @@ export class RegisterComponent implements OnInit {
 
     if(!this.registerForm.valid) return
 
-    this.userService.postUser(this.userData());
-    this.submit = false;
-
-    this.router.navigate(['/']);
+    //console.log(this.userData())
+    this.userService.postUser(this.userData())
+      this.submit = false;
+      this.router.navigate(['/']);
   }
 
   userData(): ICreateUserDto{
