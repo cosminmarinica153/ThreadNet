@@ -48,11 +48,11 @@ if (app.Environment.IsDevelopment())
 
 app.UseCors("AllowMyOrigin");
 
-app.UseAuthorization();
-
 app.UseHttpsRedirection();
 
 app.UseRouting();
+
+app.UseAuthorization();
 
 app.UseSwagger();
 
