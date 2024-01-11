@@ -126,7 +126,7 @@ const appRoutes: Routes = [
     component: CategoryContentComponent,
   },
 ];
-
+// Make order
 @NgModule({
   declarations: [
     AppComponent,
