@@ -22,13 +22,7 @@ builder.Services.AddSwaggerGen(c =>
     c.SwaggerDoc("v1", new() { Title = "ThreadNet Backend Api", Version = "v1" });
 });
 
-builder.Services.AddCors(options =>
-{
-    options.AddPolicy("AllowMyOrigin",
-        builder => builder.WithOrigins("http://localhost:4200")
-                        .AllowAnyHeader()
-                        .AllowAnyMethod());
-});
+builder.Services.AddCors();
 
 // Database Connection
 builder.Services.AddDbContext<DataContext>(options =>
@@ -46,7 +40,15 @@ if (app.Environment.IsDevelopment())
     app.UseSwaggerUI();
 }
 
-app.UseCors("AllowMyOrigin");
+app.UseCors(policy =>
+{
+    policy.WithOrigins("http://localhost:4200")
+          .AllowAnyMethod()
+          .AllowAnyHeader();
+    policy.WithOrigins("https://threadnet-ro.web.app/")
+          .AllowAnyMethod()
+          .AllowAnyHeader();
+});
 
 app.UseHttpsRedirection();
 
