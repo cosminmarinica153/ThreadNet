@@ -30,7 +30,9 @@ export class CreateCommentComponent implements OnInit {
   ngOnInit() {
     this.route.params.subscribe((params) => {
       this.thread_id = +params['id'];
-      this.user_id = this.authService.getUserId();
+      this.authService.getUserId().subscribe(userId => {
+        this.user_id = userId;
+      })
       this.createCommentForm();
     });
   }

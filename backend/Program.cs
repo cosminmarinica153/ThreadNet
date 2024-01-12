@@ -5,6 +5,16 @@ using Microsoft.EntityFrameworkCore;
 
 var builder = WebApplication.CreateBuilder(args);
 
+builder.Services.AddCors(options =>
+{
+    options.AddDefaultPolicy(policy =>
+                      {
+                          policy.WithOrigins("http://localhost:4200", "https://threadnet-ro.web.app")
+                                .AllowAnyHeader()
+                                .AllowAnyHeader();
+                      });
+});
+
 // Services
 builder.Services.AddControllers();
 builder.Services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
@@ -22,7 +32,6 @@ builder.Services.AddSwaggerGen(c =>
     c.SwaggerDoc("v1", new() { Title = "ThreadNet Backend Api", Version = "v1" });
 });
 
-builder.Services.AddCors();
 
 // Database Connection
 builder.Services.AddDbContext<DataContext>(options =>
@@ -40,32 +49,19 @@ if (app.Environment.IsDevelopment())
     app.UseSwaggerUI();
 }
 
-app.UseCors(policy =>
-{
-    policy.WithOrigins("http://localhost:4200")
-          .AllowAnyMethod()
-          .AllowAnyHeader();
-    policy.WithOrigins("https://threadnet-ro.web.app/")
-          .AllowAnyMethod()
-          .AllowAnyHeader();
-});
-
 app.UseHttpsRedirection();
-
 app.UseRouting();
+
+app.UseCors();
 
 app.UseAuthorization();
 
 app.UseSwagger();
-
 app.UseSwaggerUI(c =>
 {
     c.SwaggerEndpoint("/swagger/v1/swagger.json", "My Api V1");
 });
 
-app.UseEndpoints(endpoints =>
-{
-    endpoints.MapControllers();
-});
+app.MapControllers();
 
 app.Run();

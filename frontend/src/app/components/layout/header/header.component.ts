@@ -19,8 +19,10 @@ export class HeaderComponent{
         this.isDropdownOpen = false;
         this.isLoggedIn = this.authService.isLoggedIn();
         if(this.authService.isLoggedIn())
-          userService.getOne(this.authService.getUserId()).subscribe(data => {
-            this.user = data;
+          this.authService.getUserId().subscribe(id => {
+            this.userService.getOne(id).subscribe(data => {
+              this.user = data;
+            })
           });
     }
 

@@ -2,6 +2,7 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
 import { AbstractControl, FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
+import { IUser } from 'src/app/interfaces/TableInterfaces/IUser';
 import { AuthentificationService } from 'src/app/services/authentification.service';
 import { UserService } from 'src/app/services/user.service';
 
@@ -34,14 +35,16 @@ export class LoginComponent implements OnInit {
   }
 
   onLogin(){
-    const user = this.authService.authUser(String(this.loginForm.get('username')), String(this.loginForm.get('password')));
+    var user: IUser;
+    this.authService.authUser(this.loginForm.get('username').value, this.loginForm.get('password').value).subscribe(data => {
+      user = data;
+      if(this.authService.login(user)){
+        this.accountFound = true;
+        this.router.navigate(['/']);
+      } else
+        this.accountFound = false;
 
-    if(this.authService.login(user)){
-      this.accountFound = true;
-      this.router.navigate(['/']);
-    } else
-      this.accountFound = false;
-
-    this.submit =  true;
+      this.submit =  true;
+    });
   }
 }

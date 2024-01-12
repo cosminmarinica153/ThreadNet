@@ -49,44 +49,45 @@ export class InteractionGroupComponent implements OnInit {
 
   ngOnInit() {
     this.url = this.router.url;
-    if(this.thread){
-      this.threadService.getInteractions(this.thread.id).subscribe(data => {
-        this.upVotes += data.upVotes;
-        this.downVotes += data.downVotes;
-      })
+    this.authService.getUserId().subscribe(userId => {
+      if(this.thread){
+        this.threadService.getInteractions(this.thread.id).subscribe(data => {
+          this.upVotes += data.upVotes;
+          this.downVotes += data.downVotes;
+        })
 
-      this.editComponent += "thread";
-      this.deleteComponent += "thread";
+        this.editComponent += "thread";
+        this.deleteComponent += "thread";
 
-      if(this.thread.userId === this.authService.getUserId())
-        this.isEditable = true;
-    }
-    if(this.comment){
-      this.commentService.getCommentInteractions(this.comment.id).subscribe(data => {
-        this.upVotes += data.upVotes;
-        this.downVotes += data.downVotes;
-      })
+        if(this.thread.userId === userId)
+          this.isEditable = true;
+      }
+      if(this.comment){
+        this.commentService.getCommentInteractions(this.comment.id).subscribe(data => {
+          this.upVotes += data.upVotes;
+          this.downVotes += data.downVotes;
+        })
 
-      this.editComponent += "comment";
-      this.deleteComponent += "comment";
+        this.editComponent += "comment";
+        this.deleteComponent += "comment";
 
-      if(this.comment.userId === this.authService.getUserId())
-        this.isEditable = true;
-    }
-    if(this.reply){
-      this.commentService.getCommentReplyInteractions(this.reply.id).subscribe(data => {
-        this.upVotes += data.upVotes;
-        this.downVotes += data.downVotes;
-      })
+        if(this.comment.userId === userId)
+          this.isEditable = true;
+      }
+      if(this.reply){
+        this.commentService.getCommentReplyInteractions(this.reply.id).subscribe(data => {
+          this.upVotes += data.upVotes;
+          this.downVotes += data.downVotes;
+        })
 
-      this.editComponent += "reply";
-      this.deleteComponent += "reply";
+        this.editComponent += "reply";
+        this.deleteComponent += "reply";
 
-      if(this.reply.userId === this.authService.getUserId())
-        this.isEditable = true;
-    }
-    if(!this.thread && !this.isEditable) this.display = 'flex-end';
-
+        if(this.reply.userId === userId)
+          this.isEditable = true;
+      }
+      if(!this.thread && !this.isEditable) this.display = 'flex-end';
+    });
   }
 
   isLoggedIn(): boolean{
@@ -151,14 +152,18 @@ export class InteractionGroupComponent implements OnInit {
   addToFavourites(){
     if(!this.isLoggedIn()) return;
 
-    const favouriteThread: IFavouriteThread = {
-      userId : this.authService.getUserId(),
-      threadId : this.thread.id
-    }
+    this.authService.getUserId().subscribe(id => {
+      const favouriteThread: IFavouriteThread = {
+        userId : id,
+        threadId : this.thread.id
+      }
 
-    this.userService.postFavouriteThread(favouriteThread)
+      this.userService.postFavouriteThread(favouriteThread)
 
-    this.refresh();
+      this.refresh();
+
+    })
+
   }
 
   shareThread(){

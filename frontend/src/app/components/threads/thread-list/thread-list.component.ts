@@ -32,24 +32,24 @@ export class ThreadListComponent implements OnInit {
   ngOnInit() {
     this.route.params.subscribe((params) => {
       this.title = params['category_name'];
-      const userId = this.authService.getUserId();
-
-      if(!this.title)
-        this.threadsService.getAll().subscribe(
-          data => {
-            this.threads = data;
+      this.authService.getUserId().subscribe((userId: number) => {
+        if(!this.title)
+          this.threadsService.getAll().subscribe(
+            data => {
+              this.threads = data;
+          });
+        else if(this.title == "My Threads"){
+          this.userService.getThreads(userId).subscribe(
+            data => {
+              this.threads = data;
+          });
+        }
+        else if(this.title == "My Favourites")
+          this.userService.getFavouriteThreads(userId).subscribe(
+            data => {
+              this.threads = data;
         });
-      else if(this.title == "My Threads"){
-        this.userService.getThreads(userId).subscribe(
-          data => {
-            this.threads = data;
-        });
-      }
-      else if(this.title == "My Favourites")
-        this.userService.getFavouriteThreads(userId).subscribe(
-          data => {
-            this.threads = data;
-      });
+      })
 
       if(!this.promt) this.promt = '';
 

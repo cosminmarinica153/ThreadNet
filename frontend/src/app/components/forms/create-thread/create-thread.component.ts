@@ -35,8 +35,10 @@ export class CreateThreadComponent implements OnInit {
               private categoryService: CategoryService, private threadService: ThreadsService,
               private authService: AuthentificationService) {
     this.submit = false
-    if(localStorage.getItem('token'))
-      this.userId = authService.getUserId();
+
+    this.authService.getUserId().subscribe(userId => {
+        this.userId = userId;
+    })
 
     categoryService.getAll().subscribe(data => {
       data.forEach(category => {

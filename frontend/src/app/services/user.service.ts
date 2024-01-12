@@ -60,15 +60,19 @@ export class UserService {
     return this.http.get<IThread[]>(environment.baseUrl + `User/getThreads${id}`);
   }
 
-  getUserComments(id: number): Observable<IUserComment[]>{ // !!!!!!!!!!!!!!!!!!
+  getUserComments(id: number): Observable<IUserComment[]>{
     return this.http.get<IUserComment[]>(environment.baseUrl + `User/getComents${id}`);
   }
 
   // POST
   postUser(user: ICreateUserDto){
-    this.http.post<IUser>(environment.baseUrl + 'User/createUser', user).subscribe(data => {
+    const headers = new HttpHeaders({
+      'Content-Type': 'application/json',
+      'Ocp-Apim-Subscription-Key': 'dd00d76295b64dbeb6b5d632b98e48bb'
+   });
+    return Boolean(this.http.post<IUser>(environment.baseUrl + 'User/createUser', user, { headers: headers }).subscribe(data => {
       console.log(data);
-    });
+    }));
   }
 
   postFollower(follower: IFollower): boolean{

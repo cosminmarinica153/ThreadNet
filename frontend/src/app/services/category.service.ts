@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { Observable } from 'rxjs';
+import { Observable, map } from 'rxjs';
 import { HttpClient } from '@angular/common/http';
 import { environment } from 'src/environments/environment.prod';
 import { ICategory } from '../interfaces/TableInterfaces/ICategory';
@@ -36,8 +36,12 @@ export class CategoryService {
   }
 
   // OTHER
-  postCategory(category: ICreateCategoryDto): boolean{
-    return Boolean(this.http.post<ICreateCategoryDto>(environment.baseUrl + `Category/createCategory`, category));
+  postCategory(category: ICreateCategoryDto): Observable<boolean>{
+    return this.http.post<ICreateCategoryDto>(environment.baseUrl + `Category/createCategory`, category).pipe(
+      map(data => {
+        return data != null;
+      })
+    );
   }
 
   // MISC Methods

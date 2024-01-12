@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { UserService } from './user.service';
 import { HttpClient } from '@angular/common/http';
 import { IUser } from '../interfaces/TableInterfaces/IUser';
-import { ICreateUserDto } from '../interfaces/Dto/ICreateUserDto';
+import { Observable, map, of } from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
@@ -11,12 +11,10 @@ export class AuthentificationService {
 
 constructor(private userService: UserService, private http: HttpClient) { }
 
-  authUser(username: string, password: string): IUser{
-    var user: IUser;
-    this.userService.getAll().subscribe(data => {
-      user = data.find(u => u.username == username && u.password == password);
-    });
-    return user;
+  authUser(username: string, password: string): Observable<IUser>{
+    return this.userService.getAll().pipe(
+      map(data => data.find(u => u.username == username && u.password == password))
+    )
   }
 
   login(user: IUser): boolean{
@@ -35,18 +33,14 @@ constructor(private userService: UserService, private http: HttpClient) { }
     else return false;
   }
 
-  getUserId(): number{
-    if(!localStorage.getItem('token')) return null;
+  getUserId(): Observable<number>{
+    if(!localStorage.getItem('token')) return of(null);
 
-    var users: IUser[];
-
-    this.userService.getAll().subscribe(
-      data =>{
-        users = data;
-    });
-
-    const userId: number = users.find(user => user.authToken === localStorage.getItem('token')).id;
-    return userId;
+    return this.userService.getAll().pipe(
+      map(data =>{
+        const userId: number = data.find(user => user.authToken === localStorage.getItem('token')).id;
+        return userId;
+    }));
   }
 
   generateUniqueToken(length: number): string {

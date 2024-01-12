@@ -8,7 +8,7 @@ import { IUserComment } from 'src/app/interfaces/MiscInterfaces/IUserComment';
 import { AuthentificationService } from 'src/app/services/authentification.service';
 import { UserService } from 'src/app/services/user.service';
 
-import { NotFoundError } from 'rxjs';
+import { NotFoundError, Observable, map } from 'rxjs';
 
 @Component({
   selector: 'tn-account',
@@ -35,9 +35,9 @@ export class AccountComponent implements OnInit {
 
   }
 
-  isUserProfile(){
-    if(this.authService.getUserId() === this.user.id)
-      return true;
-    return false;
+  isUserProfile(): Observable<boolean>{
+    return this.authService.getUserId().pipe(
+      map((userId: number) => userId === this.user.id)
+    );
   }
 }

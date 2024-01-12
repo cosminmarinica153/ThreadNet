@@ -39,8 +39,10 @@ export class CategoryListComponent implements OnInit {
       this.categories = data;
     });
     if(this.isLoggedIn)
-      this.userService.getFavouriteCategories(this.authService.getUserId()).subscribe(data => {
-        this.favourites = data;
+      this.authService.getUserId().subscribe(userId => {
+        this.userService.getFavouriteCategories(userId).subscribe(data => {
+          this.favourites = data;
+        });
       });
   }
 

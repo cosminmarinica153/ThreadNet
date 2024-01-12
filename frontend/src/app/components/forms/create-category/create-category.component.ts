@@ -50,11 +50,16 @@ export class CreateCategoryComponent implements OnInit {
 
     if(!this.categoryForm.valid) return
 
-    this.categoryService.postCategory(this.categoryData());
-    this.submit = false;
+    this.categoryService.postCategory(this.categoryData()).subscribe(succes => {
+      if(!succes){
+        console.log("unsuccesfull request");
+        return;
+      }
+      this.submit = false;
 
-    this.router.navigateByUrl('/', { skipLocationChange: true }).then(() => {
-            this.router.navigate(['/category', this.name.value]);
+      this.router.navigateByUrl('/', { skipLocationChange: true }).then(() => {
+              this.router.navigate(['/category', this.name.value]);
+      });
     });
   }
 
