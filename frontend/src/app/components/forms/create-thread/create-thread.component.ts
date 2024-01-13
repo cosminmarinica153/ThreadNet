@@ -19,7 +19,7 @@ export class CreateThreadComponent implements OnInit {
   submit: boolean;
   thread: ICreateThreadDto;
   userId: number;
-  categoryId: number;
+  findCategory: ICategory;
   categoryOptions: Observable<ICategory[]>
   presetCategory: string;
 
@@ -68,29 +68,25 @@ export class CreateThreadComponent implements OnInit {
 
     if(!this.threadForm.valid) return
 
-    this.categoryService.getAll().pipe(
-      map(data => {
-        this.categoryId = data.find(c => c.name == this.category.value).id;
+    this.categoryOptions.pipe(
+      map(categories => {
+        this.findCategory = categories.find(c => c.name == this.category.value);
       }),
       finalize(() => {
-        this.threadService.postThread(this.threadData()).pipe(finalize(() => {
-          this.submit = false;
+        this.threadService.postThread(this.threadData()).pipe(
+          map(data => {
 
-          let threadId: number;
-          this.threadService.getAll().subscribe(data => {
-            threadId = data.find(t => t.userId == this.userId && t.categoryId == this.categoryId
-                                  && t.title == this.threadTitle.value && t.content == this.content.value).id;
+          }),
+          finalize(() => {
 
-            this.router.navigate(['/thread', threadId]);
-          });
-        })).subscribe();
+          })).subscribe();
       })).subscribe();
   }
 
   threadData(): ICreateThreadDto{
     return this.thread = {
       userId: this.userId,
-      categoryId: this.categoryId,
+      categoryId: this.findCategory.id,
       uploadDate: new Date(),
       isEdited: 0,
       title: this.threadTitle.value,

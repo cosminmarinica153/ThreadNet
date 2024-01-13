@@ -133,7 +133,7 @@ namespace backend.Controllers
                 return StatusCode(500, ModelState);
             }
 
-            return Ok("Succesfully created thread");
+            return Ok(threadMap);
         }
 
         [HttpPut("updateThread")]

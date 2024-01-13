@@ -43,11 +43,11 @@ export class ThreadsService {
   }
 
   // POST
-  postThread(thread: ICreateThreadDto): Observable<boolean>{
+  postThread(thread: ICreateThreadDto): Observable<IThread>{
     const url = environment.baseUrl + `Thread/createThread`;
 
-    return this.http.post(url, thread, { responseType: 'text' }).pipe(
-      map(data => { return data != null })
+    return this.http.post<IThread>(url, thread).pipe(
+      map(data => { return data; })
     );
   }
 
