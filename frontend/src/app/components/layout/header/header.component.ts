@@ -1,29 +1,36 @@
-import { Component } from "@angular/core";
+import { Component, OnInit } from "@angular/core";
 import { AuthentificationService } from "src/app/services/authentification.service";
 import { Router } from "@angular/router";
 import { UserService } from "src/app/services/user.service";
 import { IUser } from "src/app/interfaces/TableInterfaces/IUser";
+import { Observable, finalize, map, of } from "rxjs";
 
 @Component({
     selector: 'tn-header',
     templateUrl: 'header.component.html',
     styleUrls: ['header.component.css'],
 })
-export class HeaderComponent{
-    isDropdownOpen: boolean;
+export class HeaderComponent implements OnInit{
     isLoggedIn: boolean;
-    user: IUser;
+    user: Observable<IUser>;
 
     constructor(private router: Router, private authService: AuthentificationService,
                 private userService: UserService){
-        this.isDropdownOpen = false;
-        this.isLoggedIn = this.authService.isLoggedIn();
-        if(this.authService.isLoggedIn())
-          this.authService.getUserId().subscribe(id => {
+                }
+
+    ngOnInit(){
+      this.isLoggedIn = this.authService.isLoggedIn();
+
+      let id: number;
+      if(this.isLoggedIn){
+        this.authService.getUserId().pipe(
+          map(userId => { id = userId }),
+          finalize(() => {
             this.userService.getOne(id).subscribe(data => {
-              this.user = data;
-            })
-          });
+              this.user = of(data);
+            });
+          })).subscribe();
+      }
     }
 
     logout(){
@@ -31,7 +38,7 @@ export class HeaderComponent{
 
         this.router.navigateByUrl('/logout', { skipLocationChange: true }).then(() => {
             this.router.navigate(['/']);
-        });
+        }).then(() => { window.location.reload() });
     }
 
     loadMyThreads(){
@@ -44,9 +51,5 @@ export class HeaderComponent{
         this.router.navigateByUrl('/', { skipLocationChange: true }).then(() => {
             this.router.navigate(['/category', "My Favourites"])
         });
-    }
-
-    public toggleDropdown(){
-        this.isDropdownOpen = !this.isDropdownOpen;
     }
 }

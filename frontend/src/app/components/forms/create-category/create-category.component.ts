@@ -37,16 +37,16 @@ export class CreateCategoryComponent implements OnInit {
     return fg.get('name').value === "My Threads" ? { notAvailable : true } : null;
   }
 
-  checkUniqueUsername(name: string): Boolean{
-    return this.categoryService.checkUniqueName(name);
-  }
+  // checkUniqueUsername(name: string): Boolean{
+  //   return this.categoryService.checkUniqueName(name);
+  // }
 
   onCreate(){
     this.submit = true;
 
-    const uniqueUsername = this.checkUniqueUsername(this.name.value);
+    // const uniqueUsername = this.checkUniqueUsername(this.name.value);
 
-    if(!uniqueUsername) return
+    // if(!uniqueUsername) return
 
     if(!this.categoryForm.valid) return
 

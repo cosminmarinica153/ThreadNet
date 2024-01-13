@@ -12,9 +12,9 @@
       <label for="username"> Username </label>
       <input type="text" class="form-control" placeholder="choose your username"
         formControlName="username">
-        <span *ngIf="!checkUniqueUsername(username.value) && username.valid && username.touched" class="error">
+        <!-- <span *ngIf="!checkUniqueUsername(username.value) && username.valid && username.touched" class="error">
           Username already in use.
-        </span>
+        </span> -->
         <span *ngIf="!username.valid && (username.touched || submit)" class="error">
           <span *ngIf="username.hasError('minlength')">
             Username must be at least 5 characters long.

@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { environment } from 'src/environments/environment.prod';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
-import { Observable } from 'rxjs';
+import { NotFoundError, Observable, map } from 'rxjs';
 import { IUser } from '../interfaces/TableInterfaces/IUser';
 import { IUserComment } from '../interfaces/MiscInterfaces/IUserComment';
 import { ICreateUserDto } from '../interfaces/Dto/ICreateUserDto';
@@ -65,131 +65,147 @@ export class UserService {
   }
 
   // POST
-  postUser(user: ICreateUserDto){
-    const headers = new HttpHeaders({
-      'Content-Type': 'application/json',
-      'Ocp-Apim-Subscription-Key': 'dd00d76295b64dbeb6b5d632b98e48bb'
-   });
-    return Boolean(this.http.post<IUser>(environment.baseUrl + 'User/createUser', user, { headers: headers }).subscribe(data => {
-      console.log(data);
-    }));
+  postUser(user: ICreateUserDto): Observable<boolean>{
+    const url = environment.baseUrl + 'User/createUser';
+
+    return this.http.post(url, user, { responseType: 'text' }).pipe(
+      map(data => {return data != null}));
   }
 
-  postFollower(follower: IFollower): boolean{
-    return Boolean(this.http.post<IFollower>(environment.baseUrl + `User/createFollower`, follower));
+  postFollower(follower: IFollower): Observable<boolean>{
+    const url = environment.baseUrl + 'User/createFollower';
+
+    return this.http.post(url, follower, { responseType: 'text' }).pipe(
+      map(data => {return data != null}));
   }
 
-  postFavouriteCategory(favouriteCategory: IFavouriteCategory): boolean{
-    return Boolean(this.http.post<IFavouriteCategory>(environment.baseUrl + `User/createFavouriteCategory`, favouriteCategory));
+  postFavouriteCategory(favouriteCategory: IFavouriteCategory): Observable<boolean>{
+    const url = environment.baseUrl + 'User/createFavouriteCategory';
+
+    return this.http.post(url, favouriteCategory, { responseType: 'text' }).pipe(
+      map(data => {return data != null}));
   }
 
-  postFavouriteThread(favouriteThread: IFavouriteThread): boolean{
-    return Boolean(this.http.post<IFavouriteThread>(environment.baseUrl + `User/createFavouriteThread`, favouriteThread));
+  postFavouriteThread(favouriteThread: IFavouriteThread): Observable<boolean>{
+    const url = environment.baseUrl + 'User/createFavouriteThread';
+
+    return this.http.post(url, favouriteThread, { responseType: 'text' }).pipe(
+      map(data => {return data != null}));
   }
 
-  postVoteThread(voteThread: IVote): boolean{
-    return Boolean(this.http.post<IVote>(environment.baseUrl + `User/createVoteThread`, voteThread));
+  postVoteThread(voteThread: IVote): Observable<boolean>{
+    const url = environment.baseUrl + 'User/createVoteThread';
+
+    return this.http.post(url, voteThread, { responseType: 'text' }).pipe(
+      map(data => {return data != null}));
   }
 
-  postVoteComment(voteComment: IVote): boolean{
-    return Boolean(this.http.post<IVote>(environment.baseUrl + `User/createVoteComment`, voteComment));
+  postVoteComment(voteComment: IVote): Observable<boolean>{
+    const url = environment.baseUrl + 'User/createVoteComment';
+
+    return this.http.post(url, voteComment, { responseType: 'text' }).pipe(
+      map(data => {return data != null}));
   }
 
-  postVoteCommentReply(voteCommentReply: IVote): boolean{
-    return Boolean(this.http.post<IVote>(environment.baseUrl + `User/createVoteCommentReply`, voteCommentReply));
+  postVoteCommentReply(voteCommentReply: IVote): Observable<boolean>{
+    const url = environment.baseUrl + 'User/createVoteCommentReply';
+
+    return this.http.post(url, voteCommentReply, { responseType: 'text' }).pipe(
+      map(data => {return data != null}));
   }
 
   // PUT
-  putUser(user: IUser): boolean{
-    return Boolean(this.http.put<IUser>(environment.baseUrl + `User/updateUser`, user));
+  putUser(user: IUser): Observable<boolean>{
+    const url = environment.baseUrl + `User/updateUser`;
+
+    return this.http.put(url, user, { responseType: 'text' }).pipe(
+      map(data => {return data != null}));
   }
 
-  putVoteThread(voteThread: IVote): boolean{
-    return Boolean(this.http.put<IVote>(environment.baseUrl + `User/updateVoteThread`, voteThread));
+  putVoteThread(voteThread: IVote): Observable<boolean>{
+    const url = environment.baseUrl + `User/updateVoteThread`
+
+    return this.http.put(url, voteThread, { responseType: 'text' }).pipe(
+      map(data => {return data != null}));
   }
 
-  putVoteComment(voteComment: IVote): boolean{
-    return Boolean(this.http.put<IVote>(environment.baseUrl + `User/updateVoteComment`, voteComment));
+  putVoteComment(voteComment: IVote): Observable<boolean>{
+    const url = environment.baseUrl + `User/updateVoteComment`;
+
+    return this.http.put(url, voteComment, { responseType: 'text' }).pipe(
+      map(data => {return data != null}));
   }
 
-  putVoteCommentReply(voteCommentReply: IVote): boolean{
-    return Boolean(this.http.put<IVote>(environment.baseUrl + `User/updateVoteCommentReply`, voteCommentReply));
+  putVoteCommentReply(voteCommentReply: IVote): Observable<boolean>{
+    const url = environment.baseUrl + `User/updateVoteCommentReply`;
+
+    return this.http.put(url, voteCommentReply, { responseType: 'text' }).pipe(
+      map(data => {return data != null}));
   }
 
   // DELETE
 
-  deleteUser(id: number): boolean{
-    return Boolean(this.http.delete<number>(environment.baseUrl + `User/deleteUser${id}`));
+  deleteUser(id: number): Observable<boolean>{
+    const url = environment.baseUrl + `User/deleteUser${id}`;
+
+    return this.http.delete(url, { responseType: 'text' }).pipe(
+      map(data => {return data != null}));
   }
 
-  deleteFollower(follower: IFollower): boolean{
-    const httpOptions = {
-      headers: new HttpHeaders({'Content-Type': 'application/json'}),
-      body: follower
-    }
+  deleteFollower(follower: IFollower): Observable<boolean>{
+    const url = environment.baseUrl + `User/deleteFollower`;
 
-    return Boolean(this.http.delete<IFollower>(environment.baseUrl + `User/deleteFollower`, httpOptions));
+    return this.http.delete(url, { body: follower, responseType: 'text'}).pipe(
+      map(data => {return data != null}));
   }
 
-  deleteFollowing(following: IFollower): boolean{
-    const httpOptions = {
-      headers: new HttpHeaders({'Content-Type': 'application/json'}),
-      body: following
-    }
+  deleteFollowing(following: IFollower): Observable<boolean>{
+    const url = environment.baseUrl + `User/deleteFollowing`;
 
-    return Boolean(this.http.delete<IFollower>(environment.baseUrl + `User/deleteFollowing`, httpOptions));
+    return this.http.delete(url, { body: following, responseType: 'text' }).pipe(
+      map(data => {return data != null}));
   }
 
-  deleteFavouriteCategory(favouriteCategory: IFavouriteCategory): boolean{
-    const httpOptions = {
-      headers: new HttpHeaders({'Content-Type': 'application/json'}),
-      body: favouriteCategory
-    }
+  deleteFavouriteCategory(favouriteCategory: IFavouriteCategory): Observable<boolean>{
+    const url = environment.baseUrl + `User/deleteFavouriteCategory`;
 
-    return Boolean(this.http.delete<IFavouriteCategory>(environment.baseUrl + `User/deleteFavouriteCategory`, httpOptions))
+    return this.http.delete(url, { body: favouriteCategory, responseType: 'text' }).pipe(
+      map(data => {return data != null}));
   }
 
-  deleteFavouriteThread(favouriteThread: IFavouriteThread): boolean{
-    const httpOptions = {
-      headers: new HttpHeaders({'Content-Type': 'application/json'}),
-      body: favouriteThread
-    }
+  deleteFavouriteThread(favouriteThread: IFavouriteThread): Observable<boolean>{
+    const url = environment.baseUrl + `User/deleteFavouriteThread`;
 
-    return Boolean(this.http.delete<IFavouriteThread>(environment.baseUrl + `User/deleteFavouriteThread`, httpOptions));
+    return this.http.delete(url, { body: favouriteThread, responseType: 'text' }).pipe(
+      map(data => {return data != null}));
   }
 
-  deleteVoteThread(voteThread: IDeleteVoteDto): boolean{
-    const httpOptions = {
-      headers: new HttpHeaders({'Content-Type': 'application/json'}),
-      body: voteThread
-    }
+  deleteVoteThread(voteThread: IDeleteVoteDto): Observable<boolean>{
+    const url = environment.baseUrl + `User/deleteVoteThread`;
 
-    return Boolean(this.http.delete<IDeleteVoteDto>(environment.baseUrl + `User/deleteVoteThread`, httpOptions));
+    return this.http.delete(url, { body: voteThread, responseType: 'text' }).pipe(
+      map(data => {return data != null}));
   }
 
-  deleteVoteComment(voteComment: IDeleteVoteDto): boolean{
-    const httpOptions = {
-      headers: new HttpHeaders({'Content-Type': 'application/json'}),
-      body: voteComment
-    }
+  deleteVoteComment(voteComment: IDeleteVoteDto): Observable<boolean>{
+    const url = environment.baseUrl + `User/deleteVoteComment`;
 
-    return Boolean(this.http.delete<IDeleteVoteDto>(environment.baseUrl + `User/deleteVoteComment`, httpOptions))
+    return this.http.delete(url, { body: voteComment, responseType: 'text' }).pipe(
+      map(data => {return data != null}));
   }
 
-  deleteVoteCommentReply(voteCommentReply: IDeleteVoteDto): boolean{
-    const httpOptions = {
-      headers: new HttpHeaders({'Content-Type': 'application/json'}),
-      body: voteCommentReply
-    }
+  deleteVoteCommentReply(voteCommentReply: IDeleteVoteDto): Observable<boolean>{
+    const url = environment.baseUrl + `User/deleteVoteCommentReply`;
 
-    return Boolean(this.http.delete<IDeleteVoteDto>(environment.baseUrl + `User/deleteVoteCommentReply`, httpOptions));
+    return this.http.delete(url, { body: voteCommentReply, responseType: 'text' }).pipe(
+      map(data => {return data != null}));
   }
 
   // MISC METHODS
   // User Validation Checks
-  checkUniqueUsername(username: string): Boolean{
+  checkUniqueUsername(username: string): Observable<boolean>{
     // IMPLEMENT IN BACKEND
-    return true;
+    throw NotFoundError;
   }
 
 }

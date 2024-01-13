@@ -115,7 +115,7 @@ namespace backend.Controllers
         [HttpPost("createThread")]
         [ProducesResponseType(204)]
         [ProducesResponseType(400)]
-        public IActionResult CreateThread([FromBody] CreateThreadDto createThread, int userId, int categoryId)
+        public IActionResult CreateThread([FromBody] CreateThreadDto createThread)
         {
             if (createThread == null)
                 return BadRequest(ModelState);
@@ -127,7 +127,7 @@ namespace backend.Controllers
 
             var threadMap = mapper.Map<ThreadComponent>(createThread);
 
-            if (!threadRepository.CreateThread(threadMap, userId, categoryId))
+            if (!threadRepository.CreateThread(threadMap, createThread.userId, createThread.categoryId))
             {
                 ModelState.AddModelError("", "Something went wrong when creating thread");
                 return StatusCode(500, ModelState);

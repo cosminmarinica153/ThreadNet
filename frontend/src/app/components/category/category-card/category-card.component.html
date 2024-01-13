@@ -1,1 +1,3 @@
-<p *ngIf="category.name != 'Other'" class="tn-clickable overflow-1" (click)="loadCategory(category.name)"> {{category.name}} </p>
+<ng-container *ngIf="(category | async) as cat">
+  <p *ngIf="cat.name != 'Other'" class="tn-clickable overflow-1" (click)="loadCategory(cat.name)"> {{cat.name}} </p>
+</ng-container>

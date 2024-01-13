@@ -3,20 +3,20 @@
     <div class="tn-category-collapse" (click)="togglePopular()">
       <p class="tn-clickable"> Popular </p>
     </div>
-    <div [style.display]="isPopularOpen ? 'block': 'none'" *ngFor="let category of popular" class="category">
+    <div [style.display]="isPopularOpen ? 'block': 'none'" *ngFor="let category of popular | async" class="category">
       <tn-category [categoryId] = "category.id"></tn-category>
     </div>
   </div>
   <div id="favourites" class="tn-category-class">
     <p class="tn-clickable" (click)="toggleFavourites()"> Favourites </p>
-    <div [style.display]="isFavouritesOpen ? 'block': 'none'" *ngFor="let category of favourites" class="category">
+    <div [style.display]="isFavouritesOpen ? 'block': 'none'" *ngFor="let category of favourites | async" class="category">
       <tn-category [categoryId]="category.id"></tn-category>
     </div>
-    <p [style.display]="isFavouritesOpen ? 'block': 'none'" *ngIf="!favourites.length" class="not-found"> You don't have any favourites! </p>
+    <p [style.display]="isFavouritesOpen ? 'block': 'none'" *ngIf="!favourites" class="not-found"> You don't have any favourites! </p>
   </div>
   <div id="other" class="tn-category-class">
     <p class="tn-clickable" (click)="toggleOther()"> Other </p>
-    <div [style.display]="isOtherOpen ? 'block': 'none'" *ngFor="let category of categories" class="category">
+    <div [style.display]="isOtherOpen ? 'block': 'none'" *ngFor="let category of categories | async" class="category">
       <tn-category [categoryId]="category.id"></tn-category>
     </div>
   </div>

@@ -64,16 +64,16 @@ export class RegisterComponent implements OnInit {
     return fg.get('terms').value === true ? null : { notChecked: true };
   }
 
-  checkUniqueUsername(username: string): Boolean{
-    return this.userService.checkUniqueUsername(username);
-  }
+  // checkUniqueUsername(username: string): Boolean{
+  //   return this.userService.checkUniqueUsername(username);
+  // }
 
   onRegister() {
     this.submit = true;
 
-    const uniqueUsername = this.checkUniqueUsername(this.username.value);
+    // const uniqueUsername = this.checkUniqueUsername(this.username.value);
 
-    if(!uniqueUsername) return
+    // if(!uniqueUsername) return
 
     if(!this.registerForm.valid) return
 

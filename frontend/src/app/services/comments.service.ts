@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { Observable } from 'rxjs';
+import { Observable, map } from 'rxjs';
 import { environment } from 'src/environments/environment.prod';
 import { IComment } from '../interfaces/TableInterfaces/IComment';
 import { ICreateCommentDto } from '../interfaces/Dto/ICreateCommentDto';
@@ -37,16 +37,28 @@ export class CommentsService {
   }
 
   // OTHER
-  postComment(comment: ICreateCommentDto): boolean{
-    return Boolean(this.http.post<ICreateCommentDto>(environment.baseUrl + `Comment/createComment`, comment));
+  postComment(comment: ICreateCommentDto): Observable<boolean>{
+    const url = environment.baseUrl + `Comment/createComment`;
+
+    return this.http.post(url, comment, { responseType: 'text' }).pipe(
+      map(data => { return data != null })
+    );
   }
 
-  putComment(comment: IUpdateCommentDto): boolean{
-    return Boolean(this.http.put<IUpdateCommentDto>(environment.baseUrl + `Comment/updateComment`, comment));
+  putComment(comment: IUpdateCommentDto): Observable<boolean>{
+    const url = environment.baseUrl + `Comment/updateComment`;
+
+    return this.http.put(url, comment, { responseType: 'text' }).pipe(
+      map(data => { return data != null })
+    );
   }
 
-  deleteComment(id: number): boolean{
-    return Boolean(this.http.delete<number>(environment.baseUrl + `Comment/deleteComment${id}`));
+  deleteComment(id: number): Observable<boolean>{
+    const url = environment.baseUrl + `Comment/deleteComment${id}`;
+
+    return this.http.delete(url, { responseType: 'text' }).pipe(
+      map(data => { return data != null })
+    );
   }
 
   // Reply Methods
@@ -64,16 +76,28 @@ export class CommentsService {
   }
 
   // OTHER
-  postCommentReply(reply: ICreateCommentReplyDto): boolean{
-    return Boolean(this.http.post<ICreateCommentReplyDto>(environment.baseUrl + `CommentReply/createCommentReply`, reply));
+  postCommentReply(reply: ICreateCommentReplyDto): Observable<boolean>{
+    const url = environment.baseUrl + `CommentReply/createCommentReply`;
+
+    return this.http.post(url, reply, { responseType: 'text' }).pipe(
+      map(data => { return data != null })
+    );
   }
 
-  putCommentReply(reply: IUpdateCommentDto): boolean{
-    return Boolean(this.http.put<IUpdateCommentDto>(environment.baseUrl + `CommentReply/updateCommentReply`, reply));
+  putCommentReply(reply: IUpdateCommentDto): Observable<boolean>{
+    const url = environment.baseUrl + `CommentReply/updateCommentReply`;
+
+    return this.http.put(url, reply, { responseType: 'text' }).pipe(
+      map(data => { return data != null })
+    );
   }
 
-  deleteCommentReply(id: number): boolean{
-    return Boolean(this.http.delete<number>(environment.baseUrl + `CommentReply/deleteComment${id}`));
+  deleteCommentReply(id: number): Observable<boolean>{
+    const url = environment.baseUrl + `CommentReply/deleteComment${id}`;
+
+    return this.http.delete(url, { responseType: 'text' }).pipe(
+      map(data => { return data != null })
+    );
   }
 
   // MISC Methods

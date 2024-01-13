@@ -1,5 +1,6 @@
 import { Component, Input, OnInit } from "@angular/core";
 import { Router } from "@angular/router";
+import { Observable, of } from "rxjs";
 import { ICategory } from "src/app/interfaces/TableInterfaces/ICategory";
 import { CategoryService } from "src/app/services/category.service";
 
@@ -10,15 +11,14 @@ import { CategoryService } from "src/app/services/category.service";
 })
 export class CategoryCardComponent implements OnInit{
 @Input()categoryId: number;
-    category: ICategory;
+    category: Observable<ICategory>;
 
     constructor(private router: Router,
                 private categoryService: CategoryService) {}
 
     ngOnInit(){
-        this.categoryService.getOne(this.categoryId).subscribe(
-          data => {
-            this.category = data;
+        this.categoryService.getOne(this.categoryId).subscribe(data => {
+            this.category = of(data);
         });
     }
 

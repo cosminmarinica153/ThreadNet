@@ -1,9 +1,7 @@
 import { Component, Input, OnInit } from '@angular/core';
-import { Router } from '@angular/router';
-import { ICategory } from 'src/app/interfaces/TableInterfaces/ICategory';
+import { ActivatedRoute, Router } from '@angular/router';
 
 import { AuthentificationService } from 'src/app/services/authentification.service';
-import { CategoryService } from 'src/app/services/category.service';
 import { InteractionsService } from 'src/app/services/interactions.service';
 
 import { NotFoundError } from 'rxjs';
@@ -14,27 +12,22 @@ import { NotFoundError } from 'rxjs';
   styleUrls: ['./thread-header.component.css']
 })
 export class ThreadHeaderComponent implements OnInit {
-@Input() categoryId: number;
-  category: ICategory;
-
   title: string;
   keyword: string;
 
   isFavouriteCategory: boolean;
 
   constructor(private router: Router, private authService: AuthentificationService,
-              private interaction: InteractionsService, private categoryService: CategoryService) {
+              private route: ActivatedRoute,private interaction: InteractionsService) {
     this.isFavouriteCategory = false;
   }
 
   ngOnInit() {
     if(this.router.url != "/category/My%20Threads" && this.router.url != "/category/My%20Favourites" && this.router.url != "/")
     {
-      this.categoryService.getOne(this.categoryId).subscribe(
-        data => {
-          this.category = data;
-      });
-      this.title = this.category.name;
+      this.route.params.subscribe(params => {
+        this.title = params["category_name"];
+      })
     }
     if(this.router.url === '/') this.title = 'Other'
   }

@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
-import { Observable, map } from 'rxjs';
-import { HttpClient } from '@angular/common/http';
+import { NotFoundError, Observable, map } from 'rxjs';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { environment } from 'src/environments/environment.prod';
 import { ICategory } from '../interfaces/TableInterfaces/ICategory';
 import { IThread } from '../interfaces/TableInterfaces/IThread';
@@ -37,15 +37,14 @@ export class CategoryService {
 
   // OTHER
   postCategory(category: ICreateCategoryDto): Observable<boolean>{
-    return this.http.post<ICreateCategoryDto>(environment.baseUrl + `Category/createCategory`, category).pipe(
-      map(data => {
-        return data != null;
-      })
-    );
+    const url = environment.baseUrl + `Category/createCategory`;
+
+    return this.http.post(url, category, { responseType: 'text' }).pipe(
+      map(data => { return data != null; }));
   }
 
   // MISC Methods
-  checkUniqueName(name: string): Boolean{
-    return true;
+  checkUniqueName(name: string): Observable<boolean>{
+    throw NotFoundError;
   }
 }

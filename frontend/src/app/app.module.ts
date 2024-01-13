@@ -1,13 +1,15 @@
 // EXTERNAL IMPORTS
 import { NgModule } from '@angular/core';
-import { HttpClientModule} from '@angular/common/http';
 import { BrowserModule } from '@angular/platform-browser';
 import { Routes, RouterModule} from '@angular/router';
+
 import { ReactiveFormsModule } from '@angular/forms';
 import { FormsModule } from '@angular/forms';
 import { MatTooltipModule } from '@angular/material/tooltip';
 import { MatDialogModule } from '@angular/material/dialog';
 import { MatButtonModule } from '@angular/material/button';
+
+import { HTTP_INTERCEPTORS, HttpClientModule} from '@angular/common/http';
 
 // MODULES
 import { AppRoutingModule } from './app-routing.module';
@@ -68,6 +70,7 @@ import { AuthentificationService } from './services/authentification.service';
 import { FilterPipe } from './pipes/filter.pipe';
 import { SearchPipe } from './pipes/search.pipe';
 import { SortPipe } from './pipes/sort.pipe';
+import { HeaderInterceptor } from './services/header-interceptor.interceptor';
 
 // DIRECTIVES
 // import { ModHighlightDirective } from './directives/mod-highlight.directive';
@@ -194,7 +197,9 @@ const appRoutes: Routes = [
     CommentsService,
     UserService,
     ThreadMarginService,
-    AuthentificationService
+    AuthentificationService,
+    // Interceptors
+    { provide: HTTP_INTERCEPTORS, useClass: HeaderInterceptor, multi: true }
     // Directives,
   ],
   bootstrap: [AppComponent]

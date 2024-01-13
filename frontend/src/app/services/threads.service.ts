@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { Observable } from 'rxjs';
+import { Observable, map } from 'rxjs';
 import { environment } from 'src/environments/environment.prod';
 import { IThread } from '../interfaces/TableInterfaces/IThread';
 import { ICreateThreadDto } from '../interfaces/Dto/ICreateThreadDto';
@@ -43,17 +43,29 @@ export class ThreadsService {
   }
 
   // POST
-  postThread(thread: ICreateThreadDto): boolean{
-    return Boolean(this.http.post<ICreateThreadDto>(environment.baseUrl + `Thread/creadThread`, thread));
+  postThread(thread: ICreateThreadDto): Observable<boolean>{
+    const url = environment.baseUrl + `Thread/createThread`;
+
+    return this.http.post(url, thread, { responseType: 'text' }).pipe(
+      map(data => { return data != null })
+    );
   }
 
   // PUT
-  putThread(thread: IUpdateThreadDto): boolean{
-    return Boolean(this.http.put<IUpdateThreadDto>(environment.baseUrl + `Thread/updateThread`, thread));
+  putThread(thread: IUpdateThreadDto): Observable<boolean>{
+    const url = environment.baseUrl + `Thread/updateThread`;
+
+    return this.http.put(url, thread, { responseType: 'text' }).pipe(
+      map(data => { return data != null })
+    );
   }
 
   // DELETE
-  deleteThread(id: number): boolean{
-    return Boolean(this.http.delete<number>(environment.baseUrl + `Thread/deleteThread${id}`));
+  deleteThread(id: number): Observable<boolean>{
+    const url = environment.baseUrl + `Thread/deleteThread${id}`;
+
+    return this.http.delete(url, { responseType: 'text' }).pipe(
+      map(data => { return data != null })
+    );
   }
 }
