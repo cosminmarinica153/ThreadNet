@@ -8,7 +8,7 @@ import { IUserComment } from 'src/app/interfaces/MiscInterfaces/IUserComment';
 import { AuthentificationService } from 'src/app/services/authentification.service';
 import { UserService } from 'src/app/services/user.service';
 
-import { NotFoundError, Observable, map } from 'rxjs';
+import { NotFoundError, Observable, map, of } from 'rxjs';
 
 @Component({
   selector: 'tn-account',
@@ -16,21 +16,22 @@ import { NotFoundError, Observable, map } from 'rxjs';
   styleUrls: ['./account.component.css']
 })
 export class AccountComponent implements OnInit {
-  threads: Array<IThread>
+  threads: Observable<IThread[]>
   comments: Array<IUserComment>
 
   user: IUser
 
   constructor(private route: ActivatedRoute, private authService: AuthentificationService,
               private userService: UserService) {
-    this.threads = [];
     this.comments = [];
    }
 
   ngOnInit() {
-    throw NotFoundError;
     this.route.params.subscribe((params) => {
       //this.user = this.userService.getUserByUsername(params['username']);
+      this.userService.getThreads(this.user.id).subscribe(data => {
+        this.threads = of(data);
+      })
     });
 
   }

@@ -1,10 +1,10 @@
 <div [style.margin-left.px]="leftComponentWidth" id="container">
   <tn-thread-header id="thread_header" [title] = "title"></tn-thread-header>
   <div id="thread_list">
-    <div *ngIf="!threads.length">
+    <div *ngIf="!(threads | async)W">
       <h5> There are no threads for this category </h5>
     </div>
-    <div *ngFor="let thread of threads | search:promt | sort:sortObj['type']:sortObj['engagement']:sortObj['order']" class="tn-thread-list">
+    <div *ngFor="let thread of threads | async | search:promt | sort:sortObj['type']:sortObj['engagement']:sortObj['order']" class="tn-thread-list">
       <tn-thread-card [thread] = "thread" class="tn-thread"></tn-thread-card>
     </div>
   </div>

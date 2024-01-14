@@ -7,6 +7,7 @@ import { AuthentificationService } from 'src/app/services/authentification.servi
 import { UserService } from 'src/app/services/user.service';
 import { ThreadsService } from 'src/app/services/threads.service';
 import { InteractionsService } from 'src/app/services/interactions.service';
+import { Observable, of } from 'rxjs';
 
 @Component({
   selector: 'tn-thread-list',
@@ -14,7 +15,7 @@ import { InteractionsService } from 'src/app/services/interactions.service';
   styleUrls: ['./thread-list.component.css']
 })
 export class ThreadListComponent implements OnInit {
-  threads: Array<IThread>;
+  threads: Observable<IThread[]>;
   title: string;
   id: number;
   leftComponentWidth: number;
@@ -25,7 +26,6 @@ export class ThreadListComponent implements OnInit {
   constructor(private route: ActivatedRoute, private authService: AuthentificationService,
               private threadsService: ThreadsService, private interaction: InteractionsService,
               private marginService: ThreadMarginService, private userService: UserService) {
-    this.threads = [];
     this.leftComponentWidth = 200;
   }
 
@@ -34,20 +34,19 @@ export class ThreadListComponent implements OnInit {
       this.title = params['category_name'];
       this.authService.getUserId().subscribe((userId: number) => {
         if(!this.title)
-          this.threadsService.getAll().subscribe(
-            data => {
-              this.threads = data;
+          this.threadsService.getAll().subscribe(data => {
+              this.threads = of(data);
           });
         else if(this.title == "My Threads"){
-          this.userService.getThreads(userId).subscribe(
-            data => {
-              this.threads = data;
+          this.userService.getThreads(userId).subscribe(data => {
+              this.threads = of(data);
+              this.title = "My Threads";
           });
         }
         else if(this.title == "My Favourites")
-          this.userService.getFavouriteThreads(userId).subscribe(
-            data => {
-              this.threads = data;
+          this.userService.getFavouriteThreads(userId).subscribe(data => {
+              this.threads = of(data);
+              this.title = "Favourites";
         });
       })
 

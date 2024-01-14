@@ -2,15 +2,21 @@
   <div class="tn-thread-header">
     <div class="tn-user-details">
       <img src="assets/icons/user/user.png">
-      <a [routerLink]="['/profile', user.username]" class="tn-username tn-clickable"> &#64;{{user.username}}</a>
+      <ng-component *ngIf="user | async as usr">
+        <a [routerLink]="['/profile', usr.username]" class="tn-username tn-clickable"> &#64;{{usr.username}}</a>
+      </ng-component>
     </div>
-    <p class="tn-date"> {{thread.threadDate | date:'dd/MM HH:mm'}} </p>
+    <p class="tn-date"> {{(thread | async)?.threadDate | date:'dd/MM HH:mm'}} </p>
   </div>
-  <div class="tn-thread-body tn-clickable" (click)="loadThread(thread.id)">
-    <h3 class="overflow-1 tn-clickable">{{thread.title}}</h3>
-    <p class="overflow-2 tn-clickable">{{thread.content}}</p>
+  <div class="tn-thread-body tn-clickable" (click)="loadThread()">
+    <h3 class="overflow-1 tn-clickable">{{(thread | async)?.title}}</h3>
+    <p class="overflow-2 tn-clickable">{{(thread | async)?.content}}</p>
   </div>
-  <tn-interaction-group [thread]="thread"></tn-interaction-group>
+  <ng-component *ngIf="thread | async as th">
+    <tn-interaction-group *ngIf="th" [thread]="th"></tn-interaction-group>
+  </ng-component>
 </div>
 
-<tn-edit-thread *ngIf="isEditing" [thread]="thread" id="thread"></tn-edit-thread>
+<ng-component *ngIf="thread | async as th">
+  <tn-edit-thread *ngIf="th" [thread]="th" id="thread"></tn-edit-thread>
+</ng-component>

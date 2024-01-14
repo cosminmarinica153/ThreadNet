@@ -6,6 +6,7 @@ import { IThread } from '../../../interfaces/TableInterfaces/IThread';
 import { UserService } from 'src/app/services/user.service';
 import { AuthentificationService } from 'src/app/services/authentification.service';
 import { InteractionsService } from 'src/app/services/interactions.service';
+import { Observable, of } from 'rxjs';
 
 @Component({
   selector: 'tn-thread-card',
@@ -13,8 +14,9 @@ import { InteractionsService } from 'src/app/services/interactions.service';
   styleUrls: ['./thread-card.component.css']
 })
 export class ThreadCardComponent implements OnInit {
-@Input() thread: IThread;
-  user: IUser;
+@Input() thread: Observable<IThread>;
+  threadId: number;
+  user: Observable<IUser>;
   isEditable: boolean;
 
   isEditing: boolean;
@@ -26,12 +28,16 @@ export class ThreadCardComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.userService.getOne(this.thread.userId).subscribe(
-      data => {
-        this.user = data;
+    this.thread.subscribe(data => {
+      console.log("Succesful subscribe");
+      this.userService.getOne(data.userId).subscribe(
+        data => {
+          this.user = of(data);
+        });
+      this.interaction.getThreadEdit().subscribe(value =>{
+        this.isEditing = value;
       });
-    this.interaction.getThreadEdit().subscribe(value =>{
-      this.isEditing = value;
+      this.threadId = data.id;
     });
   }
 
@@ -40,7 +46,7 @@ export class ThreadCardComponent implements OnInit {
       this.router.navigate(['/login']);
   }
 
-  loadThread(id: number){
-    this.router.navigate(['/thread', id]);
+  loadThread(){
+    this.router.navigate(['/thread', this.threadId]);
   }
 }
