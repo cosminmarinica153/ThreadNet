@@ -7,6 +7,7 @@ namespace backend.Interfaces
         // GETTERS
         ICollection<ThreadComponent> GetAll();
         ThreadComponent GetOne(int id);
+        ThreadComponent GetLastThread();
         ICollection<Comment> GetComments(int id);
         ISet<User> GetDiscussionParticipants(int id);
         int GetPopularityScore(int id);

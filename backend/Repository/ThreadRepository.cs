@@ -22,6 +22,11 @@ namespace backend.Repository
             return context.Threads.OrderBy(p => p.Id).ToList();
         }
 
+        public ThreadComponent GetLastThread()
+        {
+            return context.Threads.OrderBy(t => t.Id).Last();
+        }
+
         public ThreadComponent GetOne(int id)
         {
             return context.Threads.Find(id);

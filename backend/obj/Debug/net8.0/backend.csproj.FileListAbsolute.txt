@@ -515,3 +515,8 @@ C:\Users\HP\Desktop\Stuff\projects\ThreadNet\backend\obj\Debug\net8.0\backend.pd
 C:\Users\HP\Desktop\Stuff\projects\ThreadNet\backend\obj\Debug\net8.0\backend.genruntimeconfig.cache
 C:\Users\HP\Desktop\Stuff\projects\ThreadNet\backend\obj\Debug\net8.0\ref\backend.dll
 C:\Users\HP\Desktop\Stuff\projects\ThreadNet\backend\bin\Debug\net8.0\Microsoft.AspNetCore.Identity.EntityFrameworkCore.dll
+C:\Users\HP\Desktop\Stuff\projects\ThreadNet\backend\bin\Debug\net8.0\publish\web.config
+C:\Users\HP\Desktop\Stuff\projects\ThreadNet\backend\bin\Debug\net8.0\publish\appsettings.Development.json
+C:\Users\HP\Desktop\Stuff\projects\ThreadNet\backend\bin\Debug\net8.0\publish\appsettings.json
+C:\Users\HP\Desktop\Stuff\projects\ThreadNet\backend\bin\Debug\net8.0\publish\backend.deps.json
+C:\Users\HP\Desktop\Stuff\projects\ThreadNet\backend\bin\Debug\net8.0\publish\backend.runtimeconfig.json

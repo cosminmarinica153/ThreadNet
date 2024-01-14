@@ -52,9 +52,10 @@ export class CreateCategoryComponent implements OnInit {
 
     this.categoryService.postCategory(this.categoryData()).subscribe(succes => {
       if(!succes){
-        console.log("unsuccesfull request");
+        console.log("Unsuccesfull request");
         return;
       }
+
       this.submit = false;
 
       this.router.navigateByUrl('/', { skipLocationChange: true }).then(() => {

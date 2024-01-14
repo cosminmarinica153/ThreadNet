@@ -133,7 +133,20 @@ namespace backend.Controllers
                 return StatusCode(500, ModelState);
             }
 
-            return Ok(threadMap);
+            var lastThread = mapper.Map<ThreadDto>(this.threadRepository.GetLastThread());
+
+            var response = new ThreadResponseDto
+            {
+                Id = lastThread.Id,
+                UserId = lastThread.User.Id,
+                CategoryId = lastThread.Category.Id,
+                Title = lastThread.Title,
+                Content = lastThread.Content,
+                UploadDate = lastThread.UploadDate,
+                IsEdited = lastThread.IsEdited
+            };
+
+            return Ok(response);
         }
 
         [HttpPut("updateThread")]
