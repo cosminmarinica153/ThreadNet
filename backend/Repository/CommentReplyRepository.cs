@@ -1,6 +1,7 @@
 ﻿using backend.Data;
 using backend.Interfaces;
 using backend.Models;
+using Microsoft.EntityFrameworkCore;
 
 namespace backend.Repository
 {
@@ -15,12 +16,12 @@ namespace backend.Repository
 
         public ICollection<CommentReply> GetAll()
         {
-            return context.CommentReplies.OrderBy(c => c.Id).ToList();
+            return context.CommentReplies.OrderBy(cr => cr.Id).Include(cr => cr.User).ToList();
         }
 
         public CommentReply GetOne(int id)
         {
-            return context.CommentReplies.Find(id);
+            return context.CommentReplies.Where(cr => cr.Id == id).Include(cr => cr.User).FirstOrDefault();
         }
 
         public CommentReplyInteractions GetInteractions(int id)

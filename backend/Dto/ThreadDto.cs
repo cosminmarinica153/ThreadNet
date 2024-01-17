@@ -9,7 +9,7 @@ namespace backend.Dto
         public string Content { get; set; }
         public DateTime UploadDate { get; set; }
         public short IsEdited { get; set; }
-        public User User { get; set; }
-        public Category Category { get; set; }
+        public ContentUserDto User { get; set; }
+        public CategoryDto Category { get; set; }
     }
 }

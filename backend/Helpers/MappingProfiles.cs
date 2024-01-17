@@ -41,6 +41,8 @@ namespace backend.Helpers
             CreateMap<object, VoteCommentReply>();
             CreateMap<object, FavouriteCategory>();
             CreateMap<object, FavouriteThread>();
+
+            CreateMap<User, ContentUserDto>();
         }
     }
 }

@@ -1,4 +1,6 @@
-﻿using backend.Data;
+﻿using AutoMapper;
+using backend.Data;
+using backend.Dto;
 using backend.Helpers;
 using backend.Interfaces;
 using backend.Models;
@@ -10,31 +12,33 @@ namespace backend.Repository
     {
         private readonly DataContext context;
         private readonly ICommentRepository commentRepository;
+        private readonly IMapper mapper;
 
-        public ThreadRepository(DataContext context, ICommentRepository commentRepository)
+        public ThreadRepository(DataContext context, ICommentRepository commentRepository, IMapper mapper)
         {
             this.context = context;
             this.commentRepository = commentRepository;
+            this.mapper = mapper;
         }
 
         public ICollection<ThreadComponent> GetAll()
         {
-            return context.Threads.OrderBy(p => p.Id).ToList();
+            return context.Threads.OrderBy(t => t.Id).Include(t => t.User).ToList();
         }
 
         public ThreadComponent GetLastThread()
         {
-            return context.Threads.OrderBy(t => t.Id).Last();
+            return context.Threads.OrderBy(t => t.Id).Include(t=> t.User).Last();
         }
 
         public ThreadComponent GetOne(int id)
         {
-            return context.Threads.Find(id);
+            return context.Threads.Where(t => t.Id == id).Include(t => t.User).FirstOrDefault();
         }
 
         public ICollection<Comment> GetComments(int id)
         {
-            return context.Comments.Where(c => c.Thread.Id == id).ToList();
+            return context.Comments.Where(c => c.Thread.Id == id).Include(c => c.User).ToList();
         }
 
         public ISet<User> GetDiscussionParticipants(int id)
