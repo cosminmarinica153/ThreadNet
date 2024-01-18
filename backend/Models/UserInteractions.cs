@@ -3,22 +3,22 @@
     public class UserInteractions
     {
         // Categories
-        public int FavouriteCategories;
+        public int FavouriteCategories { get; set; }
 
         // Threads
-        public int FavouriteThreads;
-        public int CreatedThreads;
-        public int UpVotedThreads;
-        public int DownVotedThreads;
+        public int FavouriteThreads { get; set; }
+        public int CreatedThreads {  get; set; } 
+        public int UpVotedThreads { get; set; }
+        public int DownVotedThreads { get; set; }
 
         // Comments
-        public int CreatedComments;
-        public int UpVotedComments;
-        public int DownVotedComments;
+        public int CreatedComments { get; set; }
+        public int UpVotedComments { get; set; }
+        public int DownVotedComments { get; set; }
 
         // User
-        public int Followers;
-        public int Following;
+        public int Followers { get; set; }
+        public int Following { get; set; }
 
         public UserInteractions(int favouriteCategories, int favouriteThreads, int createdThreads, int upVotedThreads,
                                int downVotedThreads, int createdComments, int upVotedComments, int downVotedComments,

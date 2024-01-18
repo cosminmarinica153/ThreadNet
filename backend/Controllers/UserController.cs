@@ -154,7 +154,7 @@ namespace backend.Controllers
             if (!userRepository.Exists(id))
                 return NotFound();
 
-            var interactions = userRepository.GetInteractions(id).ToJson();
+            var interactions = userRepository.GetInteractions(id);
 
             if (!ModelState.IsValid)
                 return BadRequest(ModelState);

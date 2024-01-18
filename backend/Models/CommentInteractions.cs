@@ -2,10 +2,10 @@
 {
     public class CommentInteractions
     {
-        public int UpVotes;
-        public int DownVotes;
+        public int UpVotes { get; set; }
+        public int DownVotes { get; set; }
 
-        public int ReplyCount;
+        public int ReplyCount { get; set; }
 
         public CommentInteractions(int upVotes, int downVotes, int replyCount)
         {
