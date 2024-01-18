@@ -72,7 +72,7 @@ namespace backend.Controllers
             if (!commentRepository.Exists(id))
                 return NotFound();
 
-            var interactions = commentRepository.GetInteractions(id).ToJson();
+            var interactions = commentRepository.GetInteractions(id);
 
             if (!ModelState.IsValid)
                 return BadRequest(ModelState);

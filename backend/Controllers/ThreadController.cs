@@ -104,7 +104,7 @@ namespace backend.Controllers
             if (!threadRepository.Exists(id))
                 return NotFound();
 
-            var interactions = threadRepository.GetInteractions(id).ToJson();
+            var interactions = threadRepository.GetInteractions(id);
 
             if (!ModelState.IsValid)
                 return BadRequest(ModelState);
