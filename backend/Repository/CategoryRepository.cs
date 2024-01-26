@@ -2,6 +2,7 @@
 using backend.Helpers;
 using backend.Interfaces;
 using backend.Models;
+using Microsoft.EntityFrameworkCore;
 
 namespace backend.Repository
 {
@@ -26,7 +27,7 @@ namespace backend.Repository
 
         public ICollection<ThreadComponent> GetThreads(int id)
         {
-            return context.Threads.Where(t => t.Category.Id == id).ToList();
+            return context.Threads.Where(t => t.Category.Id == id).Include(t => t.User).ToList();
         }
 
         public int GetPopularityScore(int id)
