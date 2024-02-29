@@ -36,13 +36,13 @@ namespace backend.Interfaces
         bool DeleteFavouriteThread(FavouriteThread favouriteThread);
         bool DeleteVoteThread(VoteThread voteThread);
         bool DeleteVoteComment(VoteComment voteComment);
-        bool DeleteVoteCommentReply(VoteCommentReply voCommentReply);
+        bool DeleteVoteCommentReply(VoteCommentReply voteCommentReply);
 
         // Misc
         bool Save();
         bool Exists(int id);
         bool FeatureExists(int userId, int featureId, string type);
         object GetFeature(int userId, int featureId, string type);
-        User CheckCredentials(string username, string password);
+        User GetByUsername(string username);
     }
 }

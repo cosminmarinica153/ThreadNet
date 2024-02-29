@@ -460,9 +460,9 @@ namespace backend.Repository
             }
         }
 
-        public User CheckCredentials(string username, string password)
+        public User GetByUsername(string username)
         {
-            return context.Users.Where(u => u.Username == username && u.Password == password).FirstOrDefault();
+            return context.Users.Where(u => u.Username == username).FirstOrDefault();
         }
     }
 }
