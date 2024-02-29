@@ -8,6 +8,11 @@ namespace backend.Repository
     {
         private readonly DataContext context;
 
+        public AuthRepository(DataContext context)
+        {
+            this.context = context;
+        }
+
         public bool AuthLogin(LoginDto credentials)
         {
             var user = context.Users.Where(u => u.Username == credentials.Username &&

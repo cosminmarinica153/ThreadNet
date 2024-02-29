@@ -1,7 +1,6 @@
 ﻿using AutoMapper;
 using backend.Dto;
 using backend.Interfaces;
-using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
 namespace backend.Controllers
@@ -35,9 +34,43 @@ namespace backend.Controllers
             if (!authRepository.AuthLogin(credentials))
                 return NotFound("User not found");
 
-            var user = userRepository.GetByUsername(credentials.Username);
+            var user = mapper.Map<UserDto>(userRepository.GetByUsername(credentials.Username));
 
             return Ok(user);
+        }
+
+        [HttpPost("uniqueUsername")]
+        [ProducesResponseType(204)]
+        [ProducesResponseType(400)]
+        public IActionResult CheckUniqueUsername([FromBody] string username)
+        {
+            if(username == null)
+                return BadRequest(ModelState);
+
+            if(!ModelState.IsValid)
+                return BadRequest(ModelState);
+
+            if (!authRepository.CheckUniqueUsername(username))
+                return Ok(false);
+
+            return Ok(true);
+        }
+
+        [HttpPost("uniqueCategoryName")]
+        [ProducesResponseType(204)]
+        [ProducesResponseType(400)]
+        public IActionResult CheckUniqueCategoryName([FromBody] string categoryName)
+        {
+            if(categoryName == null)
+                return BadRequest(ModelState);
+
+            if(!ModelState.IsValid)
+                return BadRequest(ModelState);
+
+            if (!authRepository.CheckUniqueCategory(categoryName))
+                return Ok(false);
+
+            return Ok(true);
         }
     }
 }
