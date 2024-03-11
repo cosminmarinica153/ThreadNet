@@ -7,6 +7,7 @@ namespace backend.Interfaces
         // GET
         ICollection<Category> GetAll();
         Category GetOne(int id);
+        Category GetLastCategory();
         ICollection<ThreadComponent> GetThreads(int id);
         int GetPopularityScore(int id);
         ICollection<Category> GetTopCategories(int count);
@@ -19,5 +20,6 @@ namespace backend.Interfaces
         // Misc
         bool Save();
         bool Exists(int id);
+        bool CheckUniqueName(string name);
     }
 }

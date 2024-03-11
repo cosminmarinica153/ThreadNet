@@ -38,39 +38,5 @@ namespace backend.Controllers
 
             return Ok(user);
         }
-
-        [HttpPost("uniqueUsername")]
-        [ProducesResponseType(204)]
-        [ProducesResponseType(400)]
-        public IActionResult CheckUniqueUsername([FromBody] string username)
-        {
-            if(username == null)
-                return BadRequest(ModelState);
-
-            if(!ModelState.IsValid)
-                return BadRequest(ModelState);
-
-            if (!authRepository.CheckUniqueUsername(username))
-                return Ok(false);
-
-            return Ok(true);
-        }
-
-        [HttpPost("uniqueCategoryName")]
-        [ProducesResponseType(204)]
-        [ProducesResponseType(400)]
-        public IActionResult CheckUniqueCategoryName([FromBody] string categoryName)
-        {
-            if(categoryName == null)
-                return BadRequest(ModelState);
-
-            if(!ModelState.IsValid)
-                return BadRequest(ModelState);
-
-            if (!authRepository.CheckUniqueCategory(categoryName))
-                return Ok(false);
-
-            return Ok(true);
-        }
     }
 }

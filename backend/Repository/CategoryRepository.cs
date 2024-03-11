@@ -25,6 +25,11 @@ namespace backend.Repository
             return context.Categories.Find(id);
         }
 
+        public Category GetLastCategory()
+        {
+            return context.Categories.OrderBy(c => c.Id).Last();
+        }
+
         public ICollection<ThreadComponent> GetThreads(int id)
         {
             return context.Threads.Where(t => t.Category.Id == id).Include(t => t.User).ToList();
@@ -81,6 +86,12 @@ namespace backend.Repository
         public bool Exists(int id)
         {
             return context.Categories.Where(c => c.Id == id).Any();
+        }
+        public bool CheckUniqueName(string name)
+        {
+            var category = context.Categories.Where(c => c.Name == name).FirstOrDefault();
+
+            return category == null;
         }
     }
 }

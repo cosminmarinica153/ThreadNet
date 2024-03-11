@@ -464,5 +464,12 @@ namespace backend.Repository
         {
             return context.Users.Where(u => u.Username == username).FirstOrDefault();
         }
+
+        public bool CheckUniqueUsername(string username)
+        {
+            var user = context.Users.Where(u => u.Username == username).FirstOrDefault();
+            
+            return user == null;
+        }
     }
 }

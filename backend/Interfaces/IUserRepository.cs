@@ -44,5 +44,6 @@ namespace backend.Interfaces
         bool FeatureExists(int userId, int featureId, string type);
         object GetFeature(int userId, int featureId, string type);
         User GetByUsername(string username);
+        bool CheckUniqueUsername(string username);
     }
 }

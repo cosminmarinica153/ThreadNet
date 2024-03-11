@@ -133,7 +133,7 @@ namespace backend.Controllers
                 return StatusCode(500, ModelState);
             }
 
-            var lastThread = mapper.Map<ThreadDto>(this.threadRepository.GetLastThread());
+            var lastThread = mapper.Map<ThreadDto>(threadRepository.GetLastThread());
 
             var response = new ThreadResponseDto
             {

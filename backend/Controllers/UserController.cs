@@ -194,6 +194,9 @@ namespace backend.Controllers
 
             var userMap = mapper.Map<User>(userCreate);
 
+            if (!userRepository.CheckUniqueUsername(userMap.Username))
+                return NotFound();
+
             if (!userRepository.CreateUser(userMap))
             {
                 ModelState.AddModelError("", "Something went wrong when creating user");

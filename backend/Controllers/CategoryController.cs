@@ -106,6 +106,8 @@ namespace backend.Controllers
 
             var categoryMap = mapper.Map<Category>(categoryCreate);
 
+            if (!categoryRepository.CheckUniqueName(categoryMap.Name))
+                return NotFound();
 
             if (!categoryRepository.CreateCategory(categoryMap))
             {
@@ -113,7 +115,9 @@ namespace backend.Controllers
                 return StatusCode(500, ModelState);
             }
 
-            return Ok("Category created succesfully");
+            var category = mapper.Map<CategoryDto>(categoryRepository.GetLastCategory());
+
+            return Ok(category);
         }
     }
 
