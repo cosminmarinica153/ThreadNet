@@ -15,6 +15,7 @@ namespace backend.Interfaces
         ICollection<ThreadComponent> GetThreads(int id);
         ICollection<UserCommentDto> GetComments(int id);
         UserInteractions GetInteractions(int id);
+        UserContentInteractions GetContentInteractions(int id);
         int GetProfileScore(int id);
 
         // CRUD Operations

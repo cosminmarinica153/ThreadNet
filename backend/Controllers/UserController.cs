@@ -153,10 +153,26 @@ namespace backend.Controllers
             if (!userRepository.Exists(id))
                 return NotFound();
 
+            if (!ModelState.IsValid)
+                return BadRequest(ModelState);
+
             var interactions = userRepository.GetInteractions(id);
+
+            return Ok(interactions);
+        }
+
+        [HttpGet("getContentInteractions{id}")]
+        [ProducesResponseType(200, Type = typeof(UserContentInteractions))]
+        [ProducesResponseType(400)]
+        public IActionResult GetContentInteractions(int id)
+        {
+            if (!userRepository.Exists(id))
+                return NotFound();
 
             if (!ModelState.IsValid)
                 return BadRequest(ModelState);
+
+            var interactions = userRepository.GetContentInteractions(id);
 
             return Ok(interactions);
         }

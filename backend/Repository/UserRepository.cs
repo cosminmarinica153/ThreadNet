@@ -120,11 +120,34 @@ namespace backend.Repository
             int followerCount = context.Followers.Where(f => f.FollowerId == id).Count();
             int followingCount = context.Followers.Where(f => f.UserId == id).Count();
 
-            UserInteractions interaction = new UserInteractions(favouriteCategories, favouriteThreads, createdThreads, upVotedThreads,
+            UserInteractions interactions = new UserInteractions(favouriteCategories, favouriteThreads, createdThreads, upVotedThreads,
                                                                 downVotedThreads, createdComments, upVotedComments, downVotedComments,
                                                                 followerCount, followingCount);
 
-            return interaction;
+            return interactions;
+        }
+
+        public UserContentInteractions GetContentInteractions(int id)
+        {
+            var upVotedThreads = context.VoteThread.Where(vt => vt.UserId == id && vt.VoteType == "upVote")
+                                                   .Select(vt => vt.ThreadId).ToList();
+            var downVotedThreads = context.VoteThread.Where(vt => vt.UserId == id && vt.VoteType == "downVote")
+                                                   .Select(vt => vt.ThreadId).ToList();
+
+            var upVotedComments = context.VoteComment.Where(vt => vt.UserId == id && vt.VoteType == "upVote")
+                                                     .Select(vt => vt.CommentId).ToList();
+            var downVotedComments = context.VoteComment.Where(vt => vt.UserId == id && vt.VoteType == "downVote")
+                                                       .Select(vt => vt.CommentId).ToList();
+
+            var upVotedReplies = context.VoteCommentReply.Where(vt => vt.UserId == id && vt.VoteType == "upVote")
+                                                         .Select(vt => vt.CommentReplyId).ToList();
+            var downVotedReplies = context.VoteCommentReply.Where(vt => vt.UserId == id && vt.VoteType == "downVote")
+                                                           .Select(vt => vt.CommentReplyId).ToList();
+
+            UserContentInteractions interactions = new UserContentInteractions(upVotedThreads, downVotedThreads, upVotedComments,
+                                                                               downVotedComments, upVotedReplies, downVotedReplies);
+
+            return interactions;
         }
 
         public int GetProfileScore(int id)
