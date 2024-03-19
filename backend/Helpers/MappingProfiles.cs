@@ -31,9 +31,13 @@ namespace backend.Helpers
             CreateMap<FollowerDto, Follower>();
             CreateMap<FavouriteCategoyDto, FavouriteCategory>();
             CreateMap<FavouriteThreadDto, FavouriteThread>();
-            CreateMap<VoteDto, VoteThread>();
-            CreateMap<VoteDto, VoteComment>();
-            CreateMap<VoteDto, VoteCommentReply>();
+
+            CreateMap<VoteDto, VoteThread>()
+                .ForMember(dest => dest.ThreadId, opt => opt.MapFrom(src => src.ContentId));
+            CreateMap<VoteDto, VoteComment>()
+                .ForMember(dest => dest.CommentId, opt => opt.MapFrom(src => src.ContentId)); ;
+            CreateMap<VoteDto, VoteCommentReply>()
+                .ForMember(dest => dest.CommentReplyId, opt => opt.MapFrom(src => src.ContentId)); ;
 
             CreateMap<object, Follower>();
             CreateMap<object, VoteThread>();
