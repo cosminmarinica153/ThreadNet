@@ -47,6 +47,11 @@ namespace backend.Helpers
             CreateMap<object, FavouriteThread>();
 
             CreateMap<User, ContentUserDto>();
+
+            CreateMap<ThreadComponent, NoRFRThreadDto>();
+            CreateMap<Comment, NoRFRCommentDto>();
+            CreateMap<CommentReply, NoRFRCommentReplyDto>();
+
         }
     }
 }

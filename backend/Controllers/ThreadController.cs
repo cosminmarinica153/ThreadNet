@@ -12,19 +12,41 @@ namespace backend.Controllers
     public class ThreadController : Controller
     {
         private readonly IThreadRepository threadRepository;
+        private readonly ICommentRepository commentRepository;
+        private readonly ICommentReplyRepository replyRepository;
         private readonly IMapper mapper;
 
-        public ThreadController(IThreadRepository threadRepository, IMapper mapper)
+        public ThreadController(IThreadRepository threadRepository, ICommentRepository commentRepository,
+                                ICommentReplyRepository replyRepository, IMapper mapper)
         {
             this.threadRepository = threadRepository;
+            this.commentRepository = commentRepository;
+            this.replyRepository = replyRepository;
             this.mapper = mapper;
         }
 
         [HttpGet("getAll")]
-        [ProducesResponseType(200, Type = typeof(IEnumerable<ThreadDto>))]
+        [ProducesResponseType(200, Type = typeof(IEnumerable<NoRFRThreadDto>))]
         public IActionResult GetAll()
         {
-            var threads = mapper.Map<List<ThreadDto>>(threadRepository.GetAll());
+            var threads = mapper.Map<List<NoRFRThreadDto>>(threadRepository.GetAll());
+
+            foreach(var thread in threads)
+            {
+                thread.ThreadInteractions = threadRepository.GetInteractions(thread.Id);
+                thread.Comments = mapper.Map<List<NoRFRCommentDto>>(threadRepository.GetComments(thread.Id));
+
+                foreach(var comment in thread.Comments)
+                {
+                    comment.CommentInteractions = commentRepository.GetInteractions(comment.Id);
+                    comment.Replies = mapper.Map<List<NoRFRCommentReplyDto>>(commentRepository.GetReplies(comment.Id));
+
+                    foreach(var reply in comment.Replies)
+                    {
+                        reply.CommentReplyInteractions = replyRepository.GetInteractions(reply.Id);
+                    }
+                }
+            }
 
             if (!ModelState.IsValid)
                 return BadRequest(ModelState);
@@ -57,6 +79,8 @@ namespace backend.Controllers
                 return NotFound();
 
             var comments = mapper.Map<List<CommentDto>>(threadRepository.GetComments(id));
+
+            
 
             if (!ModelState.IsValid)
                 return BadRequest(ModelState);
