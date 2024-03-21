@@ -93,8 +93,14 @@ namespace backend.Repository
 
         public ICollection<UserCommentDto> GetComments(int id)
         {
-            var comments = mapper.Map<List<UserCommentDto>>(context.Comments.Where(c => c.User.Id == id).ToList());
-            var commentReplies = mapper.Map<List<UserCommentDto>>(context.CommentReplies.Where(cr => cr.User.Id == id).ToList());
+            var comments = mapper.Map<List<UserCommentDto>>(context.Comments.Where(c => c.User.Id == id).Include(c => c.Thread).ToList());
+            var commentReplies = mapper.Map<List<UserCommentDto>>(context.CommentReplies.Where(cr => cr.User.Id == id).Include(c => c.Comment).ToList());
+
+            foreach (var comment in comments)
+                comment.Interactions = mapper.Map<UserCommentInteractions>(commentRepository.GetInteractions(comment.Id));
+
+            foreach (var reply in commentReplies)
+                reply.Interactions = mapper.Map<UserCommentInteractions>(replyRepository.GetInteractions(reply.Id));
 
             var userComments = comments.Concat(commentReplies).ToList();
 

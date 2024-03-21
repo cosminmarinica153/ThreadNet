@@ -21,7 +21,11 @@ namespace backend.Helpers
             CreateMap<CommentReplyDto, CommentReply>();
 
             CreateMap<Comment, UserCommentDto>();
-            CreateMap<CommentReply, UserCommentDto>();
+            CreateMap<CommentReply, UserCommentDto>()
+                .ForMember(dest => dest.Thread, opt => opt.MapFrom(src => src.Comment.Thread));
+
+            CreateMap<CommentInteractions, UserCommentInteractions>();
+            CreateMap<CommentReplyInteractions, UserCommentInteractions>();
 
             CreateMap<CreateUserDto, User>();
             CreateMap<CreateCategoryDto, Category>();

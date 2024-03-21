@@ -11,11 +11,19 @@ namespace backend.Controllers
     public class UserController : Controller
     {
         private readonly IUserRepository userRepository;
+        private readonly IThreadRepository threadRepository;
+        private readonly ICommentRepository commentRepository;
+        private readonly ICommentReplyRepository replyRepository;
         private readonly IMapper mapper;
 
-        public UserController(IUserRepository userRepository, IMapper mapper)
+        public UserController(IUserRepository userRepository, IMapper mapper,
+                              IThreadRepository threadRepository, ICommentRepository commentRepository,
+                              ICommentReplyRepository replyRepository)
         {
             this.userRepository = userRepository;
+            this.threadRepository = threadRepository;
+            this.commentRepository = commentRepository;
+            this.replyRepository = replyRepository;
             this.mapper = mapper;
         }
 
@@ -114,14 +122,17 @@ namespace backend.Controllers
         }
 
         [HttpGet("getThreads{id}")]
-        [ProducesResponseType(200, Type = typeof(IEnumerable<ThreadDto>))]
+        [ProducesResponseType(200, Type = typeof(IEnumerable<NoRFRThreadDto>))]
         [ProducesResponseType(400)]
         public IActionResult GetThreads(int id)
         {
             if (!userRepository.Exists(id))
                 return NotFound();
 
-            var threads = mapper.Map<List<ThreadDto>>(userRepository.GetThreads(id));
+            var threads = mapper.Map<List<NoRFRThreadDto>>(userRepository.GetThreads(id));
+
+            foreach(var thread in threads)
+                thread.ThreadInteractions = threadRepository.GetInteractions(thread.Id);
 
             if (!ModelState.IsValid)
                 return BadRequest(ModelState);
