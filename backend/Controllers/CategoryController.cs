@@ -11,11 +11,13 @@ namespace backend.Controllers
     public class CategoryController: Controller
     {
         private readonly ICategoryRepository categoryRepository;
+        private readonly IThreadRepository threadRepository;
         private readonly IMapper mapper;
 
-        public CategoryController(ICategoryRepository categoryRepository, IMapper mapper)
+        public CategoryController(ICategoryRepository categoryRepository, IThreadRepository threadRepository, IMapper mapper)
         {
             this.categoryRepository = categoryRepository;
+            this.threadRepository = threadRepository;
             this.mapper = mapper;
         }
 
@@ -48,14 +50,19 @@ namespace backend.Controllers
         }
 
         [HttpGet("getThreads{id}")]
-        [ProducesResponseType(200, Type = typeof(IEnumerable<ThreadDto>))]
+        [ProducesResponseType(200, Type = typeof(IEnumerable<NoRFRThreadDto>))]
         [ProducesResponseType(400)]
         public IActionResult GetThreads(int id)
         {
             if (!categoryRepository.Exists(id))
                 return NotFound();
 
-            var threads = mapper.Map<List<ThreadDto>>(categoryRepository.GetThreads(id));
+            var threads = mapper.Map<List<NoRFRThreadDto>>(categoryRepository.GetThreads(id));
+
+            foreach(var thread in threads)
+            {
+                thread.ThreadInteractions = threadRepository.GetInteractions(thread.Id);
+            }
 
             if(!ModelState.IsValid)
                 return BadRequest(ModelState);
