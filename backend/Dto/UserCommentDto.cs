@@ -10,5 +10,6 @@ namespace backend.Dto
         public DateTime UploadDate { get; set; }
         public short IsEdited { get; set; }
         public UserCommentInteractions Interactions { get; set; }
+        public string Type { get; set; }
     }
 }
