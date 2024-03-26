@@ -40,18 +40,6 @@ namespace backend.Repository
 
         public ICollection<User> GetFollowers(int id)
         {
-            var followersIds = context.Followers.Where(f => f.FollowerId == id).ToList();
-
-            List<User> followers = new List<User>();
-
-            foreach(var pair in followersIds)
-                followers.Add(context.Users.Find(pair.UserId));
-
-            return followers;
-        }
-
-        public ICollection<User> GetFollowing(int id)
-        {
             var followingIds = context.Followers.Where(f => f.UserId == id).ToList();
 
             List<User> following = new List<User>();
@@ -60,6 +48,18 @@ namespace backend.Repository
                 following.Add(context.Users.Find(pair.FollowerId));
 
             return following;
+        }
+
+        public ICollection<User> GetFollowing(int id)
+        {
+            var followersIds = context.Followers.Where(f => f.FollowerId == id).ToList();
+
+            List<User> followers = new List<User>();
+
+            foreach (var pair in followersIds)
+                followers.Add(context.Users.Find(pair.UserId));
+
+            return followers;
         }
 
         public ICollection<Category> GetFavouriteCategories(int id)
@@ -146,6 +146,9 @@ namespace backend.Repository
             var favouriteThreads = context.FavouriteThreads.Where(ft => ft.UserId == id)
                                                                  .Select(ft => ft.ThreadId).ToList();
 
+            var following = context.Followers.Where(f => f.FollowerId == id)
+                                             .Select(f => f.UserId).ToList();
+
             var upVotedThreads = context.VoteThread.Where(vt => vt.UserId == id && vt.VoteType == "upVote")
                                                    .Select(vt => vt.ThreadId).ToList();
             var downVotedThreads = context.VoteThread.Where(vt => vt.UserId == id && vt.VoteType == "downVote")
@@ -161,7 +164,7 @@ namespace backend.Repository
             var downVotedReplies = context.VoteCommentReply.Where(vt => vt.UserId == id && vt.VoteType == "downVote")
                                                            .Select(vt => vt.CommentReplyId).ToList();
 
-            UserContentInteractions interactions = new UserContentInteractions(favouriteCategories, favouriteThreads,
+            UserContentInteractions interactions = new UserContentInteractions(favouriteCategories, favouriteThreads, following,
                                                                                upVotedThreads, downVotedThreads, upVotedComments,
                                                                                downVotedComments, upVotedReplies, downVotedReplies);
 
