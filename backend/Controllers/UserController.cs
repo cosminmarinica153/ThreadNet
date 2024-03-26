@@ -106,14 +106,19 @@ namespace backend.Controllers
         }
 
         [HttpGet("getFavouriteThreads{id}")]
-        [ProducesResponseType(200, Type = typeof(IEnumerable<ThreadDto>))]
+        [ProducesResponseType(200, Type = typeof(IEnumerable<NoRFRThreadDto>))]
         [ProducesResponseType(400)]
         public IActionResult GetFavouriteThreads(int id)
         {
             if (!userRepository.Exists(id))
                 return NotFound();
 
-            var threads = mapper.Map<List<ThreadDto>>(userRepository.GetFavouriteThreads(id));
+            var threads = mapper.Map<List<NoRFRThreadDto>>(userRepository.GetFavouriteThreads(id));
+
+            foreach(var thread in threads)
+            {
+                thread.ThreadInteractions = threadRepository.GetInteractions(thread.Id);
+            }
 
             if (!ModelState.IsValid)
                 return BadRequest(ModelState);
