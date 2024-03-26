@@ -141,6 +141,11 @@ namespace backend.Repository
 
         public UserContentInteractions GetContentInteractions(int id)
         {
+            var favouriteCategories = context.FavouriteCategories.Where(fc => fc.UserId == id)
+                                                                 .Select(fc => fc.CategoryId).ToList();
+            var favouriteThreads = context.FavouriteThreads.Where(ft => ft.UserId == id)
+                                                                 .Select(ft => ft.ThreadId).ToList();
+
             var upVotedThreads = context.VoteThread.Where(vt => vt.UserId == id && vt.VoteType == "upVote")
                                                    .Select(vt => vt.ThreadId).ToList();
             var downVotedThreads = context.VoteThread.Where(vt => vt.UserId == id && vt.VoteType == "downVote")
@@ -156,7 +161,8 @@ namespace backend.Repository
             var downVotedReplies = context.VoteCommentReply.Where(vt => vt.UserId == id && vt.VoteType == "downVote")
                                                            .Select(vt => vt.CommentReplyId).ToList();
 
-            UserContentInteractions interactions = new UserContentInteractions(upVotedThreads, downVotedThreads, upVotedComments,
+            UserContentInteractions interactions = new UserContentInteractions(favouriteCategories, favouriteThreads,
+                                                                               upVotedThreads, downVotedThreads, upVotedComments,
                                                                                downVotedComments, upVotedReplies, downVotedReplies);
 
             return interactions;
