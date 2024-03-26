@@ -41,14 +41,16 @@ namespace backend.Controllers
         }
 
         [HttpGet("getOne{id}")]
-        [ProducesResponseType(200, Type = typeof(ThreadDto))]
+        [ProducesResponseType(200, Type = typeof(NoRFRThreadDto))]
         [ProducesResponseType(400)]
         public IActionResult GetOne(int id)
         {
             if (!threadRepository.Exists(id))
                 return NotFound();
 
-            var thread = mapper.Map<ThreadDto>(threadRepository.GetOne(id));
+            var thread = mapper.Map<NoRFRThreadDto>(threadRepository.GetOne(id));
+
+            thread.ThreadInteractions = threadRepository.GetInteractions(thread.Id);
 
             if (!ModelState.IsValid)
                 return BadRequest(ModelState);
