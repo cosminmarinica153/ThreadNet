@@ -129,8 +129,8 @@ namespace backend.Repository
             int downVotedComments = context.VoteComment.Where(vc => vc.UserId == id && vc.VoteType == "downVote").Count()
                                   + context.VoteCommentReply.Where(vc => vc.UserId == id && vc.VoteType == "downVote").Count();
 
-            int followerCount = context.Followers.Where(f => f.FollowerId == id).Count();
-            int followingCount = context.Followers.Where(f => f.UserId == id).Count();
+            int followerCount = context.Followers.Where(f => f.UserId == id).Count();
+            int followingCount = context.Followers.Where(f => f.FollowerId == id).Count();
 
             UserInteractions interactions = new UserInteractions(favouriteCategories, favouriteThreads, createdThreads, upVotedThreads,
                                                                 downVotedThreads, createdComments, upVotedComments, downVotedComments,
