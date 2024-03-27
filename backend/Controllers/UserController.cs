@@ -193,6 +193,22 @@ namespace backend.Controllers
             return Ok(interactions);
         }
 
+        [HttpGet("getCreatedContent{id}")]
+        [ProducesResponseType(200, Type = typeof(UserCreatedContent))]
+        [ProducesResponseType(400)]
+        public IActionResult GetCreatedContent(int id)
+        {
+            if (!userRepository.Exists(id))
+                return NotFound();
+
+            if(!ModelState.IsValid)
+                return BadRequest(ModelState);
+
+            var createdContent = userRepository.GetCreatedContent(id);
+
+            return Ok(createdContent);
+        }
+
         [HttpGet("getProfileScore{id}")]
         [ProducesResponseType(200, Type = typeof(int))]
         [ProducesResponseType(400)]

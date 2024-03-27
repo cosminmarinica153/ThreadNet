@@ -360,6 +360,19 @@ namespace backend.Repository
             return Save();
         }
 
+        public UserCreatedContent GetCreatedContent(int id)
+        {
+            var threads = context.Threads.Where(t => t.User.Id == id).Select(t => t.Id).ToList();
+
+            var comments = context.Comments.Where(c => c.User.Id == id).Select(c => c.Id).ToList();
+
+            var replies = context.CommentReplies.Where(cr => cr.User.Id == id).Select(cr => cr.Id).ToList();
+
+            var createdContent = new UserCreatedContent(threads, comments, replies);
+
+            return createdContent;
+        }
+
         public bool DeleteFollower(Follower follower)
         {
             var existingFollower = context.Followers.Local.FirstOrDefault(f => f.UserId == follower.UserId &&
