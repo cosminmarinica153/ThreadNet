@@ -26,6 +26,11 @@ namespace backend.Repository
             return context.Comments.Where(c => c.Id == id).Include(c => c.User).FirstOrDefault();
         }
 
+        public Comment GetLastComment()
+        {
+            return context.Comments.OrderBy(t => t.Id).Include(t => t.User).Last();
+        }
+
         public ICollection<CommentReply> GetReplies(int id)
         {
             return context.CommentReplies.Where(cr => cr.Comment.Id == id).Include(cr => cr.User).ToList();

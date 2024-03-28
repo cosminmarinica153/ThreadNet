@@ -2,7 +2,9 @@
 using backend.Dto;
 using backend.Interfaces;
 using backend.Models;
+using backend.Repository;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.CodeAnalysis.Elfie.Serialization;
 using NuGet.Protocol;
 
 namespace backend.Controllers
@@ -101,7 +103,11 @@ namespace backend.Controllers
                 return StatusCode(500, ModelState);
             }
 
-            return Ok("Comment created succesfully");
+            var lastComment = mapper.Map<NoRFRCommentDto>(commentRepository.GetLastComment());
+
+            lastComment.CommentInteractions = commentRepository.GetInteractions(lastComment.Id);
+
+            return Ok(lastComment);
         }
 
         [HttpPut("updateComment")]

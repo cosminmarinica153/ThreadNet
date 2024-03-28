@@ -24,6 +24,11 @@ namespace backend.Repository
             return context.CommentReplies.Where(cr => cr.Id == id).Include(cr => cr.User).FirstOrDefault();
         }
 
+        public CommentReply GetLastCommentReply()
+        {
+            return context.CommentReplies.OrderBy(t => t.Id).Include(t => t.User).Last();
+        }
+
         public CommentReplyInteractions GetInteractions(int id)
         {
             int upVotes = context.VoteCommentReply.Where(vcr => vcr.CommentReplyId == id && vcr.VoteType == "upVote").Count();

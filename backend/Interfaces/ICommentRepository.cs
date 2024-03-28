@@ -7,6 +7,7 @@ namespace backend.Interfaces
         // GET
         ICollection<Comment> GetAll();
         Comment GetOne(int id);
+        Comment GetLastComment();
         ICollection<CommentReply> GetReplies(int id);
         CommentInteractions GetInteractions(int id);
 
