@@ -8,7 +8,7 @@ namespace backend.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    public class CategoryController: Controller
+    public class CategoryController : Controller
     {
         private readonly ICategoryRepository categoryRepository;
         private readonly IThreadRepository threadRepository;
@@ -27,7 +27,7 @@ namespace backend.Controllers
         {
             var categories = mapper.Map<List<CategoryDto>>(categoryRepository.GetAll());
 
-            if(!ModelState.IsValid)
+            if (!ModelState.IsValid)
                 return BadRequest(ModelState);
 
             return Ok(categories);
@@ -38,12 +38,12 @@ namespace backend.Controllers
         [ProducesResponseType(400)]
         public IActionResult GetOne(int id)
         {
-            if(!categoryRepository.Exists(id))
+            if (!categoryRepository.Exists(id))
                 return NotFound();
 
             var category = mapper.Map<CategoryDto>(categoryRepository.GetOne(id));
 
-            if(!ModelState.IsValid) 
+            if (!ModelState.IsValid)
                 return BadRequest(ModelState);
 
             return Ok(category);
@@ -59,12 +59,12 @@ namespace backend.Controllers
 
             var threads = mapper.Map<List<NoRFRThreadDto>>(categoryRepository.GetThreads(id));
 
-            foreach(var thread in threads)
+            foreach (var thread in threads)
             {
                 thread.ThreadInteractions = threadRepository.GetInteractions(thread.Id);
             }
 
-            if(!ModelState.IsValid)
+            if (!ModelState.IsValid)
                 return BadRequest(ModelState);
 
             return Ok(threads);
@@ -80,7 +80,7 @@ namespace backend.Controllers
 
             var score = categoryRepository.GetPopularityScore(id);
 
-            if(!ModelState.IsValid)
+            if (!ModelState.IsValid)
                 return BadRequest(ModelState);
 
             return Ok(score);
