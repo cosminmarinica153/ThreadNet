@@ -81,14 +81,19 @@ namespace backend.Repository
             List<ThreadComponent> threads = new List<ThreadComponent>();
 
             foreach (var pair in threadIds)
-                threads.Add(context.Threads.Find(pair.ThreadId));
+            {
+                var thread = context.Threads.Where(t => t.Id == pair.ThreadId).Include(t => t.User).FirstOrDefault();
+
+                threads.Add(thread);
+            }
+
 
             return threads;
         }
 
         public ICollection<ThreadComponent> GetThreads(int id)
         {
-            return context.Threads.Where(t => t.User.Id == id).ToList();
+            return context.Threads.Where(t => t.User.Id == id).Include(t => t.User).ToList();
         }
 
         public ICollection<UserCommentDto> GetComments(int id)

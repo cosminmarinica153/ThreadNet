@@ -12,8 +12,6 @@ namespace backend.Controllers
     {
         private readonly IUserRepository userRepository;
         private readonly IThreadRepository threadRepository;
-        private readonly ICommentRepository commentRepository;
-        private readonly ICommentReplyRepository replyRepository;
         private readonly IMapper mapper;
 
         public UserController(IUserRepository userRepository, IMapper mapper,
@@ -22,8 +20,6 @@ namespace backend.Controllers
         {
             this.userRepository = userRepository;
             this.threadRepository = threadRepository;
-            this.commentRepository = commentRepository;
-            this.replyRepository = replyRepository;
             this.mapper = mapper;
         }
 
@@ -137,7 +133,9 @@ namespace backend.Controllers
             var threads = mapper.Map<List<NoRFRThreadDto>>(userRepository.GetThreads(id));
 
             foreach(var thread in threads)
+            {
                 thread.ThreadInteractions = threadRepository.GetInteractions(thread.Id);
+            }
 
             if (!ModelState.IsValid)
                 return BadRequest(ModelState);
