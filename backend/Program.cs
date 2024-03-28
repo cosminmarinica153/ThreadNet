@@ -9,8 +9,7 @@ builder.Services.AddCors(options =>
 {
     options.AddDefaultPolicy(policy =>
                       {
-                          policy.WithOrigins("http://localhost:4200", "https://threadnet-cm.web.app/home")
-                                .AllowAnyHeader()
+                          policy.WithOrigins("http://localhost:4200", "https://threadnet-cm.web.app")
                                 .AllowAnyHeader();
                       });
 });
