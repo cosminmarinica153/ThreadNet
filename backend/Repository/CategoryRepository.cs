@@ -17,12 +17,17 @@ namespace backend.Repository
 
         public ICollection<Category> GetAll()
         {
-            return context.Categories.OrderBy(p => p.Id).ToList();  
+            return context.Categories.OrderBy(p => p.Id).ToList();
         }
 
         public Category GetOne(int id)
         {
             return context.Categories.Find(id);
+        }
+
+        public Category GetByName(string name)
+        {
+            return context.Categories.Where(c => c.Name == name).FirstOrDefault();
         }
 
         public Category GetLastCategory()
@@ -41,7 +46,7 @@ namespace backend.Repository
 
             var favouriteCategoriesCount = context.FavouriteCategories.Where(fc => fc.CategoryId == id).Count();
             score += favouriteCategoriesCount * ScoreTable.categoryFavourite;
-            
+
             var threadsInCategoryCount = context.Threads.Where(t => t.Category.Id == id).Count();
             score += threadsInCategoryCount * ScoreTable.categoryThread;
 

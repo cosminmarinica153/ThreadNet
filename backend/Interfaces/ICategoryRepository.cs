@@ -7,6 +7,7 @@ namespace backend.Interfaces
         // GET
         ICollection<Category> GetAll();
         Category GetOne(int id);
+        Category GetByName(string name);
         Category GetLastCategory();
         ICollection<ThreadComponent> GetThreads(int id);
         int GetPopularityScore(int id);

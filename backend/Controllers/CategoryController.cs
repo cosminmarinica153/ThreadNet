@@ -49,6 +49,22 @@ namespace backend.Controllers
             return Ok(category);
         }
 
+        [HttpGet("getByName{name}")]
+        [ProducesResponseType(200, Type = typeof(CategoryDto))]
+        [ProducesResponseType(400)]
+        public IActionResult GetByName(string name)
+        {
+            if (!ModelState.IsValid)
+                return BadRequest(ModelState);
+
+            var category = mapper.Map<CategoryDto>(categoryRepository.GetByName(name));
+
+            if (category == null)
+                return NotFound();
+
+            return Ok(category);
+        }
+
         [HttpGet("getThreads{id}")]
         [ProducesResponseType(200, Type = typeof(IEnumerable<NoRFRThreadDto>))]
         [ProducesResponseType(400)]
