@@ -249,7 +249,9 @@ namespace backend.Controllers
                 return StatusCode(500, ModelState);
             }
 
-            return Ok("User created succesfully");
+            var user = mapper.Map <UserDto>(userRepository.GetLastUser());
+
+            return Ok(user);
         }
 
         [HttpPost("createFollower")]

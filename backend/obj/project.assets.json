@@ -8719,11 +8719,11 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\Users\\HP\\Desktop\\Stuff\\projects\\ThreadNet\\backend\\backend.csproj",
+      "projectUniqueName": "C:\\Users\\HP\\Desktop\\Stuff\\projects\\ThreadNet\\ThreadNet-backend\\backend\\backend.csproj",
       "projectName": "backend",
-      "projectPath": "C:\\Users\\HP\\Desktop\\Stuff\\projects\\ThreadNet\\backend\\backend.csproj",
+      "projectPath": "C:\\Users\\HP\\Desktop\\Stuff\\projects\\ThreadNet\\ThreadNet-backend\\backend\\backend.csproj",
       "packagesPath": "C:\\Users\\HP\\.nuget\\packages\\",
-      "outputPath": "C:\\Users\\HP\\Desktop\\Stuff\\projects\\ThreadNet\\backend\\obj\\",
+      "outputPath": "C:\\Users\\HP\\Desktop\\Stuff\\projects\\ThreadNet\\ThreadNet-backend\\backend\\obj\\",
       "projectStyle": "PackageReference",
       "configFilePaths": [
         "C:\\Users\\HP\\AppData\\Roaming\\NuGet\\NuGet.Config",

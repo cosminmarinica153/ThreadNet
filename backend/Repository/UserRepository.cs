@@ -38,6 +38,11 @@ namespace backend.Repository
             return context.Users.Find(id);
         }
 
+        public User GetLastUser()
+        {
+            return context.Users.OrderBy(u => u.Id).Last();
+        }
+
         public ICollection<User> GetFollowers(int id)
         {
             var followingIds = context.Followers.Where(f => f.UserId == id).ToList();

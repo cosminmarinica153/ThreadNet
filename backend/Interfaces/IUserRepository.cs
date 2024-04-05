@@ -8,6 +8,7 @@ namespace backend.Interfaces
         // GET
         ICollection<User> GetAll();
         User GetOne(int id);
+        User GetLastUser();
         ICollection<User> GetFollowers(int id);
         ICollection<User> GetFollowing(int id);
         ICollection<Category> GetFavouriteCategories(int id);

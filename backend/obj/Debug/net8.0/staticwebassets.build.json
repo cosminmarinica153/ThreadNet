@@ -1,6 +1,6 @@
 {
   "Version": 1,
-  "Hash": "F0oKO4oBsBjH3XtcOYvUjIFDxlvzJsijkS24IWgewzM=",
+  "Hash": "oE679W2w3o3AVbMGdzN809rXYEG+8mgQuyWtPBFRNF4=",
   "Source": "backend",
   "BasePath": "_content/backend",
   "Mode": "Default",
@@ -47,10 +47,10 @@
       "OriginalItemSpec": "C:\\Users\\HP\\.nuget\\packages\\microsoft.aspnetcore.components.quickgrid\\8.0.0\\staticwebassets\\QuickGrid.razor.js"
     },
     {
-      "Identity": "C:\\Users\\HP\\Desktop\\Stuff\\projects\\ThreadNet\\backend\\obj\\Debug\\net8.0\\scopedcss\\bundle\\backend.styles.css",
+      "Identity": "C:\\Users\\HP\\Desktop\\Stuff\\projects\\ThreadNet\\ThreadNet-backend\\backend\\obj\\Debug\\net8.0\\scopedcss\\bundle\\backend.styles.css",
       "SourceId": "backend",
       "SourceType": "Computed",
-      "ContentRoot": "C:\\Users\\HP\\Desktop\\Stuff\\projects\\ThreadNet\\backend\\obj\\Debug\\net8.0\\scopedcss\\bundle\\",
+      "ContentRoot": "C:\\Users\\HP\\Desktop\\Stuff\\projects\\ThreadNet\\ThreadNet-backend\\backend\\obj\\Debug\\net8.0\\scopedcss\\bundle\\",
       "BasePath": "_content/backend",
       "RelativePath": "backend.styles.css",
       "AssetKind": "All",
@@ -63,7 +63,7 @@
       "AssetTraitValue": "ApplicationBundle",
       "CopyToOutputDirectory": "Never",
       "CopyToPublishDirectory": "PreserveNewest",
-      "OriginalItemSpec": "C:\\Users\\HP\\Desktop\\Stuff\\projects\\ThreadNet\\backend\\obj\\Debug\\net8.0\\scopedcss\\bundle\\backend.styles.css"
+      "OriginalItemSpec": "C:\\Users\\HP\\Desktop\\Stuff\\projects\\ThreadNet\\ThreadNet-backend\\backend\\obj\\Debug\\net8.0\\scopedcss\\bundle\\backend.styles.css"
     }
   ]
 }
